@@ -10,8 +10,9 @@ export class CartService {
   constructor() {}
 
   addToCart(product: Product) {
+    console.log(`ITEMS BEFORE: `, this.items);
     this.items.push(product);
-    console.log(`ITEMS: `, this.items);
+    console.log(`ITEMS AFTER: `, this.items);
   }
 
   getItems() {
