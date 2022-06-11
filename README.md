@@ -1,1 +1,0 @@
-### Angular My Store App
