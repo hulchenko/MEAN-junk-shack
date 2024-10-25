@@ -1,36 +1,45 @@
 import { Injectable } from "@angular/core";
 import { Product } from "./../common/interfaces/product.interface";
-import { HttpClient } from "@angular/common/http";
+import { RestApiService } from "./rest-api.service";
 
 @Injectable({
   providedIn: "root",
 })
 export class CartService {
-  items: Product[] = [];
-  // test;
+  cart: Product[] = [];
 
-  constructor(private http: HttpClient) {
-    // this.test = this.http.get<{ type: string; price: number }[]>(
-    //   '/assets/shipping.json'
-    // );
-    // console.log(`FETCH HERE: `, this.test);
-  }
+  constructor(private restApi: RestApiService) {}
 
   addToCart(product: Product) {
-    this.items.push(product);
-    console.log(`ITEMS AFTER: `, this.items);
+    this.cart = this.getCartFromMemory();
+    this.cart.push(product);
+    this.updateMemoryCart();
   }
 
-  getItems() {
-    return this.items;
+  getCart() {
+    return JSON.parse(localStorage.getItem("cart")) || this.cart;
+  }
+
+  updateCart() {
+    // TODO
   }
 
   clearCart() {
-    this.items = [];
-    return this.items;
+    localStorage.removeItem("cart");
+    this.cart = [];
+    return this.cart;
   }
 
   getShippingPrices() {
-    return this.http.get<{ type: string; price: number }[]>("/assets/shipping.json");
+    const path = "../../assets/shipping-rates.json";
+    return this.restApi.fetchData(path);
+  }
+
+  getCartFromMemory() {
+    return JSON.parse(localStorage.getItem("cart")) || [];
+  }
+
+  updateMemoryCart() {
+    localStorage.setItem("cart", JSON.stringify(this.cart));
   }
 }

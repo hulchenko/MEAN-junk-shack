@@ -1,30 +1,30 @@
-import { Component, OnInit } from '@angular/core';
-import { CartService } from '../cart.service';
-import { UntypedFormBuilder } from '@angular/forms';
+import { Component, OnInit } from "@angular/core";
+import { CartService } from "./../services/cart.service";
+import { UntypedFormBuilder } from "@angular/forms";
+import { Product } from "../common/interfaces/product.interface";
 
 @Component({
-  selector: 'app-cart',
-  templateUrl: './cart.component.html',
-  styleUrls: ['./cart.component.css'],
+  selector: "app-cart",
+  templateUrl: "./cart.component.html",
+  styleUrls: ["./cart.component.css"],
 })
 export class CartComponent implements OnInit {
-  items = this.cartService.getItems();
+  cart: Product[] = [];
 
   checkoutForm = this.formBuilder.group({
-    name: '',
-    address: '',
+    name: "",
+    address: "",
   });
 
-  constructor(
-    private cartService: CartService,
-    private formBuilder: UntypedFormBuilder
-  ) {}
+  constructor(private cartService: CartService, private formBuilder: UntypedFormBuilder) {}
 
-  onSubmit() {
-    this.items = this.cartService.clearCart();
-    console.warn('Your order has been submitted', this.checkoutForm.value);
-    this.checkoutForm.reset();
+  ngOnInit(): void {
+    this.cart = this.cartService.getCart();
   }
 
-  ngOnInit(): void {}
+  onSubmit() {
+    this.cart = this.cartService.clearCart();
+    console.warn("Your order has been submitted", this.checkoutForm.value);
+    this.checkoutForm.reset();
+  }
 }

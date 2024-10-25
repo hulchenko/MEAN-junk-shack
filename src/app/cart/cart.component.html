@@ -2,7 +2,7 @@
 
 <p><a routerLink="/shipping">Shipping Prices</a></p>
 
-<div class="cart-item" *ngFor="let item of items">
+<div class="cart-item" *ngFor="let item of cart">
   <span>{{ item.name }}</span>
   <span>{{ item.price | currency }}</span>
 </div>
