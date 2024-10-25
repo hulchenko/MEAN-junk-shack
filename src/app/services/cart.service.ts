@@ -1,9 +1,9 @@
-import { Injectable } from '@angular/core';
-import { Product } from './products';
-import { HttpClient } from '@angular/common/http';
+import { Injectable } from "@angular/core";
+import { Product } from "./../common/interfaces/product.interface";
+import { HttpClient } from "@angular/common/http";
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: "root",
 })
 export class CartService {
   items: Product[] = [];
@@ -17,7 +17,6 @@ export class CartService {
   }
 
   addToCart(product: Product) {
-    console.log(`ITEMS BEFORE: `, this.items);
     this.items.push(product);
     console.log(`ITEMS AFTER: `, this.items);
   }
@@ -32,8 +31,6 @@ export class CartService {
   }
 
   getShippingPrices() {
-    return this.http.get<{ type: string; price: number }[]>(
-      '/assets/shipping.json'
-    );
+    return this.http.get<{ type: string; price: number }[]>("/assets/shipping.json");
   }
 }
