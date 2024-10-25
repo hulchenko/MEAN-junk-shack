@@ -1,7 +1,5 @@
-/* Global Styles */
-
 * {
-  font-family: 'Roboto', Arial, sans-serif;
+  font-family: "Roboto", Arial, sans-serif;
   color: #616161;
   box-sizing: border-box;
   -webkit-font-smoothing: antialiased;
@@ -10,15 +8,22 @@
 
 body {
   margin: 0;
+  padding: 0;
+
+  /* footer support */
+  min-height: 100vh;
+  position: relative;
+  overflow: auto;
 }
+
+/* TODO use tailwind instead */
 
 .container {
-  display: flex;
-  flex-direction: row;
-}
+  width: 100%;
+  padding: 2rem;
 
-router-outlet + * {
-  padding: 0 16px;
+  /* footer support */
+  padding-bottom: 3rem;
 }
 
 /* Text */
@@ -44,7 +49,7 @@ p {
 
 a {
   cursor: pointer;
-  color: #1976d2;
+  color: #fff;
   text-decoration: none;
 }
 
@@ -71,7 +76,7 @@ label {
 }
 
 /* Button */
-.button,
+.fancy-button,
 button {
   display: inline-flex;
   align-items: center;
@@ -108,6 +113,10 @@ button:disabled {
   padding-right: 4px;
 }
 
+.post-btn {
+  background-color: #49a249;
+}
+
 /* Top Bar */
 
 app-top-bar {
@@ -140,4 +149,50 @@ app-top-bar h1 {
   margin-bottom: 8px;
   border-radius: 2px;
   background-color: #eeeeee;
+}
+
+footer {
+  position: absolute;
+  width: 100%;
+  bottom: 5px;
+  text-align: center;
+  font-size: xx-small;
+}
+
+.product-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1rem;
+  width: 100%;
+}
+
+.product-block {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  text-align: left;
+}
+
+.product-add {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 1rem;
+}
+
+.product-add button {
+  align-self: flex-end;
+}
+
+.product-block h3,
+.product-block p {
+  margin: 0;
+  padding: 0.25rem 0;
+}
+
+.product-block button {
+  align-self: flex-end;
 }
