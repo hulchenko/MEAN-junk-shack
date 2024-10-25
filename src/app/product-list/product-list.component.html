@@ -1,19 +1,16 @@
-<h2>Products</h2>
-<div *ngFor="let product of products">
-  <h3>
-    <a
-      [title]="product.name + ' details'"
-      [routerLink]="['/products', product.id]"
-      >{{ product.name }}</a
-    >
-  </h3>
-
-  <p *ngIf="product.description">Description: {{ product.description }}</p>
-
-  <button type="button" (click)="share()">Share</button>
-
-  <app-product-alerts
-    [product]="product"
-    (notify)="onNotify()"
-  ></app-product-alerts>
+<div class="product-container">
+  <div class="product-add">
+    <h2>Got old junk to sell?</h2>
+    <button class="post-btn">Post it</button>
+  </div>
+  <div *ngFor="let product of products" class="product-block">
+    <h3>{{ product.name }}</h3>
+    <p *ngIf="product.description">{{ product.description }}</p>
+    <p *ngIf="product.description">{{ product.price }}</p>
+    <p *ngIf="product.in_stock; else outOfStock">Available</p>
+    <ng-template #outOfStock>
+      <p>Out of Stock</p>
+    </ng-template>
+    <button type="button" [title]="product.name + ' details'" [routerLink]="['/products', product.id]">Details</button>
+  </div>
 </div>

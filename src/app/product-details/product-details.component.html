@@ -2,7 +2,12 @@
 
 <div *ngIf="product">
   <h3 [title]="product.name">{{ product.name }}</h3>
-  <h4 [title]="product.price">{{ product.price | currency }}</h4>
-  <p [title]="product.description">{{ product.description }}</p>
-  <button type="button" (click)="addToCart(product)">Buy</button>
+  <h4 [title]="product.price">Price: {{ product.price | currency }}</h4>
+  <p [title]="product.description">Description: {{ product.description }}</p>
+  <p [title]="product.specs">Specs: {{ product.specs }}</p>
+
+  <button type="button" (click)="addToCart(product)">Add To Cart</button>
+  <button type="button" (click)="share()">Share</button>
+
+  <app-product-alerts [product]="product" (notify)="onNotify()"></app-product-alerts>
 </div>

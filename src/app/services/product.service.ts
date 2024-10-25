@@ -23,8 +23,6 @@ export class ProductService {
   }
 
   getProductById(id: number) {
-    const latestVal = this.products.getValue();
-    console.log(`latestVal`, latestVal);
-    return this.products.getValue().find((product) => product.id === id);
+    return this.products.getValue().find((product: Product) => product.id === id);
   }
 }
