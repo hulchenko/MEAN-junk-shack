@@ -1,0 +1,142 @@
+[
+  {
+    "id": 1,
+    "name": "iPhone 15 Pro Max",
+    "price": 1299,
+    "description": "The latest flagship smartphone from Apple with a powerful A17 Bionic chip and a triple-camera system.",
+    "img": "https://www.apple.com/ca/iphone-15-pro/images/iphone-15-pro-hero-2.jpg"
+  },
+  {
+    "id": 2,
+    "name": "Samsung Galaxy S24 Ultra",
+    "price": 1199,
+    "description": "A high-end Android smartphone with a quad-camera setup and a large, high-resolution display.",
+    "img": "https://www.samsung.com/us/mobile/galaxy-s24-ultra/"
+  },
+  {
+    "id": 3,
+    "name": "PlayStation 5",
+    "price": 499,
+    "description": "A powerful gaming console with stunning graphics and fast loading times.",
+    "img": "https://www.playstation.com/en-us/consoles/playstation5/"
+  },
+  {
+    "id": 4,
+    "name": "Xbox Series X",
+    "price": 499,
+    "description": "Another powerful gaming console with exclusive titles and a great online ecosystem.",
+    "img": "https://www.xbox.com/en-US/consoles/xbox-series-x"
+  },
+  {
+    "id": 5,
+    "name": "Nintendo Switch",
+    "price": 299,
+    "description": "A versatile gaming console that can be played on a TV or as a handheld device.",
+    "img": "https://www.nintendo.com/switch/"
+  },
+  {
+    "id": 6,
+    "name": "Apple MacBook Pro",
+    "price": 1299,
+    "description": "A high-performance laptop with a powerful M2 chip and a stunning Retina display.",
+    "img": "https://www.apple.com/ca/macbook-pro-14/images/macbook-pro-14-hero-2.jpg"
+  },
+  {
+    "id": 7,
+    "name": "Dell XPS 13",
+    "price": 999,
+    "description": "A popular Windows laptop with a sleek design and a long battery life.",
+    "img": "https://www.dell.com/en-us/shop/product/xps-13-laptop/pd/xps-13-9315"
+  },
+  {
+    "id": 8,
+    "name": "iPad Pro",
+    "price": 799,
+    "description": "A powerful tablet with a large, high-resolution display and a variety of accessories.",
+    "img": "https://www.apple.com/ca/ipad-pro/images/ipad-pro-hero-2.jpg"
+  },
+  {
+    "id": 9,
+    "name": "Samsung Galaxy Tab S9",
+    "price": 649,
+    "description": "A high-quality Android tablet with a stunning display and powerful performance.",
+    "img": "https://www.samsung.com/us/mobile/galaxy-tab-s9/"
+  },
+  {
+    "id": 10,
+    "name": "Amazon Kindle Oasis",
+    "price": 249,
+    "description": "A premium e-reader with a waterproof design and a long battery life.",
+    "img": "https://www.amazon.com/Kindle-Oasis-Waterproof-32GB-Storage/dp/B09J97K15D"
+  },
+  {
+    "id": 11,
+    "name": "Sony WH-1000XM5",
+    "price": 399,
+    "description": "High-quality noise-canceling headphones with excellent sound quality and a comfortable fit.",
+    "img": "https://www.sony.com/electronics/headphones/wh-1000xm5"
+  },
+  {
+    "id": 12,
+    "name": "Apple AirPods Pro",
+    "price": 249,
+    "description": "Wireless earbuds with active noise cancellation and spatial audio support.",
+    "img": "https://www.apple.com/ca/airpods-pro/images/airpods-pro-hero-2.jpg"
+  },
+  {
+    "id": 13,
+    "name": "Bose QuietComfort Earbuds",
+    "price": 299,
+    "description": "Another pair of high-quality noise-canceling earbuds with a comfortable fit and excellent sound quality.",
+    "img": "https://www.bose.com/en_us/products/headphones/quietcomfort-earbuds.html"
+  },
+  {
+    "id": 14,
+    "name": "Instant Pot Duo Crisp",
+    "price": 149,
+    "description": "A versatile kitchen appliance that can pressure cook, air fry, and more.",
+    "img": "https://www.instantpot.com/products/instant-pot-duo-crisp"
+  },
+  {
+    "id": 15,
+    "name": "Ninja Foodi 5-in-1 Grill & Air Fryer",
+    "price": 199,
+    "description": "Another popular multi-cooker that can grill, air fry, and more.",
+    "img": "https://www.ninja.com/products/ninja-foodi-5-in-1-grill-air-fryer"
+  },
+  {
+    "id": 16,
+    "name": "Dyson V15 Detect Cordless Vacuum",
+    "price": 699,
+    "description": "A powerful cordless vacuum cleaner with laser technology to detect dirt and debris.",
+    "img": "https://www.dyson.com/vacuum-cleaners/cordless/v15-detect-cordless-vacuum.html"
+  },
+  {
+    "id": 17,
+    "name": "Shark Navigator Lift-Away Deluxe Pet Vacuum",
+    "price": 249,
+    "description": "A popular affordable vacuum cleaner with a detachable canister for easy cleaning.",
+    "img": "https://www.sharkclean.com/products/navigator-lift-away-deluxe-pet-vacuum"
+  },
+  {
+    "id": 18,
+    "name": "Instant Pot Smart WiFi 6-Qt Pressure Cooker",
+    "price": 149,
+    "description": "A smart pressure cooker that can be controlled from your phone.",
+    "img": "https://www.instantpot.com/products/instant-pot-smart-wifi-6-qt-pressure-cooker"
+  },
+  {
+    "id": 19,
+    "name": "Echo Dot (5th Gen)",
+    "price": 39,
+    "description": "A popular smart speaker with Alexa voice assistant.",
+    "img": "https://www.amazon.com/Echo-Dot-5th-Gen-Charcoal/dp/B09R3QNLR6"
+  },
+  {
+    "id": 20,
+    "name": "Google Nest Mini",
+    "price": 29,
+    "description": "Another popular smart speaker with Google Assistant voice assistant.",
+    "img": "https://store.google.com/gb/product/nest_mini"
+  }
+]

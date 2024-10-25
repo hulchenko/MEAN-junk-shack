@@ -1,0 +1,14 @@
+[
+  {
+    "type": "Next day",
+    "price": 25.99
+  },
+  {
+    "type": "3-5 business days",
+    "price": 9.99
+  },
+  {
+    "type": "Up to 15 business days",
+    "price": "free"
+  }
+]
