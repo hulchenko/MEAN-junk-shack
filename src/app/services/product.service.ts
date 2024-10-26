@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { RestApiService } from "./rest-api.service";
 import { Product } from "../common/interfaces/product.interface";
-import { Observable } from "rxjs";
+import { map, Observable } from "rxjs";
 import { BehaviorSubject } from "rxjs";
 
 @Injectable({
@@ -24,7 +24,7 @@ export class ProductService {
     return this.products$;
   }
 
-  getProductById(id: number) {
-    return this.products.getValue().find((product: Product) => product.id === id);
+  getProductById(id: number): Observable<Product> {
+    return this.products$.pipe(map((products) => products.find((product: Product) => product.id === id)));
   }
 }
