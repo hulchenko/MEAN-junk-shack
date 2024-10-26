@@ -11,7 +11,9 @@ export class ProductService {
   private products: BehaviorSubject<Product[] | any> = new BehaviorSubject<Product[]>([]);
   public products$ = this.products.asObservable();
 
-  constructor(private restApi: RestApiService) {}
+  constructor(private restApi: RestApiService) {
+    this.fetchProducts();
+  }
 
   fetchProducts(): void {
     const path = "./../../assets/products.json";

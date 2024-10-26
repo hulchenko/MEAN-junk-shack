@@ -2,9 +2,10 @@
 
 <p><a routerLink="/shipping">Shipping Prices</a></p>
 
-<div class="cart-item" *ngFor="let item of cart">
+<div class="cart-item" *ngFor="let item of cartItems">
   <span>{{ item.name }}</span>
   <span>{{ item.price | currency }}</span>
+  <button (click)="removeItem(item)">X</button>
 </div>
 
 <form [formGroup]="checkoutForm" (ngSubmit)="onSubmit()">

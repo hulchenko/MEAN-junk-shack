@@ -1,33 +1,47 @@
 import { Injectable } from "@angular/core";
 import { Product } from "./../common/interfaces/product.interface";
 import { RestApiService } from "./rest-api.service";
+import { BehaviorSubject, Observable } from "rxjs";
 
 @Injectable({
   providedIn: "root",
 })
 export class CartService {
-  cart: Product[] = [];
+  private cart: BehaviorSubject<Product[]> = new BehaviorSubject([]);
+  public cart$ = this.cart.asObservable();
 
-  constructor(private restApi: RestApiService) {}
+  constructor(private restApi: RestApiService) {
+    const initCart = this.getLocalCart();
+    this.cart.next(initCart);
+  }
 
   addToCart(product: Product) {
-    this.cart = this.getCartFromMemory();
-    this.cart.push(product);
-    this.updateMemoryCart();
+    const currCart = this.getLocalCart();
+    const inCart = currCart.find((item: Product) => item.id === product.id);
+    if (!inCart) {
+      const updatedCart = [...currCart, product];
+      this.cart.next(updatedCart);
+      this.updateLocalCart();
+      console.log("Added to cart"); // TODO replace with toast
+    } else {
+      console.log("Already in the cart");
+    }
   }
 
-  getCart() {
-    return JSON.parse(localStorage.getItem("cart")) || this.cart;
+  getCart(): Observable<Product[]> {
+    return this.cart$;
   }
 
-  updateCart() {
-    // TODO
+  purgeCartItem(idx: number) {
+    const currCart = this.getLocalCart();
+    const updatedCart = currCart.filter((item: Product) => item.id !== idx);
+    this.cart.next(updatedCart);
+    this.updateLocalCart();
   }
 
   clearCart() {
     localStorage.removeItem("cart");
-    this.cart = [];
-    return this.cart;
+    this.cart.next([]);
   }
 
   getShippingPrices() {
@@ -35,11 +49,12 @@ export class CartService {
     return this.restApi.fetchData(path);
   }
 
-  getCartFromMemory() {
-    return JSON.parse(localStorage.getItem("cart")) || [];
+  private getLocalCart() {
+    return JSON.parse(localStorage.getItem("cart"));
   }
 
-  updateMemoryCart() {
-    localStorage.setItem("cart", JSON.stringify(this.cart));
+  private updateLocalCart() {
+    const currCart = this.cart.value;
+    localStorage.setItem("cart", JSON.stringify(currCart));
   }
 }
