@@ -6,8 +6,10 @@
   <p [title]="product.description">Description: {{ product.description }}</p>
   <p [title]="product.specs">Specs: {{ product.specs }}</p>
 
-  <button type="button" (click)="addToCart(product)">Add To Cart</button>
-  <button type="button" (click)="share()">Share</button>
+  <button id="btn" type="button" (click)="addToCart(product)">Add To Cart</button>
+  <button id="btn" type="button" (click)="share()">Share</button>
 
-  <app-product-alerts [product]="product" (notify)="onNotify()"></app-product-alerts>
+  <button id="btn" *ngIf="product && !product.in_stock" (click)="userNotify()">Notify</button>
 </div>
+
+<p-toast></p-toast>

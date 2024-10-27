@@ -6,6 +6,8 @@ import { CartService } from "./../services/cart.service";
 import { ProductService } from "../services/product.service";
 import { Subscription } from "rxjs";
 
+import { MessageService } from "primeng/api";
+
 @Component({
   selector: "app-product-details",
   templateUrl: "./product-details.component.html",
@@ -15,7 +17,7 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
   productSub: Subscription;
   product: Product = null;
 
-  constructor(private route: ActivatedRoute, private cartService: CartService, private productService: ProductService) {}
+  constructor(private route: ActivatedRoute, private cartService: CartService, private productService: ProductService, private message: MessageService) {}
 
   addToCart(product: Product) {
     this.cartService.addToCart(product);
@@ -36,13 +38,20 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
   }
 
   share() {
-    //TODO pop-up toast with clipboard URL copied
-    console.log(window.location.href);
     const currPath = window.location.href;
     navigator.clipboard.writeText(currPath);
+    this.message.add({
+      severity: "info",
+      summary: "Copied",
+      detail: "URL saved to clipboard.",
+    });
   }
 
-  onNotify() {
-    //TODO pop-up toast with the message "You will be notified when the product goes on sale"
+  userNotify() {
+    this.message.add({
+      severity: "success",
+      summary: "Confirmed!",
+      detail: "You will be notified when the product is back in stock.",
+    });
   }
 }

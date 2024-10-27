@@ -1,6 +1,5 @@
 * {
   font-family: "Roboto", Arial, sans-serif;
-  color: #616161;
   box-sizing: border-box;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -9,6 +8,7 @@
 body {
   margin: 0;
   padding: 0;
+  color: #616161;
 
   /* footer support */
   min-height: 100vh;
@@ -76,8 +76,8 @@ label {
 }
 
 /* Button */
-.fancy-button,
-button {
+
+#btn {
   display: inline-flex;
   align-items: center;
   padding: 8px 16px;
@@ -87,6 +87,10 @@ button {
   background-color: #1976d2;
   color: white;
   border: none;
+}
+
+.post-btn {
+  background-color: #49a249 !important;
 }
 
 .button:hover,
@@ -111,10 +115,6 @@ button:disabled {
 .fancy-button i.material-icons {
   color: #1976d2;
   padding-right: 4px;
-}
-
-.post-btn {
-  background-color: #49a249;
 }
 
 /* Top Bar */

@@ -1,7 +1,7 @@
 <div class="product-container">
   <div class="product-add">
     <h2>Got old junk to sell?</h2>
-    <button class="post-btn">Post it</button>
+    <button id="btn" class="post-btn">Post it</button>
   </div>
   <div *ngFor="let product of products" class="product-block">
     <h3>{{ product.name }}</h3>
@@ -11,6 +11,6 @@
     <ng-template #outOfStock>
       <p>Out of Stock</p>
     </ng-template>
-    <button type="button" [title]="product.name + ' details'" [routerLink]="['/products', product.id]">Details</button>
+    <button id="btn" type="button" [title]="product.name + ' details'" [routerLink]="['/products', product.id]">Details</button>
   </div>
 </div>
