@@ -21,6 +21,7 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
 
   addToCart(product: Product) {
     this.cartService.addToCart(product);
+    this.popUp("Added", "Item has been added to cart.");
   }
 
   ngOnDestroy(): void {
@@ -40,18 +41,14 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
   share() {
     const currPath = window.location.href;
     navigator.clipboard.writeText(currPath);
-    this.message.add({
-      severity: "info",
-      summary: "Copied",
-      detail: "URL saved to clipboard.",
-    });
+    this.popUp("Copied", "URL saved to clipboard.");
   }
 
   userNotify() {
-    this.message.add({
-      severity: "success",
-      summary: "Confirmed!",
-      detail: "You will be notified when the product is back in stock.",
-    });
+    this.popUp("Confirmed", "You will be notified when the product is back in stock.");
+  }
+
+  popUp(summary: string, detail: string, severity = "info") {
+    this.message.add({ severity, summary, detail });
   }
 }

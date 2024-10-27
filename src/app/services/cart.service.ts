@@ -22,9 +22,6 @@ export class CartService {
       const updatedCart = [...currCart, product];
       this.cart.next(updatedCart);
       this.updateLocalCart();
-      console.log("Added to cart"); // TODO replace with toast
-    } else {
-      console.log("Already in the cart");
     }
   }
 
