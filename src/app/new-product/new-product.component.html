@@ -1,0 +1,30 @@
+<h1>New post</h1>
+<form (ngSubmit)="addProduct(product)">
+  <label for="name">Name</label>
+  <input type="text" name="name" pInputText [(ngModel)]="product.name" [ngClass]="!isValid.name ? 'input-invalid' : ''" />
+  <label for="price">Price</label>
+  <input type="number" name="price" [(ngModel)]="product.price" [ngClass]="!isValid.price ? 'input-invalid' : ''" />
+  <label for="description">Description</label>
+  <textarea
+    name="description"
+    rows="5"
+    cols="30"
+    pInputTextarea
+    autoResize="true"
+    [(ngModel)]="product.description"
+    [ngClass]="!isValid.description ? 'input-invalid' : ''"
+  ></textarea>
+  <label for="specs">Specs</label>
+  <textarea
+    name="specs"
+    rows="5"
+    cols="30"
+    pInputTextarea
+    autoResize="true"
+    [(ngModel)]="product.specs"
+    [ngClass]="!isValid.specs ? 'input-invalid' : ''"
+  ></textarea>
+
+  <button id="btn" type="submit">Create</button>
+  <button id="btn" style="background-color: salmon" type="submit" (click)="this.location.back()">Cancel</button>
+</form>
