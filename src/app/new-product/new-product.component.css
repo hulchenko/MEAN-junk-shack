@@ -1,0 +1,19 @@
+::ng-deep .p-fileupload .p-button {
+  @apply bg-cyan-700 text-white border rounded flex justify-center p-2;
+}
+
+::ng-deep .p-button-label {
+  @apply font-light;
+}
+
+::ng-deep .p-button-icon {
+  @apply m-0 p-0;
+}
+
+::ng-deep .p-inputnumber {
+  @apply w-full h-10;
+}
+
+::ng-deep .p-inputnumber-input {
+  @apply pl-4;
+}

@@ -9,7 +9,6 @@ export class AlertService {
   constructor(private message: MessageService) {}
 
   call(severity: string, summary: string, detail: string): void {
-    console.log(`INCOMING`, { severity, summary, detail });
     this.message.add({ severity, summary, detail });
   }
 }

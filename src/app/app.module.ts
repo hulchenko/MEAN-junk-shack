@@ -1,3 +1,5 @@
+import { environment } from "src/environments/environment";
+
 import { NgModule } from "@angular/core";
 import { BrowserModule } from "@angular/platform-browser";
 import { RouterModule } from "@angular/router";
@@ -5,9 +7,9 @@ import { ReactiveFormsModule } from "@angular/forms";
 import { provideHttpClient, withInterceptorsFromDi } from "@angular/common/http";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { FormsModule } from "@angular/forms";
-
 import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
 
+// Components
 import { AppComponent } from "./app.component";
 import { TopBarComponent } from "./top-bar/top-bar.component";
 import { ProductListComponent } from "./product-list/product-list.component";
@@ -25,6 +27,10 @@ import { InputNumberModule } from "primeng/inputnumber";
 import { InputTextModule } from "primeng/inputtext";
 import { InputTextareaModule } from "primeng/inputtextarea";
 import { FileUploadModule } from "primeng/fileupload";
+
+// Firebase
+import { AngularFireModule } from "@angular/fire/compat";
+import { AngularFirestoreModule } from "@angular/fire/compat/firestore";
 
 @NgModule({
   declarations: [
@@ -57,7 +63,9 @@ import { FileUploadModule } from "primeng/fileupload";
       { path: "cart", component: CartComponent },
       { path: "shipping", component: ShippingComponent },
     ]),
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFirestoreModule,
   ],
-  providers: [provideHttpClient(withInterceptorsFromDi()), MessageService],
+  providers: [MessageService, provideHttpClient(withInterceptorsFromDi())],
 })
 export class AppModule {}

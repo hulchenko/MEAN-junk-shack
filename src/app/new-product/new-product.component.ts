@@ -1,15 +1,23 @@
-import { Component } from "@angular/core";
+import { Component, OnDestroy } from "@angular/core";
 import { Product } from "../common/interfaces/product.interface";
 import { Location } from "@angular/common";
 import { ProductService } from "../services/product.service";
 import { AlertService } from "../services/alert.service";
+
+// import { getStorage, ref, uploadBytes } from "@angular/fire/storage";
+
+import { AngularFireStorage } from "@angular/fire/compat/storage";
+import { catchError, finalize, lastValueFrom, of, Subscription } from "rxjs";
 
 @Component({
   selector: "app-new-product",
   templateUrl: "./new-product.component.html",
   styleUrl: "./new-product.component.css",
 })
-export class NewProductComponent {
+export class NewProductComponent implements OnDestroy {
+  private uploadSub: Subscription;
+  private urlSub: Subscription;
+
   isValid = {
     name: true,
     price: true,
@@ -17,31 +25,33 @@ export class NewProductComponent {
     specs: true,
   };
 
-  constructor(public location: Location, private productService: ProductService, private alert: AlertService) {}
-
   product: Product = {
     // id: uuid()
     name: "",
     price: null,
     description: "",
     specs: "",
-    in_stock: true,
-    created_at: new Date(),
+    inStock: true,
+    createdAt: new Date(),
   };
 
-  addProduct(product: Product) {
-    let valid = true;
+  selectedFile = null;
 
-    Object.entries(product).forEach(([key, val]) => {
-      if (!val) {
-        this.isValid[key] = false;
-        valid = false;
-      }
-    });
+  constructor(public location: Location, private productService: ProductService, private alert: AlertService, private storage: AngularFireStorage) {}
 
-    if (valid) {
+  ngOnDestroy(): void {
+    this.uploadSub?.unsubscribe();
+    this.urlSub?.unsubscribe();
+  }
+
+  async addProduct(product: Product) {
+    const isFormValid = this.validateForm(product);
+    if (isFormValid) {
+      const imgURL = await this.fileUpload(this.selectedFile);
+      this.product.imageURL = imgURL;
       this.productService.addProduct(product);
-      // console.log(`created!`);
+
+      console.log(`PRODUCT: `, this.product);
       this.alert.call("success", "Success", "The post has been created.");
       this.location.back(); // TODO should fire on successful DB response
     } else {
@@ -49,7 +59,36 @@ export class NewProductComponent {
     }
   }
 
-  onFileUpload(event) {
-    console.log(`FILE UPLOADED: `, event);
+  validateForm(product: Product) {
+    let isFormValid = true;
+
+    Object.entries(product).forEach(([key, val]) => {
+      if (!val) {
+        this.isValid[key] = false;
+        isFormValid = false;
+      }
+    });
+    return isFormValid;
+  }
+
+  async fileUpload(file): Promise<string> {
+    let url = "";
+    if (file) {
+      const filePath = `images/${file.name}`;
+      const fileRef = this.storage.ref(filePath);
+      const uploadTask = this.storage.upload(filePath, file);
+
+      await lastValueFrom(uploadTask.snapshotChanges()); // await for upload to complete
+
+      url = await lastValueFrom(fileRef.getDownloadURL()); // retrieve download URL
+      console.log(`UPLOADED: `, url);
+    }
+    return url;
+  }
+
+  onFileSelect(event) {
+    console.log(`FILE EVENT: `, event);
+    this.selectedFile = event.files[0];
+    console.log(`FILE: `, this.selectedFile);
   }
 }

@@ -6,7 +6,7 @@
   <p [title]="product.description">Description: {{ product.description }}</p>
   <p [title]="product.specs">Specs: {{ product.specs }}</p>
 
-  <button (click)="addToCart(product)" *ngIf="product.in_stock">Add To Cart</button>
+  <button (click)="addToCart(product)" *ngIf="product.inStock">Add To Cart</button>
   <button (click)="share()"><fa-icon [icon]="faShareNodes">Share</fa-icon></button>
-  <button *ngIf="product && !product.in_stock" (click)="notify()"><fa-icon [icon]="faBell">Notify</fa-icon></button>
+  <button *ngIf="product && !product.inStock" (click)="notify()"><fa-icon [icon]="faBell">Notify</fa-icon></button>
 </div>

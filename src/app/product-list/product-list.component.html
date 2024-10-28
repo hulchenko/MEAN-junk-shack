@@ -8,7 +8,7 @@
     <p class="py-1" *ngIf="product.description">{{ product.description }}</p>
     <div class="py-1 flex justify-between">
       <p *ngIf="product.description">{{ product.price | currency }}</p>
-      <p class="text-emerald-500" *ngIf="product.in_stock; else outOfStock">Available</p>
+      <p class="text-emerald-500" *ngIf="product.inStock; else outOfStock">Available</p>
     </div>
     <ng-template #outOfStock>
       <p class="text-red-300">Out of Stock</p>

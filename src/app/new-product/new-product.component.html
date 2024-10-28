@@ -1,43 +1,58 @@
-<h1>New post</h1>
-<form (ngSubmit)="addProduct(product)">
-  <label for="name">Name</label>
-  <input type="text" name="name" pInputText [(ngModel)]="product.name" [ngClass]="!isValid.name ? 'border border-red-400' : ''" />
-  <label for="price">Price</label>
-  <input type="number" name="price" [(ngModel)]="product.price" [ngClass]="!isValid.price ? 'border border-red-400' : ''" />
-  <label for="description">Description</label>
-  <textarea
-    name="description"
-    rows="5"
-    cols="30"
-    pInputTextarea
-    autoResize="true"
-    [(ngModel)]="product.description"
-    [ngClass]="!isValid.description ? 'border border-red-400' : ''"
-  ></textarea>
-  <label for="specs">Specs</label>
-  <textarea
-    name="specs"
-    rows="5"
-    cols="30"
-    pInputTextarea
-    autoResize="true"
-    [(ngModel)]="product.specs"
-    [ngClass]="!isValid.specs ? 'border border-red-400' : ''"
-  ></textarea>
-  <div>
-    <label for="file">Upload Image</label>
-    <p-fileUpload
-      class="m-0"
-      mode="basic"
-      chooseLabel="Choose"
-      chooseIcon="pi pi-upload"
-      name="file"
-      accept="image/*"
-      maxFileSize="1000000"
-      (onUpload)="onFileUpload($event)"
+<div class="w-full flex flex-col items-center mt-4">
+  <h1>New post</h1>
+  <form (ngSubmit)="addProduct(product)" class="flex flex-col w-1/4 border rounded mt-4 child:py-2 p-4">
+    <label for="name">Name</label>
+    <input
+      class="pl-4"
+      placeholder="John Doe"
+      type="text"
+      name="name"
+      pInputText
+      [(ngModel)]="product.name"
+      [ngClass]="!isValid.name ? 'border border-red-400' : ''"
     />
-  </div>
+    <label for="price">Price</label>
+    <p-inputNumber placeholder="0" inputId="integeronly" name="price" [(ngModel)]="product.price" [ngClass]="!isValid.price ? 'border border-red-400' : ''" />
+    <label for="description">Description</label>
+    <textarea
+      placeholder="Why are you selling this?"
+      class="pl-4"
+      name="description"
+      rows="5"
+      cols="30"
+      pInputTextarea
+      autoResize="true"
+      [(ngModel)]="product.description"
+      [ngClass]="!isValid.description ? 'border border-red-400' : ''"
+    ></textarea>
+    <label for="specs">Specs</label>
+    <textarea
+      placeholder="Showcase your item's specifications/features"
+      class="pl-4"
+      name="specs"
+      rows="5"
+      cols="30"
+      pInputTextarea
+      autoResize="true"
+      [(ngModel)]="product.specs"
+      [ngClass]="!isValid.specs ? 'border border-red-400' : ''"
+    ></textarea>
+    <div>
+      <label for="file">Upload Image</label>
+      <p-fileUpload
+        mode="basic"
+        chooseLabel="Choose"
+        chooseIcon="pi pi-upload"
+        name="file"
+        accept="image/*"
+        maxFileSize="1000000"
+        (onSelect)="onFileSelect($event)"
+      />
+    </div>
 
-  <button type="submit">Create</button>
-  <button class="bg-red-200" type="submit" (click)="this.location.back()">Cancel</button>
-</form>
+    <div class="flex justify-end mt-2">
+      <button class="bg-red-200 w-1/4" type="submit" (click)="this.location.back()">Cancel</button>
+      <button class="bg-emerald-500 w-1/4 ml-8" type="submit">Create</button>
+    </div>
+  </form>
+</div>
