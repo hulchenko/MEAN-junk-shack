@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
 import { Subscription } from "rxjs";
+import { faBell, faShareNodes } from "@fortawesome/free-solid-svg-icons";
 
 // Interfaces
 import { Product } from "../common/interfaces/product.interface";
@@ -16,6 +17,9 @@ import { AlertService } from "../services/alert.service";
   styleUrls: ["./product-details.component.css"],
 })
 export class ProductDetailsComponent implements OnInit, OnDestroy {
+  faBell = faBell;
+  faShareNodes = faShareNodes;
+
   productSub: Subscription;
   product: Product = null;
 
@@ -46,7 +50,7 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
     this.alert.call("info", "Info", "URL copied to clipboard.");
   }
 
-  userNotify() {
+  notify() {
     this.alert.call("success", "Success", "You will be notified when the product is back in stock.");
   }
 }

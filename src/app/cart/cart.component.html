@@ -1,21 +1,21 @@
 <h3>Cart</h3>
 
-<button id="btn" routerLink="/shipping">Shipping Prices</button>
+<button routerLink="/shipping">Shipping Prices</button>
 
-<div class="cart-item" *ngFor="let item of cartItems">
-  <span>{{ item.name }}</span>
-  <span>{{ item.price | currency }}</span>
-  <button id="btn" (click)="removeItem(item)">X</button>
+<div class="border rounded w-96 px-4 py-2 my-4 bg-white flex justify-between items-center" *ngFor="let item of cartItems">
+  <span class="cursor-pointer hover:text-cyan-600 w-1/2" [routerLink]="['/products', item.id]">{{ item.name }}</span>
+  <span class="w-1/4">{{ item.price | currency }}</span>
+  <button class="px-4 bg-gray-50 text-gray-300 hover:text-cyan-600" (click)="removeItem(item)"><fa-icon [icon]="faTrash">Delete</fa-icon></button>
 </div>
 
 <form [formGroup]="checkoutForm" (ngSubmit)="onSubmit()">
   <div>
     <label for="name">Name</label>
-    <input id="name" type="text" formControlName="name" />
+    <input name="name" type="text" formControlName="name" />
   </div>
   <div>
     <label for="address">Address</label>
-    <input id="address" type="text" formControlName="address" />
+    <input name="address" type="text" formControlName="address" />
   </div>
-  <button id="btn" class="button" type="submit">Checkout</button>
+  <button type="submit">Checkout</button>
 </form>

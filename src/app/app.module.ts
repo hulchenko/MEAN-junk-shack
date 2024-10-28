@@ -6,6 +6,8 @@ import { provideHttpClient, withInterceptorsFromDi } from "@angular/common/http"
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { FormsModule } from "@angular/forms";
 
+import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
+
 import { AppComponent } from "./app.component";
 import { TopBarComponent } from "./top-bar/top-bar.component";
 import { ProductListComponent } from "./product-list/product-list.component";
@@ -22,6 +24,7 @@ import { MessageService } from "primeng/api";
 import { InputNumberModule } from "primeng/inputnumber";
 import { InputTextModule } from "primeng/inputtext";
 import { InputTextareaModule } from "primeng/inputtextarea";
+import { FileUploadModule } from "primeng/fileupload";
 
 @NgModule({
   declarations: [
@@ -36,6 +39,7 @@ import { InputTextareaModule } from "primeng/inputtextarea";
   ],
   bootstrap: [AppComponent],
   imports: [
+    FontAwesomeModule,
     BrowserModule,
     ReactiveFormsModule,
     MessagesModule,
@@ -44,6 +48,7 @@ import { InputTextareaModule } from "primeng/inputtextarea";
     InputNumberModule,
     InputTextareaModule,
     BrowserAnimationsModule,
+    FileUploadModule,
     FormsModule,
     RouterModule.forRoot([
       { path: "", component: ProductListComponent },

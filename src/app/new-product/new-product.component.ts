@@ -48,4 +48,8 @@ export class NewProductComponent {
       this.alert.call("warn", "Warn", "Fields cannot be empty.");
     }
   }
+
+  onFileUpload(event) {
+    console.log(`FILE UPLOADED: `, event);
+  }
 }

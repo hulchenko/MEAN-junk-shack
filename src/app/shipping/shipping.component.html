@@ -1,8 +1,8 @@
 <h3>Shipping Prices</h3>
 
-<div class="shipping-item" *ngFor="let shipping of shippingCosts | async">
+<div *ngFor="let shipping of shippingCosts | async">
   <span>{{ shipping.type }}</span>
   <span>{{ shipping.price }}</span>
 </div>
 
-<button id="btn" (click)="goBack()">Back</button>
+<button (click)="goBack()">Back</button>

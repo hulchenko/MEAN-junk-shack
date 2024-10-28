@@ -3,6 +3,7 @@ import { CartService } from "./../services/cart.service";
 import { UntypedFormBuilder } from "@angular/forms";
 import { Product } from "../common/interfaces/product.interface";
 import { Subscription } from "rxjs";
+import { faTrash } from "@fortawesome/free-solid-svg-icons";
 
 @Component({
   selector: "app-cart",
@@ -10,6 +11,7 @@ import { Subscription } from "rxjs";
   styleUrls: ["./cart.component.css"],
 })
 export class CartComponent implements OnInit, OnDestroy {
+  faTrash = faTrash;
   private cartSub: Subscription;
 
   cartItems: Product[] = [];

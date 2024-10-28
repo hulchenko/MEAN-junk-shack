@@ -1,9 +1,9 @@
 <h1>New post</h1>
 <form (ngSubmit)="addProduct(product)">
   <label for="name">Name</label>
-  <input type="text" name="name" pInputText [(ngModel)]="product.name" [ngClass]="!isValid.name ? 'input-invalid' : ''" />
+  <input type="text" name="name" pInputText [(ngModel)]="product.name" [ngClass]="!isValid.name ? 'border border-red-400' : ''" />
   <label for="price">Price</label>
-  <input type="number" name="price" [(ngModel)]="product.price" [ngClass]="!isValid.price ? 'input-invalid' : ''" />
+  <input type="number" name="price" [(ngModel)]="product.price" [ngClass]="!isValid.price ? 'border border-red-400' : ''" />
   <label for="description">Description</label>
   <textarea
     name="description"
@@ -12,7 +12,7 @@
     pInputTextarea
     autoResize="true"
     [(ngModel)]="product.description"
-    [ngClass]="!isValid.description ? 'input-invalid' : ''"
+    [ngClass]="!isValid.description ? 'border border-red-400' : ''"
   ></textarea>
   <label for="specs">Specs</label>
   <textarea
@@ -22,9 +22,22 @@
     pInputTextarea
     autoResize="true"
     [(ngModel)]="product.specs"
-    [ngClass]="!isValid.specs ? 'input-invalid' : ''"
+    [ngClass]="!isValid.specs ? 'border border-red-400' : ''"
   ></textarea>
+  <div>
+    <label for="file">Upload Image</label>
+    <p-fileUpload
+      class="m-0"
+      mode="basic"
+      chooseLabel="Choose"
+      chooseIcon="pi pi-upload"
+      name="file"
+      accept="image/*"
+      maxFileSize="1000000"
+      (onUpload)="onFileUpload($event)"
+    />
+  </div>
 
-  <button id="btn" type="submit">Create</button>
-  <button id="btn" style="background-color: salmon" type="submit" (click)="this.location.back()">Cancel</button>
+  <button type="submit">Create</button>
+  <button class="bg-red-200" type="submit" (click)="this.location.back()">Cancel</button>
 </form>
