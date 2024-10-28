@@ -1,7 +1,9 @@
+/// <reference types="vite/types/importMeta.d.ts" />
+
 export const environment = {
   production: false,
   firebase: {
-    apiKey: process.env.FIREBASE_API_KEY,
+    apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
     authDomain: "junk-store-angular-58672.firebaseapp.com",
     projectId: "junk-store-angular-58672",
     storageBucket: "junk-store-angular-58672.appspot.com",
