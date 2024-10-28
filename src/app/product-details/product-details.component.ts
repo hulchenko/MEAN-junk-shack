@@ -1,12 +1,14 @@
 import { Component, OnInit, OnDestroy } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
-
-import { Product } from "../common/interfaces/product.interface";
-import { CartService } from "./../services/cart.service";
-import { ProductService } from "../services/product.service";
 import { Subscription } from "rxjs";
 
-import { MessageService } from "primeng/api";
+// Interfaces
+import { Product } from "../common/interfaces/product.interface";
+
+// Services
+import { CartService } from "./../services/cart.service";
+import { ProductService } from "../services/product.service";
+import { AlertService } from "../services/alert.service";
 
 @Component({
   selector: "app-product-details",
@@ -17,11 +19,11 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
   productSub: Subscription;
   product: Product = null;
 
-  constructor(private route: ActivatedRoute, private cartService: CartService, private productService: ProductService, private message: MessageService) {}
+  constructor(private route: ActivatedRoute, private cartService: CartService, private productService: ProductService, private alert: AlertService) {}
 
   addToCart(product: Product) {
     this.cartService.addToCart(product);
-    this.popUp("Added", "Item has been added to cart.");
+    this.alert.call("info", "Info", "Item has been added to cart.");
   }
 
   ngOnDestroy(): void {
@@ -41,14 +43,10 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
   share() {
     const currPath = window.location.href;
     navigator.clipboard.writeText(currPath);
-    this.popUp("Copied", "URL saved to clipboard.");
+    this.alert.call("info", "Info", "URL copied to clipboard.");
   }
 
   userNotify() {
-    this.popUp("Confirmed", "You will be notified when the product is back in stock.");
-  }
-
-  popUp(summary: string, detail: string, severity = "info") {
-    this.message.add({ severity, summary, detail });
+    this.alert.call("success", "Success", "You will be notified when the product is back in stock.");
   }
 }

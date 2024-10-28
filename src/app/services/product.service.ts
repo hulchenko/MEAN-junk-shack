@@ -8,8 +8,7 @@ import { BehaviorSubject } from "rxjs";
   providedIn: "root",
 })
 export class ProductService {
-  private products: BehaviorSubject<Product[] | any> = new BehaviorSubject<Product[]>([]);
-  public products$ = this.products.asObservable();
+  public products: BehaviorSubject<Product[] | any> = new BehaviorSubject<Product[]>([]);
 
   constructor(private restApi: RestApiService) {
     this.fetchProducts();
@@ -21,10 +20,16 @@ export class ProductService {
   }
 
   getProducts(): Observable<Product[]> {
-    return this.products$;
+    return this.products;
   }
 
   getProductById(id: number): Observable<Product> {
-    return this.products$.pipe(map((products) => products.find((product: Product) => product.id === id)));
+    return this.products.pipe(map((products) => products.find((product: Product) => product.id === id)));
+  }
+
+  addProduct(product: Product) {
+    const prevArray = this.products.value;
+    const newArray = [...prevArray, product];
+    this.products.next(newArray);
   }
 }

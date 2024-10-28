@@ -1,13 +1,15 @@
 <div class="product-container">
   <div class="product-add">
     <h2>Got old junk to sell?</h2>
-    <button id="btn" class="post-btn">Post it</button>
+    <button id="btn" class="post-btn" routerLink="new">Post it</button>
   </div>
   <div *ngFor="let product of products" class="product-block">
     <h3>{{ product.name }}</h3>
     <p *ngIf="product.description">{{ product.description }}</p>
-    <p *ngIf="product.description">{{ product.price }}</p>
-    <p *ngIf="product.in_stock; else outOfStock">Available</p>
+    <div style="display: flex; justify-content: space-between">
+      <p *ngIf="product.description">{{ product.price }}</p>
+      <p *ngIf="product.in_stock; else outOfStock">Available</p>
+    </div>
     <ng-template #outOfStock>
       <p>Out of Stock</p>
     </ng-template>
