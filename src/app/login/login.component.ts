@@ -1,5 +1,7 @@
 import { Component, inject } from "@angular/core";
-import { FormBuilder, Validators } from "@angular/forms";
+import { Form, FormBuilder, Validators } from "@angular/forms";
+import { Router } from "@angular/router";
+import { AuthService } from "../services/auth.service";
 
 @Component({
   selector: "app-login",
@@ -7,14 +9,19 @@ import { FormBuilder, Validators } from "@angular/forms";
   styleUrl: "./login.component.css",
 })
 export class LoginComponent {
-  fb = inject(FormBuilder);
+  constructor(private fb: FormBuilder, private router: Router, private auth: AuthService) {}
 
   form = this.fb.nonNullable.group({
     email: ["", Validators.required],
     password: ["", Validators.required],
   });
+  formError: string | null = null;
 
   onSubmit() {
-    console.log(`logged in`);
+    const { email, password } = this.form.getRawValue();
+    this.auth.userLogIn(email, password).subscribe({
+      next: () => this.router.navigateByUrl("/"),
+      error: (err) => (this.formError = err.code),
+    });
   }
 }

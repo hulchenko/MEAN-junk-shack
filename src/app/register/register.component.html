@@ -1,8 +1,14 @@
-<p>register works!</p>
+<div>
+  <h1>Registration</h1>
 
-<form (ngSubmit)="onSubmit()" [formGroup]="form">
-  <input type="text" formControlName="email" />
-  <input type="password" formControlName="password" />
+  @if(formError){
+  <h3 class="text-red-300">Error: {{ formError }}</h3>
+  }
 
-  <button type="submit">Register</button>
-</form>
+  <form (ngSubmit)="onSubmit()" [formGroup]="form">
+    <input type="text" formControlName="email" />
+    <input type="password" formControlName="password" />
+
+    <button type="submit">Sign Up</button>
+  </form>
+</div>

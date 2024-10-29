@@ -2,6 +2,7 @@ import { HttpClient } from "@angular/common/http";
 import { Component, inject } from "@angular/core";
 import { FormBuilder, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
+import { AuthService } from "../services/auth.service";
 
 @Component({
   selector: "app-register",
@@ -9,21 +10,24 @@ import { Router } from "@angular/router";
   styleUrl: "./register.component.css",
 })
 export class RegisterComponent {
-  fb = inject(FormBuilder); // alternative way for dependency injection, like traditional constructor injection
+  // alternative way for dependency injection (instead of the traditional constructor injection)
+  fb = inject(FormBuilder);
+  auth = inject(AuthService);
+  router = inject(Router);
 
   // http = inject(HttpClient);
-  // router = inject(Router);
 
-  // form = this.formBuilder.group({
-  //   email: "",
-  //   password: "",
-  // });
   form = this.fb.nonNullable.group({
     email: ["", Validators.required],
     password: ["", Validators.required],
   });
+  formError: string | null = null;
 
   onSubmit() {
-    console.log(`registered`);
+    const { email, password } = this.form.getRawValue();
+    this.auth.userRegister(email, password).subscribe({
+      next: () => this.router.navigateByUrl("/"),
+      error: (err) => (this.formError = err.code),
+    });
   }
 }
