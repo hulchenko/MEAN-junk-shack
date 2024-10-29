@@ -26,8 +26,12 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
   constructor(private route: ActivatedRoute, private cartService: CartService, private productService: ProductService, private alert: AlertService) {}
 
   addToCart(product: Product) {
-    this.cartService.addToCart(product);
-    this.alert.call("info", "Info", "Item has been added to cart.");
+    const response = this.cartService.addToCart(product);
+    if (response.ok) {
+      this.alert.call("info", "Info", "Item has been added to cart.");
+    } else {
+      this.alert.call("warn", "Warn", "Item is already in the cart");
+    }
   }
 
   ngOnDestroy(): void {

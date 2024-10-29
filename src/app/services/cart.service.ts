@@ -22,7 +22,9 @@ export class CartService {
       const updatedCart = [...currCart, product];
       this.cart.next(updatedCart);
       this.updateLocalCart();
+      return { ok: true };
     }
+    return { ok: false };
   }
 
   getCart(): Observable<Product[]> {
