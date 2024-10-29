@@ -34,6 +34,7 @@ import { AccordionModule } from "primeng/accordion";
 
 // Firebase
 import { AngularFireModule } from "@angular/fire/compat";
+import { AngularFireAuthModule } from "@angular/fire/compat/auth";
 import { AngularFirestoreModule } from "@angular/fire/compat/firestore";
 
 @NgModule({
@@ -64,6 +65,13 @@ import { AngularFirestoreModule } from "@angular/fire/compat/firestore";
     FileUploadModule,
     FormsModule,
     AccordionModule,
+
+    // firebase
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFirestoreModule,
+    AngularFireAuthModule,
+
+    //routes
     RouterModule.forRoot([
       { path: "register", component: RegisterComponent },
       { path: "login", component: LoginComponent },
@@ -75,8 +83,6 @@ import { AngularFirestoreModule } from "@angular/fire/compat/firestore";
       { path: "checkout", component: CheckoutComponent },
       { path: "shipping", component: ShippingComponent },
     ]),
-    AngularFireModule.initializeApp(environment.firebase),
-    AngularFirestoreModule,
   ],
   providers: [MessageService, provideHttpClient(withInterceptorsFromDi())],
 })
