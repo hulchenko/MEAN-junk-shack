@@ -19,6 +19,8 @@ import { ShippingComponent } from "./shipping/shipping.component";
 import { FooterComponent } from "./footer/footer.component";
 import { NewProductComponent } from "./new-product/new-product.component";
 import { CheckoutComponent } from "./checkout/checkout.component";
+import { LoginComponent } from "./login/login.component";
+import { RegisterComponent } from "./register/register.component";
 
 // Primeng
 import { ToastModule } from "primeng/toast";
@@ -45,6 +47,8 @@ import { AngularFirestoreModule } from "@angular/fire/compat/firestore";
     FooterComponent,
     NewProductComponent,
     CheckoutComponent,
+    LoginComponent,
+    RegisterComponent,
   ],
   bootstrap: [AppComponent],
   imports: [
@@ -61,7 +65,10 @@ import { AngularFirestoreModule } from "@angular/fire/compat/firestore";
     FormsModule,
     AccordionModule,
     RouterModule.forRoot([
+      { path: "register", component: RegisterComponent },
+      { path: "login", component: LoginComponent },
       { path: "", component: ProductListComponent },
+      { path: "login", component: LoginComponent },
       { path: "new", component: NewProductComponent },
       { path: "products/:productId", component: ProductDetailsComponent },
       { path: "cart", component: CartComponent },
