@@ -1,8 +1,30 @@
-<h3>Shipping Prices</h3>
+<div class="mt-4">
+  <h1>Shipping Prices</h1>
+  <p class="mb-4 text-sm italic">To avoid unexpected surprises, it may be wise to familiarize yourself with the list of potential logistical issues below.</p>
 
-<div *ngFor="let shipping of shippingCosts | async">
-  <span>{{ shipping.type }}</span>
-  <span>{{ shipping.price }}</span>
+  <p-accordion [activeIndex]="0">
+    <p-accordionTab header="Rates">
+      <div *ngFor="let shipping of shippingCosts | async">
+        <span>{{ shipping.type }}: {{ shipping.price | currency }}</span>
+      </div>
+    </p-accordionTab>
+    <p-accordionTab header="Common Shipping Issues">
+      <ul class="ml-4 list-disc">
+        <li>Flat Tire (dispatchers' signature)</li>
+        <li>The Vanished Inventory</li>
+        <li>The Great Last-Mile Adventure</li>
+        <li>Lost Somewhere Between "Out for Delivery" and "Never to Be Seen"</li>
+        <li>Driver Got Hungry, Stopped for a 3-Hour Lunch</li>
+        <li>The Road-Trip Toll (Gas Prices, but Make It Dramatic)</li>
+        <li>Weather vs. Your Delivery: An Ongoing Feud</li>
+        <li>Courier GPS: Optional, Apparently</li>
+        <li>The Mysterious Case of "Address Not Found"</li>
+        <li>The Packaging Shortage Extravaganza</li>
+        <li>Delayed Customs—Your Package Is Making Friends Abroad</li>
+        <li>The Epic Tale of Forklift Breakdowns and Pallet Pileups</li>
+      </ul>
+    </p-accordionTab>
+  </p-accordion>
+
+  <button class="mt-8" (click)="goBack()">Back</button>
 </div>
-
-<button (click)="goBack()">Back</button>
