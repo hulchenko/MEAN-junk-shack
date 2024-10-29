@@ -18,6 +18,7 @@ import { CartComponent } from "./cart/cart.component";
 import { ShippingComponent } from "./shipping/shipping.component";
 import { FooterComponent } from "./footer/footer.component";
 import { NewProductComponent } from "./new-product/new-product.component";
+import { CheckoutComponent } from "./checkout/checkout.component";
 
 // Primeng
 import { ToastModule } from "primeng/toast";
@@ -27,6 +28,7 @@ import { InputNumberModule } from "primeng/inputnumber";
 import { InputTextModule } from "primeng/inputtext";
 import { InputTextareaModule } from "primeng/inputtextarea";
 import { FileUploadModule } from "primeng/fileupload";
+import { AccordionModule } from "primeng/accordion";
 
 // Firebase
 import { AngularFireModule } from "@angular/fire/compat";
@@ -42,6 +44,7 @@ import { AngularFirestoreModule } from "@angular/fire/compat/firestore";
     ShippingComponent,
     FooterComponent,
     NewProductComponent,
+    CheckoutComponent,
   ],
   bootstrap: [AppComponent],
   imports: [
@@ -56,11 +59,13 @@ import { AngularFirestoreModule } from "@angular/fire/compat/firestore";
     BrowserAnimationsModule,
     FileUploadModule,
     FormsModule,
+    AccordionModule,
     RouterModule.forRoot([
       { path: "", component: ProductListComponent },
       { path: "new", component: NewProductComponent },
       { path: "products/:productId", component: ProductDetailsComponent },
       { path: "cart", component: CartComponent },
+      { path: "checkout", component: CheckoutComponent },
       { path: "shipping", component: ShippingComponent },
     ]),
     AngularFireModule.initializeApp(environment.firebase),
