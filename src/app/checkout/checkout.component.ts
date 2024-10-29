@@ -1,6 +1,6 @@
 import { Component } from "@angular/core";
 import { CartService } from "../services/cart.service";
-import { UntypedFormBuilder } from "@angular/forms";
+import { FormBuilder, Validators } from "@angular/forms";
 
 @Component({
   selector: "app-checkout",
@@ -8,13 +8,13 @@ import { UntypedFormBuilder } from "@angular/forms";
   styleUrl: "./checkout.component.css",
 })
 export class CheckoutComponent {
-  checkoutForm = this.formBuilder.group({
-    name: "",
-    email: "",
-    address: "",
+  checkoutForm = this.formBuilder.nonNullable.group({
+    name: ["", Validators.required],
+    email: ["", Validators.required], // TODO this is going to be prefilled
+    address: ["", Validators.required],
   });
 
-  constructor(private cartService: CartService, private formBuilder: UntypedFormBuilder) {}
+  constructor(private cartService: CartService, private formBuilder: FormBuilder) {}
 
   onSubmit() {
     console.log("Your order has been submitted", this.checkoutForm.value);
