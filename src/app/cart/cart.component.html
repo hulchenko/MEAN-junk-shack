@@ -1,21 +1,17 @@
-<h3>Cart</h3>
-
-<button routerLink="/shipping">Shipping Prices</button>
-
-<div class="border rounded w-96 px-4 py-2 my-4 bg-white flex justify-between items-center" *ngFor="let item of cartItems">
-  <span class="cursor-pointer hover:text-cyan-600 w-1/2" [routerLink]="['/products', item.id]">{{ item.name }}</span>
-  <span class="w-1/4">{{ item.price | currency }}</span>
-  <button class="px-4 bg-stone-50 text-stone-300 hover:text-cyan-600" (click)="removeItem(item)"><fa-icon [icon]="faTrash">Delete</fa-icon></button>
+<div class="w-full flex flex-col items-center mt-4">
+  @if (cartItems.length) {
+  <h1>Your Cart</h1>
+  <div class="my-12">
+    <div class="border rounded w-96 px-4 py-2 my-4 bg-white flex justify-between items-center" *ngFor="let item of cartItems">
+      <span class="cursor-pointer hover:text-cyan-600 w-1/2" [routerLink]="['/products', item.id]">{{ item.name }}</span>
+      <span class="w-1/4">{{ item.price | currency }}</span>
+      <button class="px-4 bg-stone-50 text-stone-300 hover:text-cyan-600" (click)="removeItem(item)">
+        <fa-icon [icon]="faTrash">Delete</fa-icon>
+      </button>
+    </div>
+  </div>
+  <button routerLink="/checkout">To Checkout</button>
+  } @else {
+  <h1 class="mt-52">The cart is empty</h1>
+  }
 </div>
-
-<form [formGroup]="checkoutForm" (ngSubmit)="onSubmit()">
-  <div>
-    <label for="name">Name</label>
-    <input name="name" type="text" formControlName="name" />
-  </div>
-  <div>
-    <label for="address">Address</label>
-    <input name="address" type="text" formControlName="address" />
-  </div>
-  <button type="submit">Checkout</button>
-</form>

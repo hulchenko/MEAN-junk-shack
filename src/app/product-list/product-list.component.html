@@ -11,7 +11,7 @@
       <p class="text-emerald-500" *ngIf="product.inStock; else outOfStock">Available</p>
     </div>
     <ng-template #outOfStock>
-      <p class="text-red-300">Out of Stock</p>
+      <p class="text-red-300">Sold</p>
     </ng-template>
     <button class="self-end" type="button" [title]="product.name + ' details'" [routerLink]="['/products', product.id]">Details</button>
   </div>

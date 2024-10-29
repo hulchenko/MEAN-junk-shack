@@ -1,6 +1,5 @@
 import { Component, OnInit, OnDestroy } from "@angular/core";
 import { CartService } from "./../services/cart.service";
-import { UntypedFormBuilder } from "@angular/forms";
 import { Product } from "../common/interfaces/product.interface";
 import { Subscription } from "rxjs";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
@@ -11,17 +10,12 @@ import { faTrash } from "@fortawesome/free-solid-svg-icons";
   styleUrls: ["./cart.component.css"],
 })
 export class CartComponent implements OnInit, OnDestroy {
-  faTrash = faTrash;
   private cartSub: Subscription;
 
+  faTrash = faTrash;
   cartItems: Product[] = [];
 
-  checkoutForm = this.formBuilder.group({
-    name: "",
-    address: "",
-  });
-
-  constructor(private cartService: CartService, private formBuilder: UntypedFormBuilder) {}
+  constructor(private cartService: CartService) {}
 
   ngOnDestroy(): void {
     // clean up subscriptions
@@ -34,14 +28,7 @@ export class CartComponent implements OnInit, OnDestroy {
     });
   }
 
-  onSubmit() {
-    this.cartService.clearCart();
-    console.warn("Your order has been submitted", this.checkoutForm.value);
-    this.checkoutForm.reset();
-  }
-
   removeItem(item: Product) {
-    console.log(`clicked item: `, item);
     const idx = item.id;
     this.cartService.purgeCartItem(idx);
   }

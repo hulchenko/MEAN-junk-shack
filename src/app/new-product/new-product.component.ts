@@ -1,13 +1,11 @@
+import { Location } from "@angular/common";
 import { Component, OnDestroy } from "@angular/core";
 import { Product } from "../common/interfaces/product.interface";
-import { Location } from "@angular/common";
-import { ProductService } from "../services/product.service";
 import { AlertService } from "../services/alert.service";
-
-// import { getStorage, ref, uploadBytes } from "@angular/fire/storage";
+import { ProductService } from "../services/product.service";
 
 import { AngularFireStorage } from "@angular/fire/compat/storage";
-import { catchError, finalize, lastValueFrom, of, Subscription } from "rxjs";
+import { lastValueFrom, Subscription } from "rxjs";
 
 @Component({
   selector: "app-new-product",
