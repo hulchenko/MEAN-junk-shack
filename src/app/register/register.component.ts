@@ -1,7 +1,7 @@
-import { HttpClient } from "@angular/common/http";
 import { Component, inject } from "@angular/core";
 import { FormBuilder, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
+import { first, timer } from "rxjs";
 import { AuthService } from "../services/auth.service";
 
 @Component({
@@ -10,12 +10,9 @@ import { AuthService } from "../services/auth.service";
   styleUrl: "./register.component.css",
 })
 export class RegisterComponent {
-  // alternative way for dependency injection (instead of the traditional constructor injection)
   fb = inject(FormBuilder);
   auth = inject(AuthService);
   router = inject(Router);
-
-  // http = inject(HttpClient);
 
   form = this.fb.nonNullable.group({
     email: ["", Validators.required],
@@ -26,7 +23,10 @@ export class RegisterComponent {
   onSubmit() {
     const { email, password } = this.form.getRawValue();
     this.auth.userRegister(email, password).subscribe({
-      next: () => this.router.navigateByUrl("/"),
+      next: () =>
+        timer(200)
+          .pipe(first())
+          .subscribe(() => this.router.navigateByUrl("/products")),
       error: (err) => (this.formError = err.code),
     });
   }

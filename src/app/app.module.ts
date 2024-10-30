@@ -1,36 +1,36 @@
 import { environment } from "src/environments/environment";
 
-import { NgModule } from "@angular/core";
-import { BrowserModule } from "@angular/platform-browser";
-import { RouterModule } from "@angular/router";
-import { ReactiveFormsModule } from "@angular/forms";
 import { provideHttpClient, withInterceptorsFromDi } from "@angular/common/http";
+import { NgModule } from "@angular/core";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { BrowserModule } from "@angular/platform-browser";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
-import { FormsModule } from "@angular/forms";
+import { RouterModule } from "@angular/router";
 import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
+import { AuthGuard } from "src/auth.guard";
 
 // Components
 import { AppComponent } from "./app.component";
-import { TopBarComponent } from "./top-bar/top-bar.component";
-import { ProductListComponent } from "./product-list/product-list.component";
-import { ProductDetailsComponent } from "./product-details/product-details.component";
 import { CartComponent } from "./cart/cart.component";
-import { ShippingComponent } from "./shipping/shipping.component";
-import { FooterComponent } from "./footer/footer.component";
-import { NewProductComponent } from "./new-product/new-product.component";
 import { CheckoutComponent } from "./checkout/checkout.component";
+import { FooterComponent } from "./footer/footer.component";
 import { LoginComponent } from "./login/login.component";
+import { NewProductComponent } from "./new-product/new-product.component";
+import { ProductDetailsComponent } from "./product-details/product-details.component";
+import { ProductListComponent } from "./product-list/product-list.component";
 import { RegisterComponent } from "./register/register.component";
+import { ShippingComponent } from "./shipping/shipping.component";
+import { TopBarComponent } from "./top-bar/top-bar.component";
 
 // Primeng
-import { ToastModule } from "primeng/toast";
-import { MessagesModule } from "primeng/messages";
+import { AccordionModule } from "primeng/accordion";
 import { MessageService } from "primeng/api";
+import { FileUploadModule } from "primeng/fileupload";
 import { InputNumberModule } from "primeng/inputnumber";
 import { InputTextModule } from "primeng/inputtext";
 import { InputTextareaModule } from "primeng/inputtextarea";
-import { FileUploadModule } from "primeng/fileupload";
-import { AccordionModule } from "primeng/accordion";
+import { MessagesModule } from "primeng/messages";
+import { ToastModule } from "primeng/toast";
 
 // Firebase
 import { AngularFireModule } from "@angular/fire/compat";
@@ -75,13 +75,13 @@ import { AngularFirestoreModule } from "@angular/fire/compat/firestore";
     RouterModule.forRoot([
       { path: "register", component: RegisterComponent },
       { path: "login", component: LoginComponent },
-      { path: "", component: ProductListComponent },
-      { path: "login", component: LoginComponent },
-      { path: "new", component: NewProductComponent },
-      { path: "products/:productId", component: ProductDetailsComponent },
-      { path: "cart", component: CartComponent },
-      { path: "checkout", component: CheckoutComponent },
-      { path: "shipping", component: ShippingComponent },
+      { path: "products", component: ProductListComponent, canActivate: [AuthGuard] }, // homepage
+      { path: "products/:productId", component: ProductDetailsComponent, canActivate: [AuthGuard] },
+      { path: "new", component: NewProductComponent, canActivate: [AuthGuard] },
+      { path: "cart", component: CartComponent, canActivate: [AuthGuard] },
+      { path: "checkout", component: CheckoutComponent, canActivate: [AuthGuard] },
+      { path: "shipping", component: ShippingComponent, canActivate: [AuthGuard] },
+      { path: "**", redirectTo: "products" },
     ]),
   ],
   providers: [MessageService, provideHttpClient(withInterceptorsFromDi())],

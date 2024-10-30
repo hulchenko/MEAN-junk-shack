@@ -1,14 +1,19 @@
-<div>
+<div class="w-full flex flex-col items-center mt-4">
   <h1>Registration</h1>
 
-  @if(formError){
-  <h3 class="text-red-300">Error: {{ formError }}</h3>
-  }
+  <form (ngSubmit)="onSubmit()" [formGroup]="form" class="flex flex-col w-1/4 border rounded mt-4 child:py-2 p-4">
+    <label for="email">Email</label>
+    <input class="pl-4" type="text" formControlName="email" />
 
-  <form (ngSubmit)="onSubmit()" [formGroup]="form">
-    <input type="text" formControlName="email" />
-    <input type="password" formControlName="password" />
+    <label for="email">Password</label>
+    <input class="pl-4" type="password" formControlName="password" />
 
-    <button type="submit">Sign Up</button>
+    <button class="mt-8" type="submit">Sign Up</button>
+
+    <p class="text-center">Already have an account? <a class="text-cyan-700" routerLink="/login">Log in</a></p>
   </form>
+
+  @if(formError){
+  <h3 class="text-red-300">Error trying to register. Reason: {{ formError }}</h3>
+  }
 </div>

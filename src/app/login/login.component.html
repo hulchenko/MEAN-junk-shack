@@ -1,8 +1,19 @@
-<p>login works!</p>
+<div class="w-full flex flex-col items-center mt-4">
+  <h1>Welcome!</h1>
 
-<form (ngSubmit)="onSubmit()" [formGroup]="form">
-  <input type="text" formControlName="email" />
-  <input type="password" formControlName="password" />
+  <form (ngSubmit)="onSubmit()" [formGroup]="form" class="flex flex-col w-1/4 border rounded mt-4 child:py-2 p-4">
+    <label for="email">Email</label>
+    <input class="pl-4" type="text" formControlName="email" />
 
-  <button type="submit">Log In</button>
-</form>
+    <label for="email">Password</label>
+    <input class="pl-4" type="password" formControlName="password" />
+
+    <button class="mt-8" type="submit">Log In</button>
+
+    <p class="text-center">New to the website? <a class="text-cyan-700" routerLink="/register">Register</a></p>
+  </form>
+
+  @if(formError){
+  <h3 class="text-red-300">Error trying to log in. Reason: {{ formError }}</h3>
+  }
+</div>
