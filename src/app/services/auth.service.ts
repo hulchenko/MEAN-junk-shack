@@ -1,19 +1,18 @@
-import { Injectable } from "@angular/core";
+import { inject, Injectable, signal } from "@angular/core";
 import { AngularFireAuth } from "@angular/fire/compat/auth";
-import firebase from "firebase/compat/app";
 import { from, Observable } from "rxjs";
+import { User } from "../common/interfaces/user.interface";
+import { Router } from "@angular/router";
 
 @Injectable({
   providedIn: "root",
 })
 export class AuthService {
-  user: firebase.User | null = null;
+  auth = inject(AngularFireAuth);
+  router = inject(Router);
 
-  constructor(private auth: AngularFireAuth) {
-    this.auth.authState.subscribe((user) => {
-      this.user = user;
-    });
-  }
+  dbUser$ = this.auth.user;
+  user = signal<User | null | undefined>(undefined); // initialize as undefined to ensure proper initialization
 
   userRegister(email: string, password: string): Observable<void> {
     const promise = this.auth.createUserWithEmailAndPassword(email, password).then(() => {});
@@ -22,6 +21,12 @@ export class AuthService {
 
   userLogIn(email: string, password: string): Observable<void> {
     const promise = this.auth.signInWithEmailAndPassword(email, password).then(() => {});
+    return from(promise);
+  }
+
+  userLogout(): Observable<void> {
+    const promise = this.auth.signOut();
+    this.router.navigateByUrl("/login");
     return from(promise);
   }
 }
