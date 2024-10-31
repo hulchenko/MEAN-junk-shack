@@ -1,8 +1,8 @@
-<a [routerLink]="['/']" title="Used Junk Shack">
+<a [routerLink]="auth.userSig() ? ['/products'] : ['/login']" title="Used Junk Shack">
   <h1>Used Junk Shack</h1>
 </a>
 
-@if(auth.user() && auth.user() !== null){
+@if(auth.userSig() && auth.userSig() !== null){
 <div class="child:px-2">
   <a routerLink="cart"
     ><fa-icon [icon]="faShoppingCart">Cart</fa-icon><span class="border rounded-full px-2 text-xs">{{ cartCount }}</span></a

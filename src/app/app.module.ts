@@ -36,6 +36,7 @@ import { ToastModule } from "primeng/toast";
 import { AngularFireModule } from "@angular/fire/compat";
 import { AngularFireAuthModule } from "@angular/fire/compat/auth";
 import { AngularFirestoreModule } from "@angular/fire/compat/firestore";
+import { PageNotFoundComponent } from "./page-not-found/page-not-found.component";
 
 @NgModule({
   declarations: [
@@ -50,6 +51,7 @@ import { AngularFirestoreModule } from "@angular/fire/compat/firestore";
     CheckoutComponent,
     LoginComponent,
     RegisterComponent,
+    PageNotFoundComponent,
   ],
   bootstrap: [AppComponent],
   imports: [
@@ -81,7 +83,7 @@ import { AngularFirestoreModule } from "@angular/fire/compat/firestore";
       { path: "cart", component: CartComponent, canActivate: [AuthGuard] },
       { path: "checkout", component: CheckoutComponent, canActivate: [AuthGuard] },
       { path: "shipping", component: ShippingComponent, canActivate: [AuthGuard] },
-      { path: "**", redirectTo: "products" },
+      { path: "**", component: PageNotFoundComponent },
     ]),
   ],
   providers: [MessageService, provideHttpClient(withInterceptorsFromDi())],

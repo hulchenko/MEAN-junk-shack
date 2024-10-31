@@ -1,7 +1,7 @@
-import { Component, inject } from "@angular/core";
+import { Component, inject, OnDestroy, OnInit } from "@angular/core";
 import { FormBuilder, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
-import { first, timer } from "rxjs";
+import { catchError, filter, first, map, Subscription, tap, timer } from "rxjs";
 import { AuthService } from "../services/auth.service";
 
 @Component({
@@ -9,10 +9,12 @@ import { AuthService } from "../services/auth.service";
   templateUrl: "./login.component.html",
   styleUrl: "./login.component.css",
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit, OnDestroy {
   fb = inject(FormBuilder);
   router = inject(Router);
   auth = inject(AuthService);
+
+  logInSub: Subscription;
 
   form = this.fb.nonNullable.group({
     email: ["", Validators.required],
@@ -20,9 +22,19 @@ export class LoginComponent {
   });
   formError: string | null = null;
 
+  ngOnInit(): void {
+    if (this.auth.isUserInitialized) {
+      this.router.navigateByUrl("/products");
+    }
+  }
+
+  ngOnDestroy(): void {
+    this.logInSub?.unsubscribe();
+  }
+
   onSubmit() {
     const { email, password } = this.form.getRawValue();
-    this.auth.userLogIn(email, password).subscribe({
+    this.logInSub = this.auth.userLogIn(email, password).subscribe({
       next: () =>
         timer(200)
           .pipe(first())

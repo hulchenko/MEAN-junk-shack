@@ -11,8 +11,9 @@ export class AuthService {
   auth = inject(AngularFireAuth);
   router = inject(Router);
 
-  user = signal<User | null | undefined>(undefined); // init as undefined to ensure proper initialization
   private userInitialized$: BehaviorSubject<boolean> = new BehaviorSubject(false);
+  userSig = signal<User | null | undefined>(undefined); // init as undefined to ensure proper initialization
+  user$: BehaviorSubject<User | null | undefined> = new BehaviorSubject(undefined);
 
   constructor() {
     // globally initialize and monitor user
@@ -21,7 +22,8 @@ export class AuthService {
       .pipe(
         tap((firebaseUser) => {
           const user = firebaseUser ? { email: firebaseUser.email } : null;
-          this.user.set(user);
+          this.userSig.set(user);
+          this.user$.next(user);
           if (user) {
             this.userInitialized$.next(true);
           }
@@ -33,7 +35,7 @@ export class AuthService {
 
   userRegister(email: string, password: string): Observable<void> {
     const promise = this.auth.createUserWithEmailAndPassword(email, password).then(() => {});
-    return from(promise);  
+    return from(promise);
   }
 
   userLogIn(email: string, password: string): Observable<void> {
@@ -43,12 +45,13 @@ export class AuthService {
 
   userLogout(): Observable<void> {
     const promise = this.auth.signOut();
+    this.userSig.set(null);
     this.userInitialized$.next(false);
     this.router.navigateByUrl("/login");
     return from(promise);
   }
 
   get isUserInitialized() {
-    return this.userInitialized$.asObservable();
+    return this.userInitialized$.getValue();
   }
 }

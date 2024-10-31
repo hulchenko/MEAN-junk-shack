@@ -1,4 +1,4 @@
-import { Component, inject } from "@angular/core";
+import { Component, inject, OnInit } from "@angular/core";
 import { FormBuilder, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
 import { first, timer } from "rxjs";
@@ -9,7 +9,7 @@ import { AuthService } from "../services/auth.service";
   templateUrl: "./register.component.html",
   styleUrl: "./register.component.css",
 })
-export class RegisterComponent {
+export class RegisterComponent implements OnInit {
   fb = inject(FormBuilder);
   auth = inject(AuthService);
   router = inject(Router);
@@ -19,6 +19,12 @@ export class RegisterComponent {
     password: ["", Validators.required],
   });
   formError: string | null = null;
+
+  ngOnInit(): void {
+    if (this.auth.isUserInitialized) {
+      this.router.navigateByUrl("/products");
+    }
+  }
 
   onSubmit() {
     const { email, password } = this.form.getRawValue();
