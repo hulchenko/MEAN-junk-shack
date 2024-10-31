@@ -1,10 +1,10 @@
 import { Location } from "@angular/common";
-import { Component, OnDestroy } from "@angular/core";
-import { Product } from "../common/interfaces/product.interface";
+import { Component, inject, OnDestroy } from "@angular/core";
 import { AlertService } from "../services/alert.service";
 import { ProductService } from "../services/product.service";
 
 import { AngularFireStorage } from "@angular/fire/compat/storage";
+import { FormBuilder, Validators } from "@angular/forms";
 import { lastValueFrom, Subscription } from "rxjs";
 
 @Component({
@@ -13,60 +13,50 @@ import { lastValueFrom, Subscription } from "rxjs";
   styleUrl: "./new-product.component.css",
 })
 export class NewProductComponent implements OnDestroy {
+  fb = inject(FormBuilder);
+  location = inject(Location);
+  productService = inject(ProductService);
+  alert = inject(AlertService);
+  storage = inject(AngularFireStorage);
+
   private uploadSub: Subscription;
   private urlSub: Subscription;
 
-  isValid = {
-    name: true,
-    price: true,
-    description: true,
-    specs: true,
-  };
-
-  product: Product = {
-    // id: uuid()
-    name: "",
-    price: null,
-    description: "",
-    specs: "",
-    inStock: true,
-    createdAt: new Date(),
-  };
+  form = this.fb.nonNullable.group({
+    name: ["", Validators.required],
+    price: [0, Validators.required],
+    description: ["", Validators.required],
+    specs: ["", Validators.required],
+  });
 
   selectedFile = null;
-
-  constructor(public location: Location, private productService: ProductService, private alert: AlertService, private storage: AngularFireStorage) {}
 
   ngOnDestroy(): void {
     this.uploadSub?.unsubscribe();
     this.urlSub?.unsubscribe();
   }
 
-  async addProduct(product: Product) {
-    const isFormValid = this.validateForm(product);
-    if (isFormValid) {
-      const imgURL = await this.fileUpload(this.selectedFile);
-      this.product.imageURL = imgURL;
-      this.productService.addProduct(product);
-
-      console.log(`PRODUCT: `, this.product);
-      this.alert.call("success", "Success", "The post has been created.");
-      this.location.back(); // TODO should fire on successful DB response
-    } else {
+  async onSubmit() {
+    if (this.form.invalid) {
       this.alert.call("warn", "Warn", "Fields cannot be empty.");
+      return; // prevent submission
     }
-  }
+    const formData = this.form.getRawValue();
+    const imageURL = await this.fileUpload(this.selectedFile);
 
-  validateForm(product: Product) {
-    let isFormValid = true;
+    const newProduct = {
+      ...formData,
+      imageURL,
+      id: 999,
+      inStock: true,
+      createdAt: new Date(),
+    };
 
-    Object.entries(product).forEach(([key, val]) => {
-      if (!val) {
-        this.isValid[key] = false;
-        isFormValid = false;
-      }
-    });
-    return isFormValid;
+    this.productService.addProduct(newProduct);
+
+    console.log(`PRODUCT: `, newProduct);
+    this.alert.call("success", "Success", "The post has been created.");
+    this.location.back(); // TODO should fire on successful DB response
   }
 
   async fileUpload(file): Promise<string> {

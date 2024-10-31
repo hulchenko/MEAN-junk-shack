@@ -15,7 +15,7 @@ export class RegisterComponent implements OnInit {
   router = inject(Router);
 
   form = this.fb.nonNullable.group({
-    email: ["", Validators.required],
+    email: ["", Validators.required, Validators.email],
     password: ["", Validators.required],
   });
   formError: string | null = null;
@@ -27,6 +27,9 @@ export class RegisterComponent implements OnInit {
   }
 
   onSubmit() {
+    if (this.form.invalid) {
+      return; // prevent submission
+    }
     const { email, password } = this.form.getRawValue();
     this.auth.userRegister(email, password).subscribe({
       next: () =>

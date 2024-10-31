@@ -1,7 +1,7 @@
 <div class="grid grid-cols-7 gap-4 w-full">
   <div class="flex flex-col justify-between p-4">
     <h2 class="font-light">Got old junk to sell?</h2>
-    <button class="self-end bg-emerald-600" routerLink="new">Post it</button>
+    <button class="self-end bg-emerald-600" routerLink="/new">Post it</button>
   </div>
   <div *ngFor="let product of products" class="flex flex-col justify-between p-4 border rounded text-left">
     <h3 class="py-1 font-light">{{ product.name }}</h3>

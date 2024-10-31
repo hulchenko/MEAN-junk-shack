@@ -1,7 +1,7 @@
 <div class="w-full flex flex-col items-center mt-4">
   <h1>Checkout</h1>
 
-  <form [formGroup]="checkoutForm" (ngSubmit)="onSubmit()" class="flex flex-col w-1/4 border rounded mt-4 child:py-2 p-4">
+  <form (ngSubmit)="onSubmit()" [formGroup]="form" class="flex flex-col w-1/4 border rounded mt-4 child:py-2 p-4">
     <label for="name">Name</label>
     <input class="pl-4" placeholder="John Doe" type="name" name="name" formControlName="name" pInputText />
     <label for="name">Email</label>

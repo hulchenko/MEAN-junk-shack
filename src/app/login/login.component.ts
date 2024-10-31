@@ -17,7 +17,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   logInSub: Subscription;
 
   form = this.fb.nonNullable.group({
-    email: ["", Validators.required],
+    email: ["", Validators.required, Validators.email],
     password: ["", Validators.required],
   });
   formError: string | null = null;
@@ -33,6 +33,9 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   onSubmit() {
+    if (this.form.invalid) {
+      return; // prevent submission
+    }
     const { email, password } = this.form.getRawValue();
     this.logInSub = this.auth.userLogIn(email, password).subscribe({
       next: () =>
