@@ -1,12 +1,25 @@
-<h2>Product Details</h2>
+<div class="w-full flex flex-col items-center mt-4">
+  <h1 class="mb-8">Product Details</h1>
 
-<div *ngIf="product">
-  <h3 [title]="product.name">{{ product.name }}</h3>
-  <h4 [title]="product.price">Price: {{ product.price | currency }}</h4>
+  @if (product$ | async; as product) {
+  <h2 [title]="product.name">{{ product.name }}</h2>
+  <img [src]="product.imageURL ? product.imageURL : 'assets/img/no_image_placeholder.png'" alt="product image" />
+  <h3 [title]="product.price">Price: {{ product.price | currency }}</h3>
   <p [title]="product.description">Description: {{ product.description }}</p>
   <p [title]="product.specs">Specs: {{ product.specs }}</p>
+  <p [title]="product.inStock">Availability: {{ product.inStock ? "Available" : "Sold" }}</p>
+  <p [title]="product.createdAt">Created: {{ product.createdAt | date }}</p>
 
-  <button (click)="addToCart(product)" *ngIf="product.inStock">Add To Cart</button>
-  <button (click)="share()"><fa-icon [icon]="faShareNodes">Share</fa-icon></button>
-  <button *ngIf="product && !product.inStock" (click)="notify()"><fa-icon [icon]="faBell">Notify</fa-icon></button>
+  <div class="flex justify-end mt-2">
+    @if(!product.inStock){
+    <button (click)="notify()"><fa-icon [icon]="faBell">Notify</fa-icon></button>
+    } @else if (product.inStock) {
+    <button (click)="addToCart(product)">Add To Cart</button>
+    }
+    <button (click)="share()"><fa-icon [icon]="faShareNodes">Share</fa-icon></button>
+  </div>
+  } @else {
+  <p class="text-lg mt-96">Product not found.</p>
+  <button (click)="location.back()">Back</button>
+  }
 </div>

@@ -1,6 +1,6 @@
-import { Component, OnInit, OnDestroy } from "@angular/core";
+import { Component, OnInit, OnDestroy, inject } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
-import { Subscription } from "rxjs";
+import { BehaviorSubject, Subscription } from "rxjs";
 import { faBell, faShareNodes } from "@fortawesome/free-solid-svg-icons";
 
 // Interfaces
@@ -10,6 +10,7 @@ import { Product } from "../common/interfaces/product.interface";
 import { CartService } from "./../services/cart.service";
 import { ProductService } from "../services/product.service";
 import { AlertService } from "../services/alert.service";
+import { Location } from "@angular/common";
 
 @Component({
   selector: "app-product-details",
@@ -17,16 +18,21 @@ import { AlertService } from "../services/alert.service";
   styleUrls: ["./product-details.component.css"],
 })
 export class ProductDetailsComponent implements OnInit, OnDestroy {
+  route = inject(ActivatedRoute);
+  cart = inject(CartService);
+  productService = inject(ProductService);
+  alert = inject(AlertService);
+  location = inject(Location);
+
   faBell = faBell;
   faShareNodes = faShareNodes;
 
   productSub: Subscription;
   product: Product = null;
-
-  constructor(private route: ActivatedRoute, private cartService: CartService, private productService: ProductService, private alert: AlertService) {}
+  product$ = new BehaviorSubject<Product | null>(null);
 
   addToCart(product: Product) {
-    const response = this.cartService.addToCart(product);
+    const response = this.cart.addToCart(product);
     if (response.ok) {
       this.alert.call("info", "Info", "Item has been added to cart.");
     } else {
@@ -45,7 +51,10 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
   getProductById() {
     const routeParams = this.route.snapshot.paramMap;
     const productIdFromRoute = Number(routeParams.get("productId")); // productId comes from router module
-    this.productSub = this.productService.getProductById(productIdFromRoute).subscribe((data) => (this.product = data));
+    this.productSub = this.productService.getProductById(productIdFromRoute).subscribe((product) => {
+      console.log(`PRODUCT: `, product);
+      this.product$.next(product);
+    });
   }
 
   share() {

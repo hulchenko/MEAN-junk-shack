@@ -11,9 +11,9 @@ export class AuthService {
   auth = inject(AngularFireAuth);
   router = inject(Router);
 
-  private userInitialized$: BehaviorSubject<boolean> = new BehaviorSubject(false);
+  private userInitialized$ = new BehaviorSubject(false);
   userSig = signal<User | null | undefined>(undefined); // init as undefined to ensure proper initialization
-  user$: BehaviorSubject<User | null | undefined> = new BehaviorSubject(undefined);
+  user$ = new BehaviorSubject(undefined);
 
   constructor() {
     // globally initialize and monitor user
@@ -52,6 +52,6 @@ export class AuthService {
   }
 
   get isUserInitialized() {
-    return this.userInitialized$.getValue();
+    return this.userInitialized$.value;
   }
 }

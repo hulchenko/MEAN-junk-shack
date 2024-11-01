@@ -7,7 +7,7 @@ import { BehaviorSubject, Observable } from "rxjs";
   providedIn: "root",
 })
 export class CartService {
-  private cart: BehaviorSubject<Product[]> = new BehaviorSubject([]);
+  private cart = new BehaviorSubject([]);
   public cart$ = this.cart.asObservable();
 
   constructor(private restApi: RestApiService) {
