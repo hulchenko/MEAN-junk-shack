@@ -4,9 +4,11 @@
 
   <p-accordion [activeIndex]="0">
     <p-accordionTab header="Rates">
-      <div *ngFor="let shipping of shippingCosts | async">
+      @for (shipping of shippingCosts | async; track $index) {
+      <div>
         <span>{{ shipping.type }}: {{ shipping.price | currency }}</span>
       </div>
+      }
     </p-accordionTab>
     <p-accordionTab header="Common Shipping Issues">
       <ul class="ml-4 list-disc">

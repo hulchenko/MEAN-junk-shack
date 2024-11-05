@@ -3,16 +3,20 @@
     <h2 class="font-light">Got old junk to sell?</h2>
     <button class="self-end bg-emerald-600" routerLink="/new">Post it</button>
   </div>
-  <div *ngFor="let product of products" class="flex flex-col justify-between p-4 border rounded text-left">
+
+  @for (product of products; track $index) {
+  <div class="flex flex-col justify-between p-4 border rounded text-left">
     <h3 class="py-1 font-light">{{ product.name }}</h3>
-    <p class="py-1" *ngIf="product.description">{{ product.description }}</p>
+    <p class="py-1">{{ product.description }}</p>
     <div class="py-1 flex justify-between">
-      <p *ngIf="product.description">{{ product.price | currency }}</p>
-      <p class="text-emerald-500" *ngIf="product.inStock; else outOfStock">Available</p>
-    </div>
-    <ng-template #outOfStock>
+      <p>{{ product.price | currency }}</p>
+      @if (product.inStock) {
+      <p class="text-emerald-500">Available</p>
+      } @else {
       <p class="text-red-400">Sold</p>
-    </ng-template>
+      }
+    </div>
     <button class="self-end" type="button" [title]="product.name + ' details'" [routerLink]="['/products', product.id]">Details</button>
   </div>
+  }
 </div>
