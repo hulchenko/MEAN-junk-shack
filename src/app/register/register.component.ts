@@ -1,7 +1,7 @@
 import { Component, inject, OnDestroy, OnInit } from "@angular/core";
 import { FormBuilder, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
-import { first, Subscription, timer } from "rxjs";
+import { Subscription } from "rxjs";
 import { AuthService } from "../services/auth.service";
 
 @Component({
@@ -29,7 +29,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.registerSub.unsubscribe();
+    this.registerSub?.unsubscribe();
   }
 
   onSubmit() {
@@ -38,10 +38,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
     }
     const { email, password } = this.form.getRawValue();
     this.registerSub = this.auth.userRegister(email, password).subscribe({
-      next: () =>
-        timer(200)
-          .pipe(first())
-          .subscribe(() => this.router.navigateByUrl("/")),
+      next: () => this.router.navigateByUrl("/"),
       error: (err) => (this.formError = err.code),
     });
   }

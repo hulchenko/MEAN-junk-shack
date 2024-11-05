@@ -16,12 +16,12 @@ import { CheckoutComponent } from "./checkout/checkout.component";
 import { FooterComponent } from "./footer/footer.component";
 import { LoginComponent } from "./login/login.component";
 import { NewProductComponent } from "./new-product/new-product.component";
+import { PageNotFoundComponent } from "./page-not-found/page-not-found.component";
 import { ProductDetailsComponent } from "./product-details/product-details.component";
 import { ProductListComponent } from "./product-list/product-list.component";
 import { RegisterComponent } from "./register/register.component";
 import { ShippingComponent } from "./shipping/shipping.component";
 import { TopBarComponent } from "./top-bar/top-bar.component";
-import { PageNotFoundComponent } from "./page-not-found/page-not-found.component";
 
 // Primeng
 import { AccordionModule } from "primeng/accordion";
@@ -34,9 +34,9 @@ import { MessagesModule } from "primeng/messages";
 import { ToastModule } from "primeng/toast";
 
 // Firebase
-import { AngularFireModule } from "@angular/fire/compat";
-import { AngularFireAuthModule } from "@angular/fire/compat/auth";
-import { AngularFirestoreModule } from "@angular/fire/compat/firestore";
+import { initializeApp, provideFirebaseApp } from "@angular/fire/app";
+import { getAuth, provideAuth } from "@angular/fire/auth";
+import { getStorage, provideStorage } from "@angular/fire/storage";
 
 @NgModule({
   declarations: [
@@ -68,11 +68,6 @@ import { AngularFirestoreModule } from "@angular/fire/compat/firestore";
     FormsModule,
     AccordionModule,
 
-    // firebase
-    AngularFireModule.initializeApp(environment.firebase),
-    AngularFirestoreModule,
-    AngularFireAuthModule,
-
     //routes
     RouterModule.forRoot([
       { path: "register", component: RegisterComponent },
@@ -86,6 +81,14 @@ import { AngularFirestoreModule } from "@angular/fire/compat/firestore";
       { path: "**", component: PageNotFoundComponent },
     ]),
   ],
-  providers: [MessageService, provideHttpClient(withInterceptorsFromDi())],
+  providers: [
+    MessageService,
+    provideHttpClient(withInterceptorsFromDi()),
+
+    // firebase
+    provideFirebaseApp(() => initializeApp(environment.firebase)),
+    provideStorage(() => getStorage()),
+    provideAuth(() => getAuth()),
+  ],
 })
 export class AppModule {}

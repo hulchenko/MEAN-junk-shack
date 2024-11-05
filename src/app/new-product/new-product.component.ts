@@ -1,12 +1,15 @@
 import { Location } from "@angular/common";
-import { Component, inject, OnDestroy } from "@angular/core";
+import { Component, inject, OnDestroy, signal } from "@angular/core";
+import { FormBuilder, Validators } from "@angular/forms";
+import { from, Observable, Subscription, switchMap } from "rxjs";
+import { v4 as uuid } from "uuid";
+import { Product } from "../common/interfaces/product.interface";
 import { AlertService } from "../services/alert.service";
+import { AuthService } from "../services/auth.service";
 import { ProductService } from "../services/product.service";
 
-import { AngularFireStorage } from "@angular/fire/compat/storage";
-import { FormBuilder, Validators } from "@angular/forms";
-import { lastValueFrom, Subscription } from "rxjs";
-import { AuthService } from "../services/auth.service";
+// Firebase
+import { getDownloadURL, getStorage, ref, uploadBytes } from "@angular/fire/storage";
 
 @Component({
   selector: "app-new-product",
@@ -18,11 +21,11 @@ export class NewProductComponent implements OnDestroy {
   location = inject(Location);
   productService = inject(ProductService);
   alert = inject(AlertService);
-  storage = inject(AngularFireStorage);
   auth = inject(AuthService);
 
   private uploadSub: Subscription;
-  private urlSub: Subscription;
+
+  downloadURL = signal(null);
 
   form = this.fb.nonNullable.group({
     name: ["", Validators.required],
@@ -35,51 +38,51 @@ export class NewProductComponent implements OnDestroy {
 
   ngOnDestroy(): void {
     this.uploadSub?.unsubscribe();
-    this.urlSub?.unsubscribe();
   }
 
-  async onSubmit() {
+  onSubmit() {
     if (this.form.invalid) {
       this.alert.call("warn", "Warn", "Fields cannot be empty.");
       return; // prevent submission
     }
     const formData = this.form.getRawValue();
-    const imageURL = await this.fileUpload(this.selectedFile);
 
-    const newProduct = {
+    const newProduct: Product = {
       ...formData,
-      imageURL,
-      id: 999,
+      imageURL: this.downloadURL(),
+      id: uuid(),
       inStock: true,
       createdAt: new Date(),
-      createdBy: this.auth.user.email,
+      createdBy: this.auth.userSig().email,
     };
 
     this.productService.addProduct(newProduct);
 
     console.log(`PRODUCT: `, newProduct);
     this.alert.call("success", "Success", "The post has been created.");
+
     this.location.back(); // TODO should fire on successful DB response
   }
 
-  async fileUpload(file): Promise<string> {
-    let url = "";
+  fileUpload(file): Observable<string> {
     if (file) {
-      const filePath = `images/${file.name}`;
-      const fileRef = this.storage.ref(filePath);
-      const uploadTask = this.storage.upload(filePath, file);
+      const storage = getStorage();
+      const storageRef = ref(storage, `images/${file.name}`);
+      const uploadTask$ = from(uploadBytes(storageRef, file)); // convert promise into observable
 
-      await lastValueFrom(uploadTask.snapshotChanges()); // await for upload to complete
-
-      url = await lastValueFrom(fileRef.getDownloadURL()); // retrieve download URL
-      console.log(`UPLOADED: `, url);
+      return uploadTask$.pipe(switchMap((snapshot) => from(getDownloadURL(snapshot.ref)))); // retrieve URL
     }
-    return url;
   }
 
   onFileSelect(event) {
-    console.log(`FILE EVENT: `, event);
-    this.selectedFile = event.files[0];
-    console.log(`FILE: `, this.selectedFile);
+    const selectedFile = event.files[0];
+    this.uploadSub = this.fileUpload(selectedFile).subscribe({
+      next: (url) => this.downloadURL.set(url),
+      error: (err) => console.error("File upload error: ", err),
+    });
+  }
+
+  goBack() {
+    this.location.back();
   }
 }

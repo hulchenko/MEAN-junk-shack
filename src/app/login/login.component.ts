@@ -38,10 +38,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     }
     const { email, password } = this.form.getRawValue();
     this.logInSub = this.auth.userLogIn(email, password).subscribe({
-      next: () =>
-        timer(200)
-          .pipe(first())
-          .subscribe(() => this.router.navigateByUrl("/")),
+      next: () => this.router.navigateByUrl("/"),
       error: (err) => (this.formError = err.code),
     });
   }

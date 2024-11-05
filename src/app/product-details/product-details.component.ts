@@ -34,7 +34,7 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
   product: Product = null;
 
   ngOnDestroy(): void {
-    this.productSub.unsubscribe();
+    this.productSub?.unsubscribe();
   }
 
   ngOnInit(): void {
@@ -52,7 +52,7 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
   }
 
   get isCurrUserProduct(): boolean {
-    return this.product.createdBy === this.auth.user.email;
+    return this.product.createdBy === this.auth.userSig()?.email;
   }
 
   addToCart(product: Product): void {
