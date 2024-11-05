@@ -1,4 +1,4 @@
-import { Injectable } from "@angular/core";
+import { inject, Injectable } from "@angular/core";
 import { RestApiService } from "./rest-api.service";
 import { Product } from "../common/interfaces/product.interface";
 import { map, Observable } from "rxjs";
@@ -8,9 +8,11 @@ import { BehaviorSubject } from "rxjs";
   providedIn: "root",
 })
 export class ProductService {
+  restApi = inject(RestApiService);
+
   public products$ = new BehaviorSubject<Product[]>([]);
 
-  constructor(private restApi: RestApiService) {
+  constructor() {
     this.fetchProducts();
   }
 
@@ -30,6 +32,12 @@ export class ProductService {
   addProduct(product: Product) {
     const prevArray = this.products$.value;
     const newArray = [...prevArray, product];
+    this.products$.next(newArray);
+  }
+
+  removeProduct(id: number) {
+    const prevArray = this.products$.value;
+    const newArray = prevArray.filter((p) => p.id !== id);
     this.products$.next(newArray);
   }
 }

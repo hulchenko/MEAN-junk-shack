@@ -3,9 +3,9 @@
 
   <form (ngSubmit)="onSubmit()" [formGroup]="form" class="flex flex-col w-1/4 border rounded mt-4 child:py-2 p-4">
     <label for="email">Email</label>
-    <input class="pl-4" type="text" formControlName="email" />
+    <input class="pl-4" type="email" formControlName="email" email />
 
-    <label for="email">Password</label>
+    <label for="password">Password</label>
     <input class="pl-4" type="password" formControlName="password" />
 
     <button class="mt-8" type="submit">Log In</button>

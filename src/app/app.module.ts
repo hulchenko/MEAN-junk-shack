@@ -21,6 +21,7 @@ import { ProductListComponent } from "./product-list/product-list.component";
 import { RegisterComponent } from "./register/register.component";
 import { ShippingComponent } from "./shipping/shipping.component";
 import { TopBarComponent } from "./top-bar/top-bar.component";
+import { PageNotFoundComponent } from "./page-not-found/page-not-found.component";
 
 // Primeng
 import { AccordionModule } from "primeng/accordion";
@@ -36,7 +37,6 @@ import { ToastModule } from "primeng/toast";
 import { AngularFireModule } from "@angular/fire/compat";
 import { AngularFireAuthModule } from "@angular/fire/compat/auth";
 import { AngularFirestoreModule } from "@angular/fire/compat/firestore";
-import { PageNotFoundComponent } from "./page-not-found/page-not-found.component";
 
 @NgModule({
   declarations: [
@@ -77,7 +77,7 @@ import { PageNotFoundComponent } from "./page-not-found/page-not-found.component
     RouterModule.forRoot([
       { path: "register", component: RegisterComponent },
       { path: "login", component: LoginComponent },
-      { path: "products", component: ProductListComponent, canActivate: [AuthGuard] }, // homepage
+      { path: "", component: ProductListComponent, canActivate: [AuthGuard] }, // homepage
       { path: "products/:productId", component: ProductDetailsComponent, canActivate: [AuthGuard] },
       { path: "new", component: NewProductComponent, canActivate: [AuthGuard] },
       { path: "cart", component: CartComponent, canActivate: [AuthGuard] },

@@ -1,7 +1,7 @@
-import { Component, inject, OnInit } from "@angular/core";
+import { Component, inject, OnDestroy, OnInit } from "@angular/core";
 import { FormBuilder, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
-import { first, timer } from "rxjs";
+import { first, Subscription, timer } from "rxjs";
 import { AuthService } from "../services/auth.service";
 
 @Component({
@@ -9,21 +9,27 @@ import { AuthService } from "../services/auth.service";
   templateUrl: "./register.component.html",
   styleUrl: "./register.component.css",
 })
-export class RegisterComponent implements OnInit {
+export class RegisterComponent implements OnInit, OnDestroy {
   fb = inject(FormBuilder);
   auth = inject(AuthService);
   router = inject(Router);
 
+  registerSub: Subscription;
+
   form = this.fb.nonNullable.group({
-    email: ["", Validators.required, Validators.email],
+    email: ["", Validators.required],
     password: ["", Validators.required],
   });
   formError: string | null = null;
 
   ngOnInit(): void {
     if (this.auth.isUserInitialized) {
-      this.router.navigateByUrl("/products");
+      this.router.navigateByUrl("/");
     }
+  }
+
+  ngOnDestroy(): void {
+    this.registerSub.unsubscribe();
   }
 
   onSubmit() {
@@ -31,11 +37,11 @@ export class RegisterComponent implements OnInit {
       return; // prevent submission
     }
     const { email, password } = this.form.getRawValue();
-    this.auth.userRegister(email, password).subscribe({
+    this.registerSub = this.auth.userRegister(email, password).subscribe({
       next: () =>
         timer(200)
           .pipe(first())
-          .subscribe(() => this.router.navigateByUrl("/products")),
+          .subscribe(() => this.router.navigateByUrl("/")),
       error: (err) => (this.formError = err.code),
     });
   }

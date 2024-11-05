@@ -6,6 +6,7 @@ import { ProductService } from "../services/product.service";
 import { AngularFireStorage } from "@angular/fire/compat/storage";
 import { FormBuilder, Validators } from "@angular/forms";
 import { lastValueFrom, Subscription } from "rxjs";
+import { AuthService } from "../services/auth.service";
 
 @Component({
   selector: "app-new-product",
@@ -18,6 +19,7 @@ export class NewProductComponent implements OnDestroy {
   productService = inject(ProductService);
   alert = inject(AlertService);
   storage = inject(AngularFireStorage);
+  auth = inject(AuthService);
 
   private uploadSub: Subscription;
   private urlSub: Subscription;
@@ -50,6 +52,7 @@ export class NewProductComponent implements OnDestroy {
       id: 999,
       inStock: true,
       createdAt: new Date(),
+      createdBy: this.auth.user.email,
     };
 
     this.productService.addProduct(newProduct);

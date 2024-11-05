@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from "@angular/core";
+import { Component, OnInit, OnDestroy, inject } from "@angular/core";
 import { Product } from "../common/interfaces/product.interface";
 import { ProductService } from "../services/product.service";
 import { Subscription } from "rxjs";
@@ -9,11 +9,10 @@ import { Subscription } from "rxjs";
   styleUrls: ["./product-list.component.css"],
 })
 export class ProductListComponent implements OnInit, OnDestroy {
+  productService = inject(ProductService);
   private productSub: Subscription;
 
   products: Product[] = [];
-
-  constructor(private productService: ProductService) {}
 
   ngOnDestroy(): void {
     this.productSub.unsubscribe();

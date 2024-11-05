@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { Component, inject } from "@angular/core";
 import { CartService } from "../services/cart.service";
 import { Location } from "@angular/common";
 
@@ -8,9 +8,10 @@ import { Location } from "@angular/common";
   styleUrls: ["./shipping.component.css"],
 })
 export class ShippingComponent {
-  shippingCosts = this.cartService.getShippingPrices();
+  cartService = inject(CartService);
+  location = inject(Location);
 
-  constructor(private cartService: CartService, public location: Location) {}
+  shippingCosts = this.cartService.getShippingPrices();
 
   goBack() {
     this.location.back();

@@ -1,4 +1,4 @@
-import { Injectable } from "@angular/core";
+import { inject, Injectable } from "@angular/core";
 import { MessageService } from "primeng/api";
 import { Alert } from "../common/interfaces/alert.interface";
 
@@ -6,7 +6,7 @@ import { Alert } from "../common/interfaces/alert.interface";
   providedIn: "root",
 })
 export class AlertService {
-  constructor(private message: MessageService) {}
+  message = inject(MessageService);
 
   call(severity: string, summary: string, detail: string): void {
     this.message.add({ severity, summary, detail });

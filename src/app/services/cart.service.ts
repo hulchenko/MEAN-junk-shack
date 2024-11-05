@@ -1,4 +1,4 @@
-import { Injectable } from "@angular/core";
+import { inject, Injectable } from "@angular/core";
 import { Product } from "./../common/interfaces/product.interface";
 import { RestApiService } from "./rest-api.service";
 import { BehaviorSubject, Observable } from "rxjs";
@@ -7,10 +7,12 @@ import { BehaviorSubject, Observable } from "rxjs";
   providedIn: "root",
 })
 export class CartService {
+  restApi = inject(RestApiService);
+
   private cart = new BehaviorSubject([]);
   public cart$ = this.cart.asObservable();
 
-  constructor(private restApi: RestApiService) {
+  constructor() {
     const initCart = this.getLocalCart();
     this.cart.next(initCart);
   }

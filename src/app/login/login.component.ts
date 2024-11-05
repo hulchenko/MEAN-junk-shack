@@ -17,14 +17,14 @@ export class LoginComponent implements OnInit, OnDestroy {
   logInSub: Subscription;
 
   form = this.fb.nonNullable.group({
-    email: ["", Validators.required, Validators.email],
+    email: ["", Validators.required],
     password: ["", Validators.required],
   });
   formError: string | null = null;
 
   ngOnInit(): void {
     if (this.auth.isUserInitialized) {
-      this.router.navigateByUrl("/products");
+      this.router.navigateByUrl("/");
     }
   }
 
@@ -41,7 +41,7 @@ export class LoginComponent implements OnInit, OnDestroy {
       next: () =>
         timer(200)
           .pipe(first())
-          .subscribe(() => this.router.navigateByUrl("/products")),
+          .subscribe(() => this.router.navigateByUrl("/")),
       error: (err) => (this.formError = err.code),
     });
   }
