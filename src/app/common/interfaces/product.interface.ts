@@ -7,4 +7,5 @@ export interface Product {
   specs: string;
   inStock: boolean;
   createdAt: Date;
+  createdBy: string;
 }
