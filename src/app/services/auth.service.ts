@@ -3,6 +3,7 @@ import { AngularFireAuth } from "@angular/fire/compat/auth";
 import { Router } from "@angular/router";
 import { BehaviorSubject, from, Observable, tap } from "rxjs";
 import { User } from "../common/interfaces/user.interface";
+import { CartService } from "./cart.service";
 
 @Injectable({
   providedIn: "root",
@@ -10,6 +11,7 @@ import { User } from "../common/interfaces/user.interface";
 export class AuthService {
   auth = inject(AngularFireAuth);
   router = inject(Router);
+  cart = inject(CartService);
 
   private userInitialized$ = new BehaviorSubject(false);
   userSig = signal<User | null | undefined>(undefined); // init as undefined to ensure proper initialization
@@ -34,6 +36,7 @@ export class AuthService {
   }
 
   userRegister(email: string, password: string): Observable<void> {
+    // transform firebase promises into observables
     const promise = this.auth.createUserWithEmailAndPassword(email, password).then(() => {});
     return from(promise);
   }
@@ -45,6 +48,7 @@ export class AuthService {
 
   userLogout(): Observable<void> {
     const promise = this.auth.signOut();
+    this.cart.clearCart();
     this.userSig.set(null);
     this.userInitialized$.next(false);
     this.router.navigateByUrl("/login");
@@ -53,5 +57,9 @@ export class AuthService {
 
   get isUserInitialized() {
     return this.userInitialized$.value;
+  }
+
+  get user() {
+    return this.user$.value;
   }
 }
