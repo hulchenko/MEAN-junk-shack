@@ -1,6 +1,6 @@
 [
   {
-    "id": 1,
+    "id": "1",
     "name": "iPhone 15 Pro Max",
     "price": 129.9,
     "description": "Latest Apple flagship with A17 Bionic chip.",
@@ -8,7 +8,7 @@
     "specs": "6.7-inch display, 5G support, 128GB storage"
   },
   {
-    "id": 2,
+    "id": "2",
     "name": "Samsung Galaxy S24 Ultra",
     "price": 119.9,
     "description": "High-end Android smartphone with quad-camera.",
@@ -16,7 +16,7 @@
     "specs": "6.8-inch AMOLED, 200MP camera, 12GB RAM"
   },
   {
-    "id": 3,
+    "id": "3",
     "name": "PlayStation 5",
     "price": 49.9,
     "description": "Gaming console with stunning graphics.",
@@ -24,7 +24,7 @@
     "specs": "825GB SSD, 4K HDR, DualSense controller"
   },
   {
-    "id": 4,
+    "id": "4",
     "name": "Xbox Series X",
     "price": 49.9,
     "description": "Console with exclusive titles and great ecosystem.",
@@ -32,7 +32,7 @@
     "specs": "1TB SSD, 4K gaming, 12TF GPU"
   },
   {
-    "id": 5,
+    "id": "5",
     "name": "Nintendo Switch",
     "price": 29.9,
     "description": "Versatile gaming console for TV and handheld.",
@@ -40,7 +40,7 @@
     "specs": "32GB storage, 6.2-inch display, Joy-Con controllers"
   },
   {
-    "id": 6,
+    "id": "6",
     "name": "Apple MacBook Pro",
     "price": 129.9,
     "description": "High-performance laptop with Retina display.",
@@ -48,7 +48,7 @@
     "specs": "M2 chip, 13-inch Retina, 256GB SSD"
   },
   {
-    "id": 7,
+    "id": "7",
     "name": "Dell XPS 13",
     "price": 99.9,
     "description": "Windows laptop with sleek design and battery life.",
@@ -56,7 +56,7 @@
     "specs": "13.4-inch FHD, 11th Gen i7, 512GB SSD"
   },
   {
-    "id": 8,
+    "id": "8",
     "name": "iPad Pro",
     "price": 79.9,
     "description": "Powerful tablet with large, high-res display.",
@@ -64,7 +64,7 @@
     "specs": "12.9-inch Liquid Retina, M1 chip, 128GB"
   },
   {
-    "id": 9,
+    "id": "9",
     "name": "Samsung Galaxy Tab S9",
     "price": 64.9,
     "description": "Android tablet with a stunning display.",
@@ -72,7 +72,7 @@
     "specs": "11-inch AMOLED, 120Hz, 256GB"
   },
   {
-    "id": 10,
+    "id": "10",
     "name": "Amazon Kindle Oasis",
     "price": 24.9,
     "description": "Premium e-reader with waterproof design.",
@@ -80,7 +80,7 @@
     "specs": "7-inch E Ink, adjustable warm light, 32GB"
   },
   {
-    "id": 11,
+    "id": "11",
     "name": "Sony WH-1000XM5",
     "price": 39.9,
     "description": "Noise-canceling headphones with great sound.",
@@ -88,7 +88,7 @@
     "specs": "Over-ear, 30-hour battery, touch controls"
   },
   {
-    "id": 12,
+    "id": "12",
     "name": "Apple AirPods Pro",
     "price": 24.9,
     "description": "Wireless earbuds with noise cancellation.",
@@ -96,7 +96,7 @@
     "specs": "Active noise canceling, spatial audio, H1 chip"
   },
   {
-    "id": 13,
+    "id": "13",
     "name": "Bose QuietComfort Earbuds",
     "price": 29.9,
     "description": "Noise-canceling earbuds with great sound quality.",
@@ -104,7 +104,7 @@
     "specs": "ANC, up to 6 hours, IPX4"
   },
   {
-    "id": 14,
+    "id": "14",
     "name": "Instant Pot Duo Crisp",
     "price": 14.9,
     "description": "Versatile appliance for air frying and more.",
@@ -112,7 +112,7 @@
     "specs": "8-quart, 11-in-1 functions, stainless steel"
   },
   {
-    "id": 15,
+    "id": "15",
     "name": "Ninja Foodi Grill",
     "price": 19.9,
     "description": "Multi-cooker for grilling and air frying.",
@@ -120,7 +120,7 @@
     "specs": "5-in-1, 10-quart, digital control"
   },
   {
-    "id": 16,
+    "id": "16",
     "name": "Dyson V15 Vacuum",
     "price": 69.9,
     "description": "Cordless vacuum with laser dirt detection.",
@@ -128,7 +128,7 @@
     "specs": "Cordless, HEPA filter, 60 min runtime"
   },
   {
-    "id": 17,
+    "id": "17",
     "name": "Shark Navigator Vacuum",
     "price": 24.9,
     "description": "Affordable vacuum with detachable canister.",
@@ -136,7 +136,7 @@
     "specs": "Bagless, anti-allergen, 2-speed brush roll"
   },
   {
-    "id": 18,
+    "id": "18",
     "name": "Instant Pot Smart WiFi",
     "price": 14.9,
     "description": "Smart pressure cooker controllable via phone.",
@@ -144,7 +144,7 @@
     "specs": "6-quart, 13 programs, app control"
   },
   {
-    "id": 19,
+    "id": "19",
     "name": "Echo Dot (5th Gen)",
     "price": 3.9,
     "description": "Smart speaker with Alexa assistant.",
@@ -152,7 +152,7 @@
     "specs": "Wi-Fi, Bluetooth, Alexa voice control"
   },
   {
-    "id": 20,
+    "id": "20",
     "name": "Google Nest Mini",
     "price": 2.9,
     "description": "Smart speaker with Google Assistant.",
@@ -160,7 +160,7 @@
     "specs": "Compact design, Google Assistant, Wi-Fi"
   },
   {
-    "id": 21,
+    "id": "21",
     "name": "Sony Alpha A7 IV",
     "price": 249.9,
     "description": "Full-frame mirrorless camera with 4K video.",
@@ -168,7 +168,7 @@
     "specs": "33MP, 4K 60fps, 5-axis stabilization"
   },
   {
-    "id": 22,
+    "id": "22",
     "name": "Canon EOS R6",
     "price": 279.9,
     "description": "Professional mirrorless camera with 20MP sensor.",
@@ -176,7 +176,7 @@
     "specs": "20MP, 4K 60fps, Dual Pixel AF"
   },
   {
-    "id": 23,
+    "id": "23",
     "name": "GoPro HERO 11",
     "price": 49.9,
     "description": "Waterproof action camera with stabilization.",
@@ -184,7 +184,7 @@
     "specs": "5.3K60, HyperSmooth 5.0, waterproof to 33ft"
   },
   {
-    "id": 24,
+    "id": "24",
     "name": "Fitbit Charge 5",
     "price": 14.9,
     "description": "Advanced fitness tracker with heart rate monitor.",
@@ -192,7 +192,7 @@
     "specs": "ECG, GPS, 7-day battery"
   },
   {
-    "id": 25,
+    "id": "25",
     "name": "Apple Watch Series 8",
     "price": 39.9,
     "description": "Smartwatch with health tracking and GPS.",
@@ -200,7 +200,7 @@
     "specs": "ECG, GPS, water-resistant"
   },
   {
-    "id": 26,
+    "id": "26",
     "name": "Samsung Galaxy Watch5",
     "price": 27.9,
     "description": "Android-compatible smartwatch with fitness features.",
@@ -208,7 +208,7 @@
     "specs": "1.4-inch, heart rate, GPS"
   },
   {
-    "id": 27,
+    "id": "27",
     "name": "LG OLED C2 55\"",
     "price": 139.9,
     "description": "4K OLED TV with vivid colors and deep blacks.",
@@ -216,7 +216,7 @@
     "specs": "55-inch, HDR10, Dolby Vision"
   },
   {
-    "id": 28,
+    "id": "28",
     "name": "Samsung QN90B Neo QLED",
     "price": 159.9,
     "description": "High-end 4K QLED TV with mini-LED technology.",
@@ -224,7 +224,7 @@
     "specs": "4K, Quantum HDR, 120Hz"
   },
   {
-    "id": 29,
+    "id": "29",
     "name": "Roku Streaming Stick 4K",
     "price": 4.9,
     "description": "Compact 4K streaming device with HDR support.",
@@ -232,7 +232,7 @@
     "specs": "4K, HDR, voice remote"
   },
   {
-    "id": 30,
+    "id": "30",
     "name": "Amazon Fire TV Stick 4K",
     "price": 4.9,
     "description": "4K streaming device with Alexa integration.",
@@ -240,7 +240,7 @@
     "specs": "4K, Dolby Atmos, Alexa remote"
   },
   {
-    "id": 31,
+    "id": "31",
     "name": "NVIDIA Shield TV",
     "price": 14.9,
     "description": "Streaming device with gaming capabilities.",
@@ -248,7 +248,7 @@
     "specs": "4K HDR, 8GB storage, AI upscaling"
   },
   {
-    "id": 32,
+    "id": "32",
     "name": "Apple TV 4K",
     "price": 17.9,
     "description": "Streaming device with Siri remote and Dolby Vision.",

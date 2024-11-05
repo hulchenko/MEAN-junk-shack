@@ -8,7 +8,7 @@ import { catchError, map, Observable, of } from "rxjs";
 export class RestApiService {
   http = inject(HttpClient);
 
-  public fetchData(url: string): Observable<any> {
+  fetchData(url: string): Observable<any> {
     return this.http.get(url).pipe(
       catchError((err) => {
         console.error(err);

@@ -1,4 +1,4 @@
-import { inject, Injectable } from "@angular/core";
+import { inject, Injectable, signal } from "@angular/core";
 import { Product } from "./../common/interfaces/product.interface";
 import { RestApiService } from "./rest-api.service";
 import { BehaviorSubject, Observable } from "rxjs";
@@ -10,7 +10,7 @@ export class CartService {
   restApi = inject(RestApiService);
 
   private cart = new BehaviorSubject([]);
-  public cart$ = this.cart.asObservable();
+  cart$ = this.cart.asObservable();
 
   constructor() {
     const initCart = this.getLocalCart();
@@ -33,7 +33,7 @@ export class CartService {
     return this.cart$;
   }
 
-  purgeCartItem(idx: number) {
+  purgeCartItem(idx: string) {
     const currCart = this.getLocalCart();
     const updatedCart = currCart.filter((item: Product) => item.id !== idx);
     this.cart.next(updatedCart);

@@ -10,13 +10,13 @@ import { BehaviorSubject } from "rxjs";
 export class ProductService {
   restApi = inject(RestApiService);
 
-  public products$ = new BehaviorSubject<Product[]>([]);
+  products$ = new BehaviorSubject<Product[]>([]);
 
   constructor() {
     this.fetchProducts();
   }
 
-  fetchProducts(): void {
+  private fetchProducts(): void {
     const path = "./../../assets/products.json";
     this.restApi.fetchData(path).subscribe((data) => this.products$.next(data));
   }
@@ -25,7 +25,7 @@ export class ProductService {
     return this.products$;
   }
 
-  getProductById(id: number): Observable<Product> {
+  getProductById(id: string): Observable<Product> {
     return this.products$.pipe(map((products) => products.find((product: Product) => product.id === id)));
   }
 
@@ -35,7 +35,7 @@ export class ProductService {
     this.products$.next(newArray);
   }
 
-  removeProduct(id: number) {
+  removeProduct(id: string) {
     const prevArray = this.products$.value;
     const newArray = prevArray.filter((p) => p.id !== id);
     this.products$.next(newArray);

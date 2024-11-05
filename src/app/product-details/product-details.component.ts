@@ -51,7 +51,7 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
     this.alert.call("success", "Success", "You will be notified when the product is back in stock.");
   }
 
-  get isMyProduct(): boolean {
+  get isCurrUserProduct(): boolean {
     return this.product.createdBy === this.auth.user.email;
   }
 
@@ -66,7 +66,7 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
 
   getProductById(): void {
     const routeParams = this.route.snapshot.paramMap;
-    const productIdFromRoute = Number(routeParams.get("productId")); // productId comes from router module
+    const productIdFromRoute = routeParams.get("productId"); // productId comes from router module
     this.productSub = this.productService.getProductById(productIdFromRoute).subscribe((product) => {
       console.log(`PRODUCT: `, product);
       this.product = product;
@@ -75,7 +75,7 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
 
   deleteProduct(): void {
     const routeParams = this.route.snapshot.paramMap;
-    const productIdFromRoute = Number(routeParams.get("productId"));
+    const productIdFromRoute = routeParams.get("productId");
     this.productService.removeProduct(productIdFromRoute);
     this.router.navigateByUrl("/");
     this.alert.call("info", "Info", "Product has been removed.");
