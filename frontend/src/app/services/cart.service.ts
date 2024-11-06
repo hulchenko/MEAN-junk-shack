@@ -1,5 +1,5 @@
 import { inject, Injectable, signal } from "@angular/core";
-import { Product } from "./../common/interfaces/product.interface";
+import { Product } from "../common/interfaces/product.interface";
 import { RestApiService } from "./rest-api.service";
 import { BehaviorSubject, Observable } from "rxjs";
 

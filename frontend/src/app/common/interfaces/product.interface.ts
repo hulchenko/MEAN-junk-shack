@@ -1,6 +1,5 @@
 export interface Product {
-  id?: string;
-  imageURL?: string;
+  id: string;
   name: string;
   price: number;
   description: string;
@@ -8,4 +7,5 @@ export interface Product {
   inStock: boolean;
   createdAt: Date;
   createdBy: string;
+  imageURL?: string;
 }
