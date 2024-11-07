@@ -16,7 +16,7 @@ export class CartComponent {
   cartItems$: Observable<Product[]> = this.cartService.getCart();
 
   removeItem(item: Product) {
-    const idx = item.id;
+    const idx = item._id;
     this.cartService.purgeCartItem(idx);
   }
 }

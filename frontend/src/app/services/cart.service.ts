@@ -19,7 +19,7 @@ export class CartService {
 
   addToCart(product: Product) {
     const currCart = this.getLocalCart();
-    const inCart = currCart.find((item: Product) => item.id === product.id);
+    const inCart = currCart.find((item: Product) => item._id === product._id);
     if (!inCart) {
       const updatedCart = [...currCart, product];
       this.cart.next(updatedCart);
@@ -35,7 +35,7 @@ export class CartService {
 
   purgeCartItem(idx: string) {
     const currCart = this.getLocalCart();
-    const updatedCart = currCart.filter((item: Product) => item.id !== idx);
+    const updatedCart = currCart.filter((item: Product) => item._id !== idx);
     this.cart.next(updatedCart);
     this.updateLocalCart();
   }

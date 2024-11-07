@@ -1,5 +1,5 @@
 export interface Product {
-  id: string;
+  _id?: string; // provided by DB
   name: string;
   price: number;
   description: string;
@@ -7,5 +7,5 @@ export interface Product {
   inStock: boolean;
   createdAt: Date;
   createdBy: string;
-  imageURL?: string;
+  imageURL?: string; // optional
 }
