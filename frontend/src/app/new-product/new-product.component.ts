@@ -2,7 +2,6 @@ import { Location } from "@angular/common";
 import { Component, inject, OnDestroy, signal } from "@angular/core";
 import { FormBuilder, Validators } from "@angular/forms";
 import { from, Observable, Subscription, switchMap } from "rxjs";
-import { v4 as uuid } from "uuid";
 import { Product } from "../common/interfaces/product.interface";
 import { AlertService } from "../services/alert.service";
 import { AuthService } from "../services/auth.service";
@@ -50,7 +49,6 @@ export class NewProductComponent implements OnDestroy {
     const newProduct: Product = {
       ...formData,
       imageURL: this.downloadURL(),
-      id: uuid(),
       inStock: true,
       createdAt: new Date(),
       createdBy: this.auth.userSig().email,
@@ -58,7 +56,6 @@ export class NewProductComponent implements OnDestroy {
 
     this.productService.addProduct(newProduct);
 
-    console.log(`PRODUCT: `, newProduct);
     this.alert.call("success", "Success", "The post has been created.");
 
     this.location.back(); // TODO should fire on successful DB response

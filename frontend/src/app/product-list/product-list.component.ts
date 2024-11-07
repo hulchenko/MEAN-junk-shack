@@ -10,7 +10,7 @@ import { Subscription } from "rxjs";
 })
 export class ProductListComponent implements OnInit, OnDestroy {
   productService = inject(ProductService);
-  private productSub: Subscription;
+  productSub: Subscription;
 
   products: Product[] = [];
 
@@ -19,8 +19,10 @@ export class ProductListComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.productSub = this.productService.getProducts().subscribe((data) => {
-      this.products = data;
-    });
+    if (this.products.length === 0) {
+      this.productSub = this.productService.getProducts().subscribe((data) => {
+        this.products = data;
+      });
+    }
   }
 }

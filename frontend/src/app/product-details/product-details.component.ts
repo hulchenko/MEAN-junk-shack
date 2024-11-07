@@ -38,7 +38,7 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.getProductById();
+    this.getProduct();
   }
 
   share(): void {
@@ -64,11 +64,10 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
     }
   }
 
-  getProductById(): void {
+  getProduct(): void {
     const routeParams = this.route.snapshot.paramMap;
     const productIdFromRoute = routeParams.get("productId"); // productId comes from router module
     this.productSub = this.productService.getProductById(productIdFromRoute).subscribe((product) => {
-      console.log(`PRODUCT: `, product);
       this.product = product;
     });
   }
@@ -76,8 +75,13 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
   deleteProduct(): void {
     const routeParams = this.route.snapshot.paramMap;
     const productIdFromRoute = routeParams.get("productId");
-    this.productService.removeProduct(productIdFromRoute);
-    this.router.navigateByUrl("/");
-    this.alert.call("info", "Info", "Product has been removed.");
+    this.productService.removeProduct(productIdFromRoute).subscribe((resp) => {
+      if (resp.ok) {
+        this.router.navigateByUrl("/");
+        this.alert.call("info", "Info", resp.message);
+      } else {
+        this.alert.call("error", "Error", resp.message);
+      }
+    });
   }
 }
