@@ -1,7 +1,7 @@
-import { Component, OnInit, OnDestroy, inject } from "@angular/core";
+import { Component, inject, OnDestroy, OnInit } from "@angular/core";
+import { Subscription } from "rxjs";
 import { Product } from "../common/interfaces/product.interface";
 import { ProductService } from "../services/product.service";
-import { Subscription } from "rxjs";
 
 @Component({
   selector: "app-product-list",

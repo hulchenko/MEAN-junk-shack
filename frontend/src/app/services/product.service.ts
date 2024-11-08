@@ -30,20 +30,27 @@ export class ProductService {
           return of(product);
         } else {
           console.log("Product not found locally, pulling from DB");
-          return this.restApi.fetchDataById(`api/products/${id}`);
+          return this.restApi.fetchData(`api/products/${id}`);
         }
       })
     );
   }
 
-  addProduct(product: Product) {
-    const prevArray = this.products$.value;
-    const newArray = [...prevArray, product];
-    this.products$.next(newArray);
+  addProduct(product: Product): Observable<any> {
+    return this.restApi.addData(`api/products`, product).pipe(
+      tap((product) => {
+        if (product) {
+          // update local list
+          const prevArray = this.products$.value;
+          const newArray = [...prevArray, product];
+          this.products$.next(newArray);
+        }
+      })
+    );
   }
 
-  removeProduct(id: string) {
-    return this.restApi.purgeData(`api/products/${id}`).pipe(
+  removeProduct(id: string): Observable<any> {
+    return this.restApi.deleteData(`api/products/${id}`).pipe(
       tap((res) => {
         if (res.ok) {
           // update local list

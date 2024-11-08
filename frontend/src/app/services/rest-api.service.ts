@@ -10,7 +10,7 @@ export class RestApiService {
 
   fetchData(url: string): Observable<any> {
     return this.http.get(url).pipe(
-      tap((val) => console.log(`Products: `, val)),
+      tap((val) => console.log(`Product(s): `, val)),
       catchError((err) => {
         console.error("Error in fetchData", err);
         return of({ ok: false, message: "Failed to get products", error: err });
@@ -18,21 +18,21 @@ export class RestApiService {
     );
   }
 
-  fetchDataById(url: string): Observable<any> {
-    return this.http.get(url).pipe(
-      tap((val) => console.log(`Single product: `, val)),
+  deleteData(url: string): Observable<any> {
+    return this.http.delete(url).pipe(
+      tap((val) => console.log(`Delete product: `, val)),
       catchError((err) => {
-        console.error("Error in fetchDataById", err);
-        return of({ ok: false, message: "Failed to get product", error: err });
+        console.error("Error in deleteData", err);
+        return of({ ok: false, message: "Failed to delete product", error: err });
       })
     );
   }
 
-  purgeData(url: string): Observable<any> {
-    return this.http.delete(url).pipe(
-      tap((val) => console.log(`Delete product: `, val)),
+  addData(url: string, body: object): Observable<any> {
+    return this.http.post(url, body).pipe(
+      tap((val) => console.log(`Create product: `, val)),
       catchError((err) => {
-        console.error("Error in purgeData", err);
+        console.error("Error in addData", err);
         return of({ ok: false, message: "Failed to delete product", error: err });
       })
     );

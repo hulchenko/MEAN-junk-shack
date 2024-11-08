@@ -14,7 +14,11 @@ const getProductById = async (req, res) => {
   try {
     const id = req.params.id;
     const product = await Product.findById(id);
-    res.json(product);
+    if (product) {
+      res.json(product);
+    } else {
+      res.status(404).json({ message: "Product not found" });
+    }
   } catch (error) {
     console.error("Error getting product by id", error);
     res.status(500).json({ message: "Server error" });
@@ -37,4 +41,17 @@ const deleteProduct = async (req, res) => {
   }
 };
 
-export { getProducts, getProductById, deleteProduct };
+const createProduct = async (req, res) => {
+  try {
+    const product = new Product(req.body);
+    if (product) {
+      const savedProduct = await product.save();
+      res.json({ ok: true, message: "Product created", product: savedProduct });
+    }
+  } catch (error) {
+    console.error("Error adding product", error);
+    res.status(500).json({ message: "Server error" });
+  }
+};
+
+export { getProducts, getProductById, deleteProduct, createProduct };

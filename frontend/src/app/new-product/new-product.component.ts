@@ -6,6 +6,8 @@ import { Product } from "../common/interfaces/product.interface";
 import { AlertService } from "../services/alert.service";
 import { AuthService } from "../services/auth.service";
 import { ProductService } from "../services/product.service";
+import { Router } from "@angular/router";
+import { FileSelectEvent } from "primeng/fileupload";
 
 // Firebase
 import { getDownloadURL, getStorage, ref, uploadBytes } from "@angular/fire/storage";
@@ -21,6 +23,7 @@ export class NewProductComponent implements OnDestroy {
   productService = inject(ProductService);
   alert = inject(AlertService);
   auth = inject(AuthService);
+  router = inject(Router);
 
   private uploadSub: Subscription;
 
@@ -54,14 +57,18 @@ export class NewProductComponent implements OnDestroy {
       createdBy: this.auth.userSig().email,
     };
 
-    this.productService.addProduct(newProduct);
-
-    this.alert.call("success", "Success", "The post has been created.");
-
-    this.location.back(); // TODO should fire on successful DB response
+    this.productService.addProduct(newProduct).subscribe((res) => {
+      if (!res.ok) {
+        this.alert.call("error", "Error", res.message);
+      } else {
+        const newProductId = res.product._id;
+        this.alert.call("success", "Success", "The post has been created.");
+        this.router.navigateByUrl(`/products/${newProductId}`);
+      }
+    });
   }
 
-  fileUpload(file): Observable<string> {
+  fileUpload(file: File): Observable<string> {
     if (file) {
       const storage = getStorage();
       const storageRef = ref(storage, `images/${file.name}`);
@@ -71,7 +78,7 @@ export class NewProductComponent implements OnDestroy {
     }
   }
 
-  onFileSelect(event) {
+  onFileSelect(event: FileSelectEvent) {
     const selectedFile = event.files[0];
     this.uploadSub = this.fileUpload(selectedFile).subscribe({
       next: (url) => this.downloadURL.set(url),
