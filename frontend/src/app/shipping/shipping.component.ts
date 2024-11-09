@@ -1,6 +1,8 @@
-import { Component, inject } from "@angular/core";
-import { CartService } from "../services/cart.service";
 import { Location } from "@angular/common";
+import { Component, inject } from "@angular/core";
+import { map, Observable } from "rxjs";
+import { Shipping } from "../common/interfaces/shipping.interface";
+import { CartService } from "../services/cart.service";
 
 @Component({
   selector: "app-shipping",
@@ -11,7 +13,7 @@ export class ShippingComponent {
   cartService = inject(CartService);
   location = inject(Location);
 
-  shippingCosts = this.cartService.getShippingPrices();
+  shippingCosts$: Observable<Shipping[]> = this.cartService.getShippingPrices().pipe(map((res) => (res.ok ? res.shipping : null)));
 
   goBack() {
     this.location.back();

@@ -4,7 +4,7 @@
 
   <p-accordion [activeIndex]="0">
     <p-accordionTab header="Rates">
-      @for (shipping of shippingCosts | async; track $index) {
+      @for (shipping of shippingCosts$ | async; track $index) {
       <div>
         <span>{{ shipping.type }}: {{ shipping.price | currency }}</span>
       </div>

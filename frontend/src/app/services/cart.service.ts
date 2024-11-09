@@ -1,7 +1,7 @@
-import { inject, Injectable, signal } from "@angular/core";
+import { inject, Injectable } from "@angular/core";
+import { BehaviorSubject, Observable } from "rxjs";
 import { Product } from "../common/interfaces/product.interface";
 import { RestApiService } from "./rest-api.service";
-import { BehaviorSubject, Observable } from "rxjs";
 
 @Injectable({
   providedIn: "root",
@@ -46,8 +46,7 @@ export class CartService {
   }
 
   getShippingPrices() {
-    const path = "../../assets/shipping-rates.json";
-    return this.restApi.fetchData(path);
+    return this.restApi.fetchData("api/shipping");
   }
 
   private getLocalCart() {
