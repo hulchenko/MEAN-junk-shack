@@ -3,10 +3,10 @@ import Product from "../db/schema/productSchema.js";
 const getProducts = async (req, res) => {
   try {
     const products = await Product.find();
-    res.status(200).json(products);
+    res.status(200).json({ ok: true, products });
   } catch (error) {
     console.error("Error getting products", error);
-    res.status(500).json({ message: "Server error" });
+    res.status(500).json({ ok: false, message: "Server error" });
   }
 };
 
@@ -15,13 +15,13 @@ const getProductById = async (req, res) => {
     const id = req.params.id;
     const product = await Product.findById(id);
     if (product) {
-      res.json(product);
+      res.status(200).json({ ok: true, product });
     } else {
-      res.status(404).json({ message: "Product not found" });
+      res.status(404).json({ ok: false, message: "Product not found" });
     }
   } catch (error) {
     console.error("Error getting product by id", error);
-    res.status(500).json({ message: "Server error" });
+    res.status(500).json({ ok: false, message: "Server error" });
   }
 };
 
@@ -31,13 +31,13 @@ const deleteProduct = async (req, res) => {
     const product = await Product.findById(id);
     if (product) {
       await Product.deleteOne({ _id: id });
-      res.json({ ok: true, message: "Product deleted" });
+      res.status(200).json({ ok: true, message: "Product deleted" });
     } else {
-      res.status(404).json({ message: "Product not found" });
+      res.status(404).json({ ok: false, message: "Product not found" });
     }
   } catch (error) {
     console.error("Error deleting product", error);
-    res.status(500).json({ message: "Server error" });
+    res.status(500).json({ ok: false, message: "Server error" });
   }
 };
 
@@ -46,11 +46,11 @@ const createProduct = async (req, res) => {
     const product = new Product(req.body);
     if (product) {
       const savedProduct = await product.save();
-      res.json({ ok: true, message: "Product created", product: savedProduct });
+      res.status(200).json({ ok: true, message: "Product created", product: savedProduct });
     }
   } catch (error) {
     console.error("Error adding product", error);
-    res.status(500).json({ message: "Server error" });
+    res.status(500).json({ ok: false, message: "Server error" });
   }
 };
 

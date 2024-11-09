@@ -1,6 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { inject, Injectable } from "@angular/core";
 import { catchError, Observable, of, tap } from "rxjs";
+import { ServerResponse } from "../common/interfaces/server-response.interface";
 
 @Injectable({
   providedIn: "root",
@@ -8,32 +9,32 @@ import { catchError, Observable, of, tap } from "rxjs";
 export class RestApiService {
   http = inject(HttpClient);
 
-  fetchData(url: string): Observable<any> {
+  fetchData(url: string): Observable<ServerResponse> {
     return this.http.get(url).pipe(
-      tap((val) => console.log(`Product(s): `, val)),
+      tap((data) => console.log("Get data: ", data)),
       catchError((err) => {
         console.error("Error in fetchData", err);
-        return of({ ok: false, message: "Failed to get products", error: err });
+        return of(err);
       })
     );
   }
 
-  deleteData(url: string): Observable<any> {
+  deleteData(url: string): Observable<ServerResponse> {
     return this.http.delete(url).pipe(
-      tap((val) => console.log(`Delete product: `, val)),
+      tap((data) => console.log("Delete data: ", data)),
       catchError((err) => {
         console.error("Error in deleteData", err);
-        return of({ ok: false, message: "Failed to delete product", error: err });
+        return of(err);
       })
     );
   }
 
-  addData(url: string, body: object): Observable<any> {
+  addData(url: string, body: object): Observable<ServerResponse> {
     return this.http.post(url, body).pipe(
-      tap((val) => console.log(`Create product: `, val)),
+      tap((data) => console.log("Create data: ", data)),
       catchError((err) => {
         console.error("Error in addData", err);
-        return of({ ok: false, message: "Failed to delete product", error: err });
+        return of(err);
       })
     );
   }

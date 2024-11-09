@@ -14,9 +14,12 @@ export class ProductService {
 
   getProducts(): Observable<Product[]> {
     if (!this.productsLoaded) {
-      this.restApi.fetchData("api/products").subscribe((products) => {
-        this.products$.next(products);
-        this.productsLoaded = true;
+      this.restApi.fetchData("api/products").subscribe((res) => {
+        if (res.ok) {
+          const { products } = res;
+          this.products$.next(products);
+          this.productsLoaded = true;
+        }
       });
     }
     return this.products$;
@@ -30,7 +33,7 @@ export class ProductService {
           return of(product);
         } else {
           console.log("Product not found locally, pulling from DB");
-          return this.restApi.fetchData(`api/products/${id}`);
+          return this.restApi.fetchData(`api/products/${id}`).pipe(map((res) => res.product));
         }
       })
     );
