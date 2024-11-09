@@ -4,9 +4,11 @@
 
 @if(auth.userSig() && auth.userSig() !== null){
 <div class="child:px-2">
-  <a routerLink="cart"
+  <a routerLink="cart" routerLinkActive="link-active"
     ><fa-icon [icon]="faShoppingCart">Cart</fa-icon><span class="border rounded-full px-2 text-xs">{{ cartCount }}</span></a
   >
+  <a class="cursor-pointer" [routerLink]="['/posts']" routerLinkActive="link-active">My Posts</a>
+  <a class="cursor-pointer" [routerLink]="['/orders']" routerLinkActive="link-active">My Orders</a>
   <a class="cursor-pointer" (click)="auth.userLogout()">Logout</a>
 </div>
 }

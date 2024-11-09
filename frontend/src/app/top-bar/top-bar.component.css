@@ -1,0 +1,4 @@
+.link-active {
+  font-weight: bold;
+  @apply text-cyan-300;
+}
