@@ -2,7 +2,9 @@ import Product from "../db/schema/productSchema.js";
 
 const getProducts = async (req, res) => {
   try {
-    const products = await Product.find();
+    const { email } = req.query;
+    const filterParams = email ? { createdBy: email } : {};
+    const products = await Product.find({ ...filterParams });
     res.status(200).json({ ok: true, products });
   } catch (error) {
     console.error("Error getting products", error);

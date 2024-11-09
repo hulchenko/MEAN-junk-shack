@@ -37,6 +37,7 @@ import { ToastModule } from "primeng/toast";
 import { initializeApp, provideFirebaseApp } from "@angular/fire/app";
 import { getAuth, provideAuth } from "@angular/fire/auth";
 import { getStorage, provideStorage } from "@angular/fire/storage";
+import { PostListComponent } from "./post-list/post-list.component";
 
 @NgModule({
   declarations: [
@@ -52,6 +53,7 @@ import { getStorage, provideStorage } from "@angular/fire/storage";
     LoginComponent,
     RegisterComponent,
     PageNotFoundComponent,
+    PostListComponent,
   ],
   bootstrap: [AppComponent],
   imports: [
@@ -78,6 +80,7 @@ import { getStorage, provideStorage } from "@angular/fire/storage";
       { path: "cart", component: CartComponent, canActivate: [AuthGuard] },
       { path: "checkout", component: CheckoutComponent, canActivate: [AuthGuard] },
       { path: "shipping", component: ShippingComponent, canActivate: [AuthGuard] },
+      { path: "posts", component: PostListComponent, canActivate: [AuthGuard] },
       { path: "**", component: PageNotFoundComponent },
     ]),
   ],

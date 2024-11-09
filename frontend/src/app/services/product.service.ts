@@ -1,6 +1,7 @@
 import { inject, Injectable } from "@angular/core";
 import { BehaviorSubject, catchError, map, Observable, of, switchMap, tap } from "rxjs";
 import { Product } from "../common/interfaces/product.interface";
+import { AuthService } from "./auth.service";
 import { RestApiService } from "./rest-api.service";
 
 @Injectable({
@@ -8,21 +9,41 @@ import { RestApiService } from "./rest-api.service";
 })
 export class ProductService {
   restApi = inject(RestApiService);
+  auth = inject(AuthService);
 
   products$ = new BehaviorSubject<Product[]>([]);
-  productsLoaded = false;
+  myProducts$ = new BehaviorSubject<Product[]>([]);
+
+  productsLoaded = {
+    all: false,
+    user: false,
+  };
 
   getProducts(): Observable<Product[]> {
-    if (!this.productsLoaded) {
+    if (!this.productsLoaded.all) {
       this.restApi.fetchData("api/products").subscribe((res) => {
         if (res.ok) {
           const { products } = res;
           this.products$.next(products);
-          this.productsLoaded = true;
+          this.productsLoaded.all = true;
         }
       });
     }
     return this.products$;
+  }
+
+  getMyProducts(): Observable<Product[]> {
+    if (!this.productsLoaded.user) {
+      const userEmail = this.auth.userSig()?.email || "";
+      this.restApi.fetchData(`api/products?email=${userEmail}`).subscribe((res) => {
+        if (res.ok) {
+          const { products } = res;
+          this.myProducts$.next(products);
+          this.productsLoaded.user = true;
+        }
+      });
+    }
+    return this.myProducts$;
   }
 
   getProductById(id: string): Observable<Product> {
