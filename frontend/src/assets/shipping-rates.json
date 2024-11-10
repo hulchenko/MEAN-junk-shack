@@ -1,14 +1,17 @@
 [
   {
     "type": "Next day",
-    "price": 25.99
+    "price": 25.99,
+    "code": 1
   },
   {
     "type": "3-5 business days",
-    "price": 9.99
+    "price": 9.99,
+    "code": 2
   },
   {
     "type": "Up to 15 business days",
-    "price": 0
+    "price": 0,
+    "code": 3
   }
 ]

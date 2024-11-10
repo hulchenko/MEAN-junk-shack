@@ -1,5 +1,5 @@
-import { inject, Injectable } from "@angular/core";
-import { BehaviorSubject, Observable } from "rxjs";
+import { inject, Injectable, signal } from "@angular/core";
+import { BehaviorSubject, map, Observable, tap } from "rxjs";
 import { Product } from "../common/interfaces/product.interface";
 import { RestApiService } from "./rest-api.service";
 
@@ -9,12 +9,14 @@ import { RestApiService } from "./rest-api.service";
 export class CartService {
   restApi = inject(RestApiService);
 
-  private cart = new BehaviorSubject([]);
-  cart$ = this.cart.asObservable();
+  private cart: BehaviorSubject<Product[]> = new BehaviorSubject([]);
+  private cartTotal = signal(0);
+  cart$: Observable<Product[]> = this.cart.asObservable();
 
   constructor() {
     const initCart = this.getLocalCart();
     this.cart.next(initCart);
+    this.calculateCartTotal();
   }
 
   addToCart(product: Product) {
@@ -33,6 +35,19 @@ export class CartService {
     return this.cart$;
   }
 
+  getCartTotal(): number {
+    return this.cartTotal();
+  }
+
+  calculateCartTotal(): void {
+    this.cart$.subscribe((items) => {
+      const total = items.reduce((total, item) => {
+        return (total += item.price);
+      }, 0);
+      this.cartTotal.set(total);
+    });
+  }
+
   purgeCartItem(idx: string) {
     const currCart = this.getLocalCart();
     const updatedCart = currCart.filter((item: Product) => item._id !== idx);
@@ -40,7 +55,7 @@ export class CartService {
     this.updateLocalCart();
   }
 
-  clearCart() {
+  clearCart(): void {
     localStorage.removeItem("cart");
     this.cart.next([]);
   }
@@ -49,7 +64,7 @@ export class CartService {
     return this.restApi.fetchData("api/shipping");
   }
 
-  private getLocalCart() {
+  private getLocalCart(): Product[] {
     return JSON.parse(localStorage.getItem("cart")) || [];
   }
 

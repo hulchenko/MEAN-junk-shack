@@ -32,6 +32,7 @@ import { InputTextModule } from "primeng/inputtext";
 import { InputTextareaModule } from "primeng/inputtextarea";
 import { MessagesModule } from "primeng/messages";
 import { ToastModule } from "primeng/toast";
+import { DropdownModule } from "primeng/dropdown";
 
 // Firebase
 import { initializeApp, provideFirebaseApp } from "@angular/fire/app";
@@ -69,6 +70,7 @@ import { PostListComponent } from "./post-list/post-list.component";
     FileUploadModule,
     FormsModule,
     AccordionModule,
+    DropdownModule,
 
     //routes
     RouterModule.forRoot([

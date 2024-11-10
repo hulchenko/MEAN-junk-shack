@@ -3,7 +3,7 @@
   <p class="mb-12 text-sm italic">To avoid unexpected surprises, it may be wise to familiarize yourself with the list of potential logistical issues below.</p>
 
   <p-accordion [activeIndex]="0">
-    <p-accordionTab header="Rates">
+    <p-accordionTab header="Current Rates">
       @for (shipping of shippingCosts$ | async; track $index) {
       <div>
         <span>{{ shipping.type }}: {{ shipping.price | currency }}</span>
@@ -12,18 +12,17 @@
     </p-accordionTab>
     <p-accordionTab header="Common Shipping Issues">
       <ul class="ml-4 list-disc">
-        <li>Flat Tire (dispatchers' signature)</li>
-        <li>The Vanished Inventory</li>
-        <li>The Great Last-Mile Adventure</li>
-        <li>Lost Somewhere Between "Out for Delivery" and "Never to Be Seen"</li>
-        <li>Driver Got Hungry, Stopped for a 3-Hour Lunch</li>
-        <li>The Road-Trip Toll (Gas Prices, but Make It Dramatic)</li>
-        <li>Weather vs. Your Delivery: An Ongoing Feud</li>
-        <li>Courier GPS: Optional, Apparently</li>
-        <li>The Mysterious Case of "Address Not Found"</li>
-        <li>The Packaging Shortage Extravaganza</li>
-        <li>Delayed Customs—Your Package Is Making Friends Abroad</li>
-        <li>The Epic Tale of Forklift Breakdowns and Pallet Pileups</li>
+        <li>Flat tire (dispatchers' signature)</li>
+        <li>The vanished inventory</li>
+        <li>The great last-mile adventure</li>
+        <li>Lost somewhere between "Out for delivery" and "Never to be seen"</li>
+        <li>Driver got hungry, stopped for a 3-hour lunch</li>
+        <li>The road-trip toll (gas prices, but make it dramatic)</li>
+        <li>Weather vs. your delivery: an ongoing feud</li>
+        <li>Courier GPS: optional, apparently</li>
+        <li>The mysterious case of "Address Not Found"</li>
+        <li>The packaging shortage extravaganza</li>
+        <li>The epic tale of forklift breakdowns and pallet pileups</li>
       </ul>
     </p-accordionTab>
   </p-accordion>
