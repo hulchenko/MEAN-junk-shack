@@ -22,6 +22,8 @@ import { ProductListComponent } from "./product-list/product-list.component";
 import { RegisterComponent } from "./register/register.component";
 import { ShippingComponent } from "./shipping/shipping.component";
 import { TopBarComponent } from "./top-bar/top-bar.component";
+import { PostListComponent } from "./post-list/post-list.component";
+import { OrderListComponent } from "./order-list/order-list.component";
 
 // Primeng
 import { AccordionModule } from "primeng/accordion";
@@ -38,7 +40,6 @@ import { DropdownModule } from "primeng/dropdown";
 import { initializeApp, provideFirebaseApp } from "@angular/fire/app";
 import { getAuth, provideAuth } from "@angular/fire/auth";
 import { getStorage, provideStorage } from "@angular/fire/storage";
-import { PostListComponent } from "./post-list/post-list.component";
 
 @NgModule({
   declarations: [
@@ -55,6 +56,7 @@ import { PostListComponent } from "./post-list/post-list.component";
     RegisterComponent,
     PageNotFoundComponent,
     PostListComponent,
+    OrderListComponent,
   ],
   bootstrap: [AppComponent],
   imports: [
@@ -83,6 +85,7 @@ import { PostListComponent } from "./post-list/post-list.component";
       { path: "checkout", component: CheckoutComponent, canActivate: [AuthGuard] },
       { path: "shipping", component: ShippingComponent, canActivate: [AuthGuard] },
       { path: "posts", component: PostListComponent, canActivate: [AuthGuard] },
+      { path: "orders", component: OrderListComponent, canActivate: [AuthGuard] },
       { path: "**", component: PageNotFoundComponent },
     ]),
   ],

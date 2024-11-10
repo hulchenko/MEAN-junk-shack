@@ -1,0 +1,33 @@
+<div class="w-full flex flex-col items-center mt-4">
+  <h1>Your Orders</h1>
+  @if(orders$ | async; as orders){
+    @if(orders.length){
+  <div class="w-full flex flex-col my-12">
+    <div class="flex justify-between p-4 bg-gray-100 border">
+      <div class="w-1/5">Purchased On</div>
+      <div class="w-3/5">Items In Order</div>
+      <div class="w-1/5">Paid</div>
+      <div class="w-1/12"></div>
+    </div>
+    @for (order of orders; track $index) {
+    <div class="flex justify-between items-center p-4 border rounded">
+      <h3 class="w-1/5 font-light">{{ order.purchasedAt | date }}</h3>
+      <p class="w-3/5">
+        @for(product of order.products; track $index){
+        <div class="flex items-center gap-2 m-2 cursor-pointer hover:font-bold" [routerLink]="['/products', product._id]">
+            <img class="w-12" [src]="product.imageURL ? product.imageURL : './../../assets/img/no_image_placeholder.png'" alt="product img" />
+            <p>{{product.name}}</p>
+        </div>
+        }
+        
+      </p>
+      <p class="w-1/5">{{ order.totalPaid | currency }}</p>
+      <button class="w-1/12" type="button" title="Order details" [routerLink]="['/orders', order._id]">Details</button>
+    </div>
+    }
+  </div>
+  } @else {
+    <p class="mt-96 text-xl">Nothing here yet.</p>
+  }
+  }
+</div>

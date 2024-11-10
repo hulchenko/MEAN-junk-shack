@@ -1,3 +1,4 @@
+import { Order } from "./order.interface";
 import { Product } from "./product.interface";
 import { Shipping } from "./shipping.interface";
 
@@ -7,4 +8,5 @@ export interface ServerResponse {
   product?: Product;
   products?: Product[];
   shipping?: Shipping[];
+  orders?: Order[];
 }
