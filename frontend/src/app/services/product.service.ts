@@ -87,7 +87,7 @@ export class ProductService {
     );
   }
 
-  resetCache() {
+  resetProductCache() {
     this.productsLoaded = {
       all: false,
       user: false,
