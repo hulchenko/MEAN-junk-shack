@@ -56,4 +56,14 @@ const createProduct = async (req, res) => {
   }
 };
 
-export { getProducts, getProductById, deleteProduct, createProduct };
+const markProductSold = async (product) => {
+  try {
+    await Product.findByIdAndUpdate(product._id, { inStock: false });
+    console.log("Product marked as sold.");
+  } catch (error) {
+    console.error("Error marking product as sold", error);
+    throw error;
+  }
+};
+
+export { getProducts, getProductById, deleteProduct, createProduct, markProductSold };

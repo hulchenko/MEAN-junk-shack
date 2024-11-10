@@ -2,13 +2,24 @@
   <h1>Checkout</h1>
 
   <form (ngSubmit)="onSubmit()" [formGroup]="form" class="flex flex-col w-1/4 border rounded mt-4 child:py-2 p-4">
-    <label for="name">Name</label>
-    <input class="pl-4" placeholder="John Doe" type="name" name="name" formControlName="name" pInputText />
     <label for="name">Email</label>
-    <input class="pl-4" placeholder="example@email.com" type="email" name="email" formControlName="email" pInputText />
+    <input class="pl-4" placeholder="example@email.com" [value]="auth.userSig()?.email" type="email" name="email" formControlName="email" pInputText />
     <label for="address">Address</label>
     <input class="pl-4" placeholder="123 Street, Bronx, AB, China" type="text" name="address" formControlName="address" pInputText />
-    <span class="italic text-xs flex justify-end text-blue-300 cursor-pointer" routerLink="/shipping">Shipping rates</span>
-    <button class="bg-emerald-500 mt-8" type="submit">Place Order</button>
+    <label for="address">Delivery</label>
+    <p-dropdown
+      [options]="shippingTypes"
+      optionLabel="type"
+      optionValue="code"
+      formControlName="shipping"
+      placeholder="Select shipping"
+      (onChange)="updateTotalDisplayed($event)"
+      [(ngModel)]="selectedShipping"
+    />
+    <span class="italic text-xs flex text-center text-blue-300 cursor-pointer" routerLink="/shipping">Shipping FAQ</span>
+    <p class="italic text-sm mt-8">
+      Total: {{ cartTotal | currency }} <span>(+ {{ shippingPrice | currency }} shipping)</span>
+    </p>
+    <button class="bg-emerald-500" type="submit">Place Order</button>
   </form>
 </div>

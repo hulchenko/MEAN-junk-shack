@@ -1,0 +1,7 @@
+:host::ng-deep .p-dropdown {
+  width: 100%;
+}
+
+:host ::ng-deep .p-inputtext {
+  padding: 0.5rem;
+}

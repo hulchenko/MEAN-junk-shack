@@ -86,4 +86,11 @@ export class ProductService {
       catchError((err) => err)
     );
   }
+
+  resetCache() {
+    this.productsLoaded = {
+      all: false,
+      user: false,
+    };
+  }
 }

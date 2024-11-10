@@ -1,8 +1,9 @@
 import { Component, inject, OnDestroy, OnInit } from "@angular/core";
 import { FormBuilder, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
-import { catchError, filter, first, map, Subscription, tap, timer } from "rxjs";
+import { Subscription } from "rxjs";
 import { AuthService } from "../services/auth.service";
+import { ProductService } from "../services/product.service";
 
 @Component({
   selector: "app-login",
@@ -13,6 +14,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   fb = inject(FormBuilder);
   router = inject(Router);
   auth = inject(AuthService);
+  productService = inject(ProductService);
 
   logInSub: Subscription;
 
@@ -38,7 +40,10 @@ export class LoginComponent implements OnInit, OnDestroy {
     }
     const { email, password } = this.form.getRawValue();
     this.logInSub = this.auth.userLogIn(email, password).subscribe({
-      next: () => this.router.navigateByUrl("/"),
+      next: () => {
+        this.productService.resetCache();
+        this.router.navigateByUrl("/");
+      },
       error: (err) => (this.formError = err.code),
     });
   }
