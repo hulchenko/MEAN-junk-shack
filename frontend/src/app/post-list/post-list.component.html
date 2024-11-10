@@ -1,5 +1,6 @@
 <div class="w-full flex flex-col items-center mt-4">
-  <h1>Posted Products</h1>
+  <h1>Your Posts</h1>
+  @if(myProducts$ | async; as products){ @if(products.length){
   <div class="w-full flex flex-col my-12">
     <div class="flex justify-between p-4 bg-gray-100 border">
       <div class="w-1/5">Name</div>
@@ -11,7 +12,7 @@
       <div class="w-1/12 text-center">Posted On</div>
       <div class="w-1/12"></div>
     </div>
-    @for (product of myProducts$ | async; track $index) {
+    @for (product of products; track $index) {
     <div class="flex justify-between items-center p-4 border rounded">
       <h3 class="w-1/5 font-light">{{ product.name }}</h3>
       <p class="w-1/5">{{ product.description }}</p>
@@ -28,4 +29,7 @@
     </div>
     }
   </div>
+  } @else {
+  <p class="mt-96 text-xl">Nothing here yet.</p>
+  } }
 </div>
