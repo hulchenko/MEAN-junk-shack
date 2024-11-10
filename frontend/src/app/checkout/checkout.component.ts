@@ -53,7 +53,7 @@ export class CheckoutComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.subscriptions.forEach((sub) => sub.unsubscribe());
+    this.subscriptions.forEach((sub) => sub?.unsubscribe());
   }
 
   updateTotalDisplayed(event) {
@@ -78,18 +78,20 @@ export class CheckoutComponent implements OnInit, OnDestroy {
       products: this.currentCart,
     };
 
-    this.restApi.addData("api/orders", newOrder).subscribe((res) => {
-      if (res.ok) {
-        this.alert.call("success", "Success", "The order has been placed.");
+    this.subscriptions.push(
+      this.restApi.addData("api/orders", newOrder).subscribe((res) => {
+        if (res.ok) {
+          this.alert.call("success", "Success", "The order has been placed.");
 
-        this.cart.clearCart();
-        this.form.reset();
-        this.productService.resetCache();
-        this.router.navigateByUrl("/");
-      } else {
-        this.alert.call("error", "Error", res.message);
-      }
-    });
+          this.cart.clearCart();
+          this.form.reset();
+          this.productService.resetProductCache();
+          this.router.navigateByUrl("/");
+        } else {
+          this.alert.call("error", "Error", res.message);
+        }
+      })
+    );
   }
 
   setDelivery(code: number): Date {

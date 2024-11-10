@@ -30,11 +30,11 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
   faBell = faBell;
   faShareNodes = faShareNodes;
 
-  productSub: Subscription;
+  subscriptions: Subscription[];
   product: Product = null;
 
   ngOnDestroy(): void {
-    this.productSub?.unsubscribe();
+    this.subscriptions.forEach((sub) => sub?.unsubscribe());
   }
 
   ngOnInit(): void {
@@ -67,21 +67,25 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
   getProduct(): void {
     const routeParams = this.route.snapshot.paramMap;
     const productIdFromRoute = routeParams.get("productId"); // productId comes from router module
-    this.productSub = this.productService.getProductById(productIdFromRoute).subscribe((product) => {
-      this.product = product;
-    });
+    this.subscriptions.push(
+      this.productService.getProductById(productIdFromRoute).subscribe((product) => {
+        this.product = product;
+      })
+    );
   }
 
   deleteProduct(): void {
     const routeParams = this.route.snapshot.paramMap;
     const productIdFromRoute = routeParams.get("productId");
-    this.productService.removeProduct(productIdFromRoute).subscribe((resp) => {
-      if (resp.ok) {
-        this.router.navigateByUrl("/");
-        this.alert.call("info", "Info", resp.message);
-      } else {
-        this.alert.call("error", "Error", resp.message);
-      }
-    });
+    this.subscriptions.push(
+      this.productService.removeProduct(productIdFromRoute).subscribe((resp) => {
+        if (resp.ok) {
+          this.router.navigateByUrl("/");
+          this.alert.call("info", "Info", resp.message);
+        } else {
+          this.alert.call("error", "Error", resp.message);
+        }
+      })
+    );
   }
 }

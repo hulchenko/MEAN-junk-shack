@@ -1,13 +1,13 @@
 import { Location } from "@angular/common";
 import { Component, inject, OnDestroy, signal } from "@angular/core";
 import { FormBuilder, Validators } from "@angular/forms";
-import { from, Observable, Subscription, switchMap } from "rxjs";
+import { Router } from "@angular/router";
+import { FileSelectEvent } from "primeng/fileupload";
+import { from, Observable, retry, Subscription, switchMap, timer } from "rxjs";
 import { Product } from "../common/interfaces/product.interface";
 import { AlertService } from "../services/alert.service";
 import { AuthService } from "../services/auth.service";
 import { ProductService } from "../services/product.service";
-import { Router } from "@angular/router";
-import { FileSelectEvent } from "primeng/fileupload";
 
 // Firebase
 import { getDownloadURL, getStorage, ref, uploadBytes } from "@angular/fire/storage";
@@ -25,7 +25,7 @@ export class NewProductComponent implements OnDestroy {
   auth = inject(AuthService);
   router = inject(Router);
 
-  private uploadSub: Subscription;
+  subscriptions: Subscription[] = [];
 
   downloadURL = signal(null);
 
@@ -39,7 +39,7 @@ export class NewProductComponent implements OnDestroy {
   selectedFile = null;
 
   ngOnDestroy(): void {
-    this.uploadSub?.unsubscribe();
+    this.subscriptions.forEach((sub) => sub?.unsubscribe());
   }
 
   onSubmit() {
@@ -57,15 +57,22 @@ export class NewProductComponent implements OnDestroy {
       createdBy: this.auth.userSig().email,
     };
 
-    this.productService.addProduct(newProduct).subscribe((res) => {
-      if (!res.ok) {
-        this.alert.call("error", "Error", res.message);
-      } else {
-        const newProductId = res.product._id;
-        this.alert.call("success", "Success", "The post has been created.");
-        this.router.navigateByUrl(`/products/${newProductId}`);
-      }
-    });
+    this.subscriptions.push(
+      this.productService
+        .addProduct(newProduct)
+        .pipe(
+          retry(2) // retry for cold starts
+        )
+        .subscribe((res) => {
+          if (res.ok) {
+            const newProductId = res.product._id;
+            this.alert.call("success", "Success", "The post has been created.");
+            this.router.navigateByUrl(`/products/${newProductId}`);
+          } else {
+            this.alert.call("error", "Error", res.message);
+          }
+        })
+    );
   }
 
   fileUpload(file: File): Observable<string> {
@@ -80,10 +87,12 @@ export class NewProductComponent implements OnDestroy {
 
   onFileSelect(event: FileSelectEvent) {
     const selectedFile = event.files[0];
-    this.uploadSub = this.fileUpload(selectedFile).subscribe({
-      next: (url) => this.downloadURL.set(url),
-      error: (err) => console.error("File upload error: ", err),
-    });
+    this.subscriptions.push(
+      this.fileUpload(selectedFile).subscribe({
+        next: (url) => this.downloadURL.set(url),
+        error: (err) => console.error("File upload error: ", err),
+      })
+    );
   }
 
   goBack() {
