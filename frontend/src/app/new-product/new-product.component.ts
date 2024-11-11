@@ -3,7 +3,7 @@ import { Component, inject, OnDestroy, signal } from "@angular/core";
 import { FormBuilder, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
 import { FileSelectEvent } from "primeng/fileupload";
-import { from, Observable, retry, Subscription, switchMap, timer } from "rxjs";
+import { delay, from, Observable, retry, Subscription, switchMap } from "rxjs";
 import { Product } from "../common/interfaces/product.interface";
 import { AlertService } from "../services/alert.service";
 import { AuthService } from "../services/auth.service";
@@ -61,7 +61,9 @@ export class NewProductComponent implements OnDestroy {
       this.productService
         .addProduct(newProduct)
         .pipe(
-          retry(2) // retry for cold starts
+          // retry for cold starts
+          delay(1000),
+          retry(2)
         )
         .subscribe((res) => {
           if (res.ok) {
