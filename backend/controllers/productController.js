@@ -2,10 +2,22 @@ import Product from "../db/schema/productSchema.js";
 
 const getProducts = async (req, res) => {
   try {
+    // current user filter
     const { email } = req.query;
     const filterParams = email ? { createdBy: email } : {};
-    const products = await Product.find({ ...filterParams });
-    res.status(200).json({ ok: true, products });
+
+    // pagination
+    const pageSize = 34;
+    const currPage = Number(req.query.currPage) || 0;
+    const offset = Number(req.query.offset) || pageSize * currPage;
+
+    const totalRecords = await Product.countDocuments();
+
+    const products = await Product.find({ ...filterParams })
+      .limit(pageSize) // rows per page
+      .skip(offset); // offset (each step is equal to the current page size)
+
+    res.status(200).json({ ok: true, products, currPage, totalRecords });
   } catch (error) {
     console.error("Error getting products", error);
     res.status(500).json({ ok: false, message: "Server error" });

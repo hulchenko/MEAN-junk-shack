@@ -1,0 +1,11 @@
+:host::ng-deep .p-paginator .p-paginator-first,
+:host::ng-deep .p-paginator .p-paginator-next,
+:host::ng-deep .p-paginator .p-paginator-prev,
+:host::ng-deep .p-paginator .p-paginator-last {
+  @apply bg-gray-100 text-gray-600 hover:bg-cyan-700 hover:text-white;
+}
+
+:host::ng-deep .p-paginator,
+:host::ng-deep .p-paginator-current {
+  @apply bg-transparent cursor-default;
+}

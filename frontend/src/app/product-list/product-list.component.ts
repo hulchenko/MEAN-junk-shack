@@ -13,6 +13,9 @@ export class ProductListComponent implements OnInit, OnDestroy {
   productSub: Subscription;
 
   products: Product[] = [];
+  totalRecords = 0;
+  currPage = 0;
+  offset = 0;
 
   ngOnDestroy(): void {
     this.productSub?.unsubscribe();
@@ -20,9 +23,23 @@ export class ProductListComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     if (this.products.length === 0) {
-      this.productSub = this.productService.getProducts().subscribe((data) => {
-        this.products = data;
-      });
+      this.getProducts();
     }
+  }
+
+  getProducts(): void {
+    this.productSub = this.productService.getProducts(this.currPage, this.offset).subscribe((data) => {
+      if (data?.products) {
+        this.products = data.products;
+        this.totalRecords = data.totalRecords;
+      }
+    });
+  }
+
+  paginationEvent({ currPage, offset }) {
+    this.currPage = currPage;
+    this.offset = offset;
+    this.productService.resetProductCache();
+    this.getProducts();
   }
 }

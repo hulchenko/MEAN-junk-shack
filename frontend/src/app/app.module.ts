@@ -36,11 +36,13 @@ import { InputTextareaModule } from "primeng/inputtextarea";
 import { MessagesModule } from "primeng/messages";
 import { ToastModule } from "primeng/toast";
 import { DropdownModule } from "primeng/dropdown";
+import { PaginatorModule } from "primeng/paginator";
 
 // Firebase
 import { initializeApp, provideFirebaseApp } from "@angular/fire/app";
 import { getAuth, provideAuth } from "@angular/fire/auth";
 import { getStorage, provideStorage } from "@angular/fire/storage";
+import { PaginatorComponent } from "./paginator/paginator.component";
 
 @NgModule({
   declarations: [
@@ -59,6 +61,7 @@ import { getStorage, provideStorage } from "@angular/fire/storage";
     PostListComponent,
     OrderListComponent,
     OrderDetailsComponent,
+    PaginatorComponent,
   ],
   bootstrap: [AppComponent],
   imports: [
@@ -75,8 +78,9 @@ import { getStorage, provideStorage } from "@angular/fire/storage";
     FormsModule,
     AccordionModule,
     DropdownModule,
+    PaginatorModule,
 
-    //routes
+    // routes
     RouterModule.forRoot([
       { path: "register", component: RegisterComponent },
       { path: "login", component: LoginComponent },

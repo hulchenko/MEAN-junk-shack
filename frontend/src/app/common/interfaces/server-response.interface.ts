@@ -4,10 +4,12 @@ import { Shipping } from "./shipping.interface";
 
 export interface ServerResponse {
   ok: boolean;
-  message: string;
+  message?: string;
   product?: Product;
   products?: Product[];
   shipping?: Shipping[];
   order?: Order;
   orders?: Order[];
+  currPage: number;
+  totalRecords: number;
 }

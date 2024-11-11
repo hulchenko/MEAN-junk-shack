@@ -1,5 +1,6 @@
 import { inject, Injectable } from "@angular/core";
 import { BehaviorSubject, catchError, map, Observable, of, switchMap, tap } from "rxjs";
+import { PaginationAndProduct } from "../common/interfaces/pagination.interface";
 import { Product } from "../common/interfaces/product.interface";
 import { AuthService } from "./auth.service";
 import { RestApiService } from "./rest-api.service";
@@ -11,7 +12,7 @@ export class ProductService {
   restApi = inject(RestApiService);
   auth = inject(AuthService);
 
-  products$ = new BehaviorSubject<Product[]>([]);
+  products$ = new BehaviorSubject<PaginationAndProduct>(null);
   myProducts$ = new BehaviorSubject<Product[]>([]);
 
   productsLoaded = {
@@ -19,12 +20,12 @@ export class ProductService {
     user: false,
   };
 
-  getProducts(): Observable<Product[]> {
+  getProducts(currPage: number, offset: number): Observable<PaginationAndProduct> {
     if (!this.productsLoaded.all) {
-      this.restApi.fetchData("api/products").subscribe((res) => {
+      this.restApi.fetchData(`api/products?currPage=${currPage}&offset=${offset}`).subscribe((res) => {
         if (res.ok) {
-          const { products } = res;
-          this.products$.next(products);
+          const { products, currPage, totalRecords } = res;
+          this.products$.next({ products, currPage, totalRecords });
           this.productsLoaded.all = true;
         }
       });
@@ -48,7 +49,8 @@ export class ProductService {
 
   getProductById(id: string): Observable<Product> {
     return this.products$.pipe(
-      map((products) => products.find((product: Product) => product._id === id)),
+      map((data) => (data?.products ? data.products : data)),
+      map((products: Product[]) => products?.find((product: Product) => product._id === id)),
       switchMap((product) => {
         if (product) {
           return of(product);
@@ -65,9 +67,13 @@ export class ProductService {
       tap((product) => {
         if (product) {
           // update local list
-          const prevArray = this.products$.value;
-          const newArray = [...prevArray, product];
-          this.products$.next(newArray);
+          const prevValue = this.products$.value;
+          const prevProducts = prevValue.products;
+          const newProducts = [...prevProducts, product];
+          this.products$.next({
+            ...prevValue,
+            products: newProducts,
+          });
         }
       })
     );
@@ -78,9 +84,13 @@ export class ProductService {
       tap((res) => {
         if (res.ok) {
           // update local list
-          const prevArray = this.products$.value;
-          const newArray = prevArray.filter((p) => p._id !== id);
-          this.products$.next(newArray);
+          const prevValue = this.products$.value;
+          const prevProducts = prevValue.products;
+          const newProducts = prevProducts.filter((product: Product) => product._id !== id);
+          this.products$.next({
+            ...prevValue,
+            products: newProducts,
+          });
         }
       }),
       catchError((err) => err)
