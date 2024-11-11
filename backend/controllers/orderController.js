@@ -33,9 +33,11 @@ const getOrders = async (req, res) => {
 const getOrderById = async (req, res) => {
   try {
     const id = req.params.id;
-    const order = await Order.findById(id);
-    if (order) {
-      res.status(200).json({ ok: true, order });
+    const { email } = req.query;
+    const filterParams = id && email ? { _id: id, purchasedBy: email } : {};
+    const order = await Order.find({ ...filterParams });
+    if (order.length) {
+      res.status(200).json({ ok: true, order: order[0] });
     } else {
       res.status(404).json({ ok: false, message: "Order not found" });
     }
