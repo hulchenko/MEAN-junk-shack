@@ -8,4 +8,8 @@ import { Component, inject } from "@angular/core";
 })
 export class PageNotFoundComponent {
   location = inject(Location);
+
+  goBack() {
+    this.location.back();
+  }
 }

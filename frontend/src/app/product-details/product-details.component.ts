@@ -30,7 +30,7 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
   faBell = faBell;
   faShareNodes = faShareNodes;
 
-  subscriptions: Subscription[];
+  subscriptions: Subscription[] = [];
   product: Product = null;
 
   ngOnDestroy(): void {
@@ -38,7 +38,7 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.getProduct();
+    this.getProductById();
   }
 
   share(): void {
@@ -56,15 +56,15 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
   }
 
   addToCart(product: Product): void {
-    const response = this.cart.addToCart(product);
-    if (response.ok) {
+    const res = this.cart.addToCart(product);
+    if (res.ok) {
       this.alert.call("info", "Info", "Item has been added to cart.");
     } else {
       this.alert.call("warn", "Warn", "Item is already in the cart");
     }
   }
 
-  getProduct(): void {
+  getProductById(): void {
     const routeParams = this.route.snapshot.paramMap;
     const productIdFromRoute = routeParams.get("productId"); // productId comes from router module
     this.subscriptions.push(
@@ -78,14 +78,18 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
     const routeParams = this.route.snapshot.paramMap;
     const productIdFromRoute = routeParams.get("productId");
     this.subscriptions.push(
-      this.productService.removeProduct(productIdFromRoute).subscribe((resp) => {
-        if (resp.ok) {
+      this.productService.removeProduct(productIdFromRoute).subscribe((res) => {
+        if (res.ok) {
           this.router.navigateByUrl("/");
-          this.alert.call("info", "Info", resp.message);
+          this.alert.call("info", "Info", res.message);
         } else {
-          this.alert.call("error", "Error", resp.message);
+          this.alert.call("error", "Error", res.message);
         }
       })
     );
+  }
+
+  goBack() {
+    this.location.back();
   }
 }
