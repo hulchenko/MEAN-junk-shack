@@ -24,6 +24,7 @@ import { ShippingComponent } from "./shipping/shipping.component";
 import { TopBarComponent } from "./top-bar/top-bar.component";
 import { PostListComponent } from "./post-list/post-list.component";
 import { OrderListComponent } from "./order-list/order-list.component";
+import { OrderDetailsComponent } from "./order-details/order-details.component";
 
 // Primeng
 import { AccordionModule } from "primeng/accordion";
@@ -57,6 +58,7 @@ import { getStorage, provideStorage } from "@angular/fire/storage";
     PageNotFoundComponent,
     PostListComponent,
     OrderListComponent,
+    OrderDetailsComponent,
   ],
   bootstrap: [AppComponent],
   imports: [
@@ -86,6 +88,7 @@ import { getStorage, provideStorage } from "@angular/fire/storage";
       { path: "shipping", component: ShippingComponent, canActivate: [AuthGuard] },
       { path: "posts", component: PostListComponent, canActivate: [AuthGuard] },
       { path: "orders", component: OrderListComponent, canActivate: [AuthGuard] },
+      { path: "orders/:orderId", component: OrderDetailsComponent, canActivate: [AuthGuard] },
       { path: "**", component: PageNotFoundComponent },
     ]),
   ],

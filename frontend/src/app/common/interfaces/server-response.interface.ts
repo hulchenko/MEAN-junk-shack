@@ -8,5 +8,6 @@ export interface ServerResponse {
   product?: Product;
   products?: Product[];
   shipping?: Shipping[];
+  order?: Order;
   orders?: Order[];
 }

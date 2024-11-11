@@ -1,0 +1,29 @@
+<div class="w-full flex flex-col items-center mt-4">
+  <h1 class="mb-8">Order Details</h1>
+
+  @if (order) {
+  <div class="flex flex-col w-1/2 border rounded mt-4 child:py-2 p-4">
+    <h3>Purchased On: {{ order.purchasedAt | date }}</h3>
+    <hr />
+    <h3>Delivery On: {{ order.deliveryEstimate | date }}</h3>
+    <hr />
+    <h3>Ship To: {{ order.address }}</h3>
+    <hr />
+    <div>
+      Items In Order: @for (product of order.products; track $index) {
+      <div class="border my-2 bg-gray-100 flex gap-2 cursor-pointer hover:bg-gray-200" [routerLink]="['/products', product._id]">
+        <img class="w-40" [src]="product.imageURL ? product.imageURL : 'assets/img/no_image_placeholder.png'" alt="product image" />
+        <div class="flex flex-col justify-center">
+          <h3>Name: {{ product.name }}</h3>
+          <p class="text-sm">Price: {{ product.price | currency }}</p>
+        </div>
+      </div>
+      }
+    </div>
+    <h3>Total Paid: {{ order.totalPaid | currency }}</h3>
+  </div>
+  } @else {
+  <p class="text-lg mt-96">Order not found.</p>
+  <button class="mt-4" (click)="goBack()">Back</button>
+  }
+</div>
