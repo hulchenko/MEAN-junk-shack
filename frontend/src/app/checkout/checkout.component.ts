@@ -27,7 +27,9 @@ export class CheckoutComponent implements OnInit, OnDestroy {
   subscriptions: Subscription[] = [];
 
   currentCart: Product[] = [];
-  cartTotal = this.cart.getCartTotal();
+
+  // Defaults
+  cartTotal = 0;
   shippingPrice = 0;
   selectedShipping = 3;
 
@@ -45,6 +47,8 @@ export class CheckoutComponent implements OnInit, OnDestroy {
   formError: string | null = null;
 
   ngOnInit(): void {
+    this.cart.calculateCartTotal();
+    this.cartTotal = this.cart.cartTotal();
     this.subscriptions.push(
       this.cart.getCart().subscribe((val) => {
         this.currentCart = val;

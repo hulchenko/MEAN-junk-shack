@@ -19,7 +19,7 @@ export class TopBarComponent implements OnInit {
   cartCount = 0;
 
   ngOnInit(): void {
-    this.cartSub = this.cartService.cart$.subscribe((arr) => {
+    this.cartSub = this.cartService.cart.subscribe((arr) => {
       if (arr) {
         this.cartCount = arr.length;
       }

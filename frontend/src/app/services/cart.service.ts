@@ -1,5 +1,5 @@
 import { inject, Injectable, signal } from "@angular/core";
-import { BehaviorSubject, map, Observable, tap } from "rxjs";
+import { BehaviorSubject, Observable } from "rxjs";
 import { Product } from "../common/interfaces/product.interface";
 import { RestApiService } from "./rest-api.service";
 
@@ -9,15 +9,8 @@ import { RestApiService } from "./rest-api.service";
 export class CartService {
   restApi = inject(RestApiService);
 
-  private cart: BehaviorSubject<Product[]> = new BehaviorSubject([]);
-  private cartTotal = signal(0);
-  cart$: Observable<Product[]> = this.cart.asObservable();
-
-  constructor() {
-    const initCart = this.getLocalCart();
-    this.cart.next(initCart);
-    this.calculateCartTotal();
-  }
+  cart: BehaviorSubject<Product[]> = new BehaviorSubject(this.getLocalCart());
+  cartTotal = signal(0);
 
   addToCart(product: Product) {
     const currCart = this.getLocalCart();
@@ -32,15 +25,11 @@ export class CartService {
   }
 
   getCart(): Observable<Product[]> {
-    return this.cart$;
-  }
-
-  getCartTotal(): number {
-    return this.cartTotal();
+    return this.cart;
   }
 
   calculateCartTotal(): void {
-    this.cart$.subscribe((items) => {
+    this.cart.subscribe((items) => {
       const total = items.reduce((total, item) => {
         return (total += item.price);
       }, 0);
