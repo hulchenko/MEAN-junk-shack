@@ -1,5 +1,5 @@
 import { inject, Injectable } from "@angular/core";
-import { BehaviorSubject, catchError, map, Observable, of, switchMap, tap } from "rxjs";
+import { BehaviorSubject, catchError, map, Observable, of, switchMap, take, tap } from "rxjs";
 import { PaginationAndProduct } from "../common/interfaces/pagination.interface";
 import { Product } from "../common/interfaces/product.interface";
 import { AuthService } from "./auth.service";
@@ -47,12 +47,13 @@ export class ProductService {
     return this.myProducts$;
   }
 
-  getProductById(id: string): Observable<Product> {
+  getProductById(id: string, forceFetch = false): Observable<Product> {
     return this.products$.pipe(
+      take(1), // this ensures the observable completes after single emission
       map((data) => (data?.products ? data.products : data)),
       map((products: Product[]) => products?.find((product: Product) => product._id === id)),
       switchMap((product) => {
-        if (product) {
+        if (product && !forceFetch) {
           return of(product);
         } else {
           console.log("Product not found locally, pulling from DB");

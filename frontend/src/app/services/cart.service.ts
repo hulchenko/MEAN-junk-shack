@@ -53,11 +53,11 @@ export class CartService {
     return this.restApi.fetchData("api/shipping");
   }
 
-  private getLocalCart(): Product[] {
+  getLocalCart(): Product[] {
     return JSON.parse(localStorage.getItem("cart")) || [];
   }
 
-  private updateLocalCart() {
+  updateLocalCart() {
     const currCart = this.cart.value;
     localStorage.setItem("cart", JSON.stringify(currCart));
   }
