@@ -44,7 +44,7 @@ export class NewProductComponent implements OnDestroy {
 
   onSubmit() {
     if (this.form.invalid) {
-      this.alert.call("warn", "Warn", "Fields cannot be empty.");
+      this.alert.call("warn", "Warning", "Fields cannot be empty.");
       return; // prevent submission
     }
     const formData = this.form.getRawValue();
