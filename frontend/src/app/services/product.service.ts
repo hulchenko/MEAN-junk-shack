@@ -47,20 +47,8 @@ export class ProductService {
     return this.myProducts$;
   }
 
-  getProductById(id: string, forceFetch = false): Observable<Product> {
-    return this.products$.pipe(
-      take(1), // this ensures the observable completes after single emission
-      map((data) => (data?.products ? data.products : data)),
-      map((products: Product[]) => products?.find((product: Product) => product._id === id)),
-      switchMap((product) => {
-        if (product && !forceFetch) {
-          return of(product);
-        } else {
-          console.log("Product not found locally, pulling from DB");
-          return this.restApi.fetchData(`api/products/${id}`).pipe(map((res) => res.product));
-        }
-      })
-    );
+  getProductById(id: string): Observable<Product> {
+    return this.restApi.fetchData(`api/products/${id}`).pipe(map((res) => res.product));
   }
 
   addProduct(product: Product): Observable<any> {

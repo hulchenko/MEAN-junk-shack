@@ -35,8 +35,7 @@ export class CartComponent {
     }
 
     const productObservables = currCart.map((product) => {
-      const forceFetch = true;
-      return this.productService.getProductById(product._id, forceFetch).pipe(
+      return this.productService.getProductById(product._id).pipe(
         catchError((err) => {
           console.error("Error fetching cart items: ", err);
           return of(null);
