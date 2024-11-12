@@ -21,7 +21,9 @@
       @if(!product.inStock && !isCurrUserProduct){
       <button (click)="notify()"><fa-icon [icon]="faBell">Notify</fa-icon></button>
       } @else if (product.inStock && !isCurrUserProduct) {
-      <button (click)="addToCart(product)">Add To Cart</button>
+      <button (click)="addToCart(product)" [disabled]="isProductInCart" [ngClass]="isProductInCart ? 'bg-gray-300' : ''">
+        {{ isProductInCart ? "In Cart" : "Add To Cart" }}
+      </button>
       } @else {
       <button class="bg-red-400" (click)="deleteProduct()">Delete</button>
       }

@@ -21,7 +21,7 @@ import { AuthService } from "../services/auth.service";
 export class ProductDetailsComponent implements OnInit, OnDestroy {
   router = inject(Router);
   route = inject(ActivatedRoute);
-  cart = inject(CartService);
+  cartService = inject(CartService);
   productService = inject(ProductService);
   alert = inject(AlertService);
   location = inject(Location);
@@ -32,6 +32,9 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
 
   subscriptions: Subscription[] = [];
   product: Product = null;
+
+  currCart = this.cartService.cart.value;
+  isProductInCart = false;
 
   ngOnDestroy(): void {
     this.subscriptions.forEach((sub) => sub?.unsubscribe());
@@ -56,11 +59,12 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
   }
 
   addToCart(product: Product): void {
-    const res = this.cart.addToCart(product);
+    const res = this.cartService.addToCart(product);
     if (res.ok) {
+      this.isProductInCart = true;
       this.alert.call("info", "Info", "Item has been added to cart.");
     } else {
-      this.alert.call("warn", "Warn", "Item is already in the cart");
+      this.alert.call("warn", "Warning", "Item is already in the cart");
     }
   }
 
@@ -70,6 +74,7 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
     this.subscriptions.push(
       this.productService.getProductById(productIdFromRoute).subscribe((product) => {
         this.product = product;
+        this.isProductInCart = this.currCart.some((cartProduct) => cartProduct._id === this.product._id);
       })
     );
   }
