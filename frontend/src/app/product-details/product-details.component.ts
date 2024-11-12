@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy, inject } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
-import { BehaviorSubject, Subscription } from "rxjs";
+import { BehaviorSubject, delay, retry, Subscription } from "rxjs";
 import { faBell, faShareNodes } from "@fortawesome/free-solid-svg-icons";
 
 // Interfaces
@@ -78,14 +78,17 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
     const routeParams = this.route.snapshot.paramMap;
     const productIdFromRoute = routeParams.get("productId");
     this.subscriptions.push(
-      this.productService.removeProduct(productIdFromRoute).subscribe((res) => {
-        if (res.ok) {
-          this.router.navigateByUrl("/");
-          this.alert.call("info", "Info", res.message);
-        } else {
-          this.alert.call("error", "Error", res.message);
-        }
-      })
+      this.productService
+        .removeProduct(productIdFromRoute)
+        .pipe(delay(1000), retry(2))
+        .subscribe((res) => {
+          if (res.ok) {
+            this.router.navigateByUrl("/");
+            this.alert.call("info", "Info", res.message);
+          } else {
+            this.alert.call("error", "Error", res.message);
+          }
+        })
     );
   }
 

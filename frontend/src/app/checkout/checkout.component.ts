@@ -2,7 +2,7 @@ import { Component, inject, OnDestroy, OnInit } from "@angular/core";
 import { CartService } from "../services/cart.service";
 import { FormBuilder, Validators } from "@angular/forms";
 import { AuthService } from "../services/auth.service";
-import { Subscription } from "rxjs";
+import { delay, retry, Subscription } from "rxjs";
 import { Product } from "../common/interfaces/product.interface";
 import { Order } from "../common/interfaces/order.interface";
 import { RestApiService } from "../services/rest-api.service";
@@ -79,18 +79,25 @@ export class CheckoutComponent implements OnInit, OnDestroy {
     };
 
     this.subscriptions.push(
-      this.restApi.addData("api/orders", newOrder).subscribe((res) => {
-        if (res.ok) {
-          this.alert.call("success", "Success", "The order has been placed.");
+      this.restApi
+        .addData("api/orders", newOrder)
+        .pipe(
+          // retry for cold starts
+          delay(1000),
+          retry(2)
+        )
+        .subscribe((res) => {
+          if (res.ok) {
+            this.alert.call("success", "Success", "The order has been placed.");
 
-          this.cart.clearCart();
-          this.form.reset();
-          this.productService.resetProductCache();
-          this.router.navigateByUrl("/");
-        } else {
-          this.alert.call("error", "Error", res.message);
-        }
-      })
+            this.cart.clearCart();
+            this.form.reset();
+            this.productService.resetProductCache();
+            this.router.navigateByUrl("/");
+          } else {
+            this.alert.call("error", "Error", res.message);
+          }
+        })
     );
   }
 
