@@ -4,7 +4,6 @@ import { markProductSold } from "./productController.js";
 const createOrder = async (req, res) => {
   try {
     const order = new Order(req.body);
-    console.log(`ORDER: `, order);
     if (order) {
       const savedOrder = await order.save();
 

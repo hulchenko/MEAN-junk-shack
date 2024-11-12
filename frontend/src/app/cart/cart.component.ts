@@ -46,7 +46,6 @@ export class CartComponent {
     forkJoin(productObservables) // wait for all observables to complete
       .pipe(
         tap((dbItems) => {
-          console.log(`ITEMS: `, dbItems);
           const updatedCart = [...this.cartService.cart.value]; // copy current cartItems
 
           dbItems.forEach((incItem) => {

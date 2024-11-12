@@ -11,7 +11,6 @@ export class RestApiService {
 
   fetchData(url: string): Observable<ServerResponse> {
     return this.http.get(url).pipe(
-      tap((data) => console.log("Get data: ", data)),
       catchError((err) => {
         console.error("Error in fetchData", err);
         return of(err);
@@ -21,7 +20,6 @@ export class RestApiService {
 
   deleteData(url: string): Observable<ServerResponse> {
     return this.http.delete(url).pipe(
-      tap((data) => console.log("Delete data: ", data)),
       catchError((err) => {
         console.error("Error in deleteData", err);
         return of(err);
@@ -31,7 +29,6 @@ export class RestApiService {
 
   addData(url: string, body: object): Observable<ServerResponse> {
     return this.http.post(url, body).pipe(
-      tap((data) => console.log("Create data: ", data)),
       catchError((err) => {
         console.error("Error in addData", err);
         return of(err);
