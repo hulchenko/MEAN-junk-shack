@@ -7,7 +7,9 @@
   "scripts": {
     "client": "npm start --prefix frontend",
     "server": "node --watch backend/server.js",
-    "dev": "concurrently \"npm run client\" \"npm run server\""
+    "start": "node backend/server.js",
+    "dev": "concurrently \"npm run client\" \"npm run server\"",
+    "build": "npm install && npm install --prefix frontend && npm run build --prefix frontend"
   },
   "author": "Vadym Hulchenko",
   "license": "ISC",
