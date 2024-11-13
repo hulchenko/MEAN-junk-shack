@@ -2,7 +2,7 @@
 
 An e-commerce application for buying and selling pre-owned goods. The app offers a streamlined interface for browsing products, managing a shopping cart, handling orders, and maintaining an account. Built with modern web technologies, Junk Shack aims to make the resale of used items accessible and user-friendly.
 
-<img src="https://raw.githubusercontent.com/hulchenko/angular-junk-shack/refs/heads/main/frontend/src/public/img/screen-desktop.jpg" alt="App Screenshot Desktop" width="500" height="500"/>
+<img src="https://raw.githubusercontent.com/hulchenko/angular-junk-shack/refs/heads/master/frontend/src/public/img/screen-desktop.jpg" alt="App Screenshot Desktop"/>
 
 ### Technologies Used:
 
@@ -17,7 +17,7 @@ An e-commerce application for buying and selling pre-owned goods. The app offers
 
 ### Live Demo:
 
-You can access the live demo of the Calorie Tracker App here: //placeholder
+You can access the live demo of the Calorie Tracker App here: https://angular-junk-shack.onrender.com/
 
 ### Getting Started:
 
