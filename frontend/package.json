@@ -1,6 +1,7 @@
 {
-  "name": "Angular Junk Store",
-  "version": "0.0.1",
+  "name": "angular-junk-shack",
+  "version": "1.0.0",
+  "description": "Buy and sell used items",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",

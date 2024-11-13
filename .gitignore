@@ -6,3 +6,5 @@ docs
 *-debug.log
 .runtimeconfig.json
 .env
+
+.vercel
