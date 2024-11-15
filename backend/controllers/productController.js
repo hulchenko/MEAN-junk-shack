@@ -14,6 +14,7 @@ const getProducts = async (req, res) => {
     const totalRecords = await Product.countDocuments();
 
     const products = await Product.find({ ...filterParams })
+      .sort({ inStock: -1 }) // sort by available first
       .limit(pageSize) // rows per page
       .skip(offset); // offset (each step is equal to the current page size)
 
