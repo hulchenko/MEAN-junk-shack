@@ -53,7 +53,8 @@ export class ProductService {
 
   addProduct(product: Product): Observable<any> {
     return this.restApi.addData(`api/products`, product).pipe(
-      tap((product) => {
+      tap((data) => {
+        const { product } = data;
         if (product) {
           // update local list
           const prevValue = this.products$.value;

@@ -6,7 +6,8 @@
     "inStock": true,
     "specs": "6.7-inch display, 5G support, 128GB storage",
     "createdAt": "2024-10-31T19:01:43.299+00:00",
-    "createdBy": "admin@example.com"
+    "createdBy": "admin@example.com",
+    "imageURL": "https://firebasestorage.googleapis.com/v0/b/junk-store-angular-58672.appspot.com/o/images%2Fphone.jpg?alt=media&token=ac1a8c0d-b1a7-44c5-bbb1-2bbd0c573ccf"
   },
   {
     "name": "Samsung Galaxy S24 Ultra",
@@ -15,7 +16,8 @@
     "inStock": true,
     "specs": "6.8-inch AMOLED, 200MP camera, 12GB RAM",
     "createdAt": "2024-10-31T19:01:43.299+00:00",
-    "createdBy": "admin@example.com"
+    "createdBy": "admin@example.com",
+    "imageURL": "https://firebasestorage.googleapis.com/v0/b/junk-store-angular-58672.appspot.com/o/images%2Fphone.jpg?alt=media&token=ac1a8c0d-b1a7-44c5-bbb1-2bbd0c573ccf"
   },
   {
     "name": "PlayStation 5",
@@ -24,7 +26,8 @@
     "inStock": false,
     "specs": "825GB SSD, 4K HDR, DualSense controller",
     "createdAt": "2024-10-31T19:01:43.299+00:00",
-    "createdBy": "admin@example.com"
+    "createdBy": "admin@example.com",
+    "imageURL": "https://firebasestorage.googleapis.com/v0/b/junk-store-angular-58672.appspot.com/o/images%2Fps5.jpg?alt=media&token=351172bb-5a85-479f-9540-6014b5cbf3ce"
   },
   {
     "name": "Xbox Series X",
@@ -33,7 +36,8 @@
     "inStock": true,
     "specs": "1TB SSD, 4K gaming, 12TF GPU",
     "createdAt": "2024-10-31T19:01:43.299+00:00",
-    "createdBy": "admin@example.com"
+    "createdBy": "admin@example.com",
+    "imageURL": "https://firebasestorage.googleapis.com/v0/b/junk-store-angular-58672.appspot.com/o/images%2Fcamera.webp?alt=media&token=6b763bb7-4166-46e0-bf31-fdd2b4c5212f"
   },
   {
     "name": "Nintendo Switch",
@@ -42,7 +46,8 @@
     "inStock": false,
     "specs": "32GB storage, 6.2-inch display, Joy-Con controllers",
     "createdAt": "2024-10-31T19:01:43.299+00:00",
-    "createdBy": "admin@example.com"
+    "createdBy": "admin@example.com",
+    "imageURL": "https://firebasestorage.googleapis.com/v0/b/junk-store-angular-58672.appspot.com/o/images%2Fcamera.webp?alt=media&token=6b763bb7-4166-46e0-bf31-fdd2b4c5212f"
   },
   {
     "name": "Apple MacBook Pro",
@@ -51,7 +56,8 @@
     "inStock": true,
     "specs": "M2 chip, 13-inch Retina, 256GB SSD",
     "createdAt": "2024-10-31T19:01:43.299+00:00",
-    "createdBy": "admin@example.com"
+    "createdBy": "admin@example.com",
+    "imageURL": "https://firebasestorage.googleapis.com/v0/b/junk-store-angular-58672.appspot.com/o/images%2Fairfryer.jpg?alt=media&token=c8a5840a-9d3f-4db5-a08b-0a619d0fae97"
   },
   {
     "name": "Dell XPS 13",
@@ -60,7 +66,8 @@
     "inStock": true,
     "specs": "13.4-inch FHD, 11th Gen i7, 512GB SSD",
     "createdAt": "2024-10-31T19:01:43.299+00:00",
-    "createdBy": "admin@example.com"
+    "createdBy": "admin@example.com",
+    "imageURL": "https://firebasestorage.googleapis.com/v0/b/junk-store-angular-58672.appspot.com/o/images%2Fairfryer.jpg?alt=media&token=c8a5840a-9d3f-4db5-a08b-0a619d0fae97"
   },
   {
     "name": "iPad Pro",
@@ -69,7 +76,8 @@
     "inStock": false,
     "specs": "12.9-inch Liquid Retina, M1 chip, 128GB",
     "createdAt": "2024-10-31T19:01:43.299+00:00",
-    "createdBy": "admin@example.com"
+    "createdBy": "admin@example.com",
+    "imageURL": "https://firebasestorage.googleapis.com/v0/b/junk-store-angular-58672.appspot.com/o/images%2Fmicrowave.jpg?alt=media&token=6a7ed3d3-48df-47f4-80e5-4132dac5fc83"
   },
   {
     "name": "Samsung Galaxy Tab S9",
@@ -78,7 +86,8 @@
     "inStock": true,
     "specs": "11-inch AMOLED, 120Hz, 256GB",
     "createdAt": "2024-10-31T19:01:43.299+00:00",
-    "createdBy": "admin@example.com"
+    "createdBy": "admin@example.com",
+    "imageURL": "https://firebasestorage.googleapis.com/v0/b/junk-store-angular-58672.appspot.com/o/images%2Fps5.jpg?alt=media&token=351172bb-5a85-479f-9540-6014b5cbf3ce"
   },
   {
     "name": "Amazon Kindle Oasis",
@@ -87,7 +96,8 @@
     "inStock": true,
     "specs": "7-inch E Ink, adjustable warm light, 32GB",
     "createdAt": "2024-10-31T19:01:43.299+00:00",
-    "createdBy": "admin@example.com"
+    "createdBy": "admin@example.com",
+    "imageURL": "https://firebasestorage.googleapis.com/v0/b/junk-store-angular-58672.appspot.com/o/images%2Fairfryer.jpg?alt=media&token=c8a5840a-9d3f-4db5-a08b-0a619d0fae97"
   },
   {
     "name": "Sony WH-1000XM5",
@@ -96,7 +106,8 @@
     "inStock": true,
     "specs": "Over-ear, 30-hour battery, touch controls",
     "createdAt": "2024-10-31T19:01:43.299+00:00",
-    "createdBy": "admin@example.com"
+    "createdBy": "admin@example.com",
+    "imageURL": "https://firebasestorage.googleapis.com/v0/b/junk-store-angular-58672.appspot.com/o/images%2Fcamera.webp?alt=media&token=6b763bb7-4166-46e0-bf31-fdd2b4c5212f"
   },
   {
     "name": "Apple AirPods Pro",
@@ -105,69 +116,7 @@
     "inStock": true,
     "specs": "Active noise canceling, spatial audio, H1 chip",
     "createdAt": "2024-10-31T19:01:43.299+00:00",
-    "createdBy": "admin@example.com"
-  },
-  {
-    "name": "Bose QuietComfort Earbuds",
-    "price": 29.9,
-    "description": "Noise-canceling earbuds with great sound quality.",
-    "inStock": true,
-    "specs": "ANC, up to 6 hours, IPX4",
-    "createdAt": "2024-10-31T19:01:43.299+00:00",
-    "createdBy": "admin@example.com"
-  },
-  {
-    "name": "Instant Pot Duo Crisp",
-    "price": 14.9,
-    "description": "Versatile appliance for air frying and more.",
-    "inStock": true,
-    "specs": "8-quart, 11-in-1 functions, stainless steel",
-    "createdAt": "2024-10-31T19:01:43.299+00:00",
-    "createdBy": "admin@example.com"
-  },
-  {
-    "name": "Ninja Foodi Grill",
-    "price": 19.9,
-    "description": "Multi-cooker for grilling and air frying.",
-    "inStock": true,
-    "specs": "5-in-1, 10-quart, digital control",
-    "createdAt": "2024-10-31T19:01:43.299+00:00",
-    "createdBy": "admin@example.com"
-  },
-  {
-    "name": "Dyson V15 Vacuum",
-    "price": 69.9,
-    "description": "Cordless vacuum with laser dirt detection.",
-    "inStock": true,
-    "specs": "Cordless, HEPA filter, 60 min runtime",
-    "createdAt": "2024-10-31T19:01:43.299+00:00",
-    "createdBy": "admin@example.com"
-  },
-  {
-    "name": "Shark Navigator Vacuum",
-    "price": 24.9,
-    "description": "Affordable vacuum with detachable canister.",
-    "inStock": true,
-    "specs": "Bagless, anti-allergen, 2-speed brush roll",
-    "createdAt": "2024-10-31T19:01:43.299+00:00",
-    "createdBy": "admin@example.com"
-  },
-  {
-    "name": "Instant Pot Smart WiFi",
-    "price": 14.9,
-    "description": "Smart pressure cooker controllable via phone.",
-    "inStock": true,
-    "specs": "6-quart, 13 programs, app control",
-    "createdAt": "2024-10-31T19:01:43.299+00:00",
-    "createdBy": "admin@example.com"
-  },
-  {
-    "name": "Echo Dot (5th Gen)",
-    "price": 3.9,
-    "description": "Smart speaker with Alexa assistant.",
-    "inStock": true,
-    "specs": "Wi-Fi, Bluetooth, Alexa voice control",
-    "createdAt": "2024-10-31T19:01:43.299+00:00",
-    "createdBy": "admin@example.com"
+    "createdBy": "admin@example.com",
+    "imageURL": "https://firebasestorage.googleapis.com/v0/b/junk-store-angular-58672.appspot.com/o/images%2Fphone.jpg?alt=media&token=ac1a8c0d-b1a7-44c5-bbb1-2bbd0c573ccf"
   }
 ]
