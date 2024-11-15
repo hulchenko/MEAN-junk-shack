@@ -17,7 +17,7 @@ An e-commerce application for buying and selling pre-owned goods. The app offers
 
 ### Live Demo:
 
-You can access the live demo of the Calorie Tracker App here: https://angular-junk-shack.onrender.com/
+You can access the live demo of the Calorie Tracker App here: https://angular-junk-shack.onrender.com/ (Heads up: slow cold starts on Render's free tier)
 
 ### Getting Started:
 
