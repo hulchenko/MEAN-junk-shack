@@ -43,6 +43,7 @@ import { initializeApp, provideFirebaseApp } from "@angular/fire/app";
 import { getAuth, provideAuth } from "@angular/fire/auth";
 import { getStorage, provideStorage } from "@angular/fire/storage";
 import { PaginatorComponent } from "./paginator/paginator.component";
+import { AppRoutingModule } from "./app.routing.module";
 
 @NgModule({
   declarations: [
@@ -79,22 +80,7 @@ import { PaginatorComponent } from "./paginator/paginator.component";
     AccordionModule,
     DropdownModule,
     PaginatorModule,
-
-    // routes
-    RouterModule.forRoot([
-      { path: "register", component: RegisterComponent },
-      { path: "login", component: LoginComponent },
-      { path: "", component: ProductListComponent, canActivate: [AuthGuard] }, // homepage
-      { path: "products/:productId", component: ProductDetailsComponent, canActivate: [AuthGuard] },
-      { path: "new", component: NewProductComponent, canActivate: [AuthGuard] },
-      { path: "cart", component: CartComponent, canActivate: [AuthGuard] },
-      { path: "checkout", component: CheckoutComponent, canActivate: [AuthGuard] },
-      { path: "shipping", component: ShippingComponent, canActivate: [AuthGuard] },
-      { path: "posts", component: PostListComponent, canActivate: [AuthGuard] },
-      { path: "orders", component: OrderListComponent, canActivate: [AuthGuard] },
-      { path: "orders/:orderId", component: OrderDetailsComponent, canActivate: [AuthGuard] },
-      { path: "**", component: PageNotFoundComponent },
-    ]),
+    AppRoutingModule,
   ],
   providers: [
     MessageService,
